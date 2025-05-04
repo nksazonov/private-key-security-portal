@@ -3,11 +3,16 @@ import { faKey, faShield, faTable, faArrowRight, faSquarePlus } from "@fortaweso
 import { Locale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { AppLocale } from "@/i18n/types";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'IndexPage' });
-  
+  // Cast locale to allowed types for getTranslations
+  const t = await getTranslations({
+    locale: locale as AppLocale,
+    namespace: 'IndexPage'
+  });
+
   return {
     title: t('title')
   };
@@ -29,7 +34,6 @@ export default function Home({ params }: { params: { locale: Locale } }) {
 
       <section className="my-12">
         <h2 className="text-3xl font-bold mb-8 text-center text-blue-900">{t('features')}</h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Link href="/private-keys" className="group">
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">

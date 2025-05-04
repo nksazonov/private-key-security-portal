@@ -1,10 +1,15 @@
+import { AppLocale } from '@/i18n/types';
 import { Locale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'WalletMatrixPage' });
-  
+  // Cast locale to allowed types for getTranslations
+  const t = await getTranslations({
+    locale: locale as AppLocale,
+    namespace: 'WalletMatrixPage'
+  });
+
   return {
     title: t('title')
   };

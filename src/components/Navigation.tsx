@@ -49,7 +49,7 @@ export default function Navigation() {
             <FontAwesomeIcon icon={faTable} className="mr-1" />
             <span>{t('walletMatrix')}</span>
           </Link>
-          
+
           <LocaleSwitcher />
         </div>
       </div>

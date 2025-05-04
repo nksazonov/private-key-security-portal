@@ -18,7 +18,7 @@ export default function Footer() {
     { path: '/key-management', label: t('keyManagement') },
     { path: '/security-features', label: t('securityFeatures') },
     { path: '/wallet-matrix', label: t('walletMatrix') }
-  ];
+  ] as const;
 
   // Find current page index
   const currentIndex = pageOrder.findIndex(page => page.path === pathname);
@@ -55,7 +55,7 @@ export default function Footer() {
             )}
           </div>
         </div>
-        
+
         <div className="text-center mt-6 text-gray-600">
           {footerT('text')}
         </div>

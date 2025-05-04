@@ -11,6 +11,7 @@ import "@/app/globals.css";
 // Font Awesome
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { AppLocale } from '@/i18n/types';
 // Prevent Font Awesome from adding its CSS since we did it manually above
 config.autoAddCss = false;
 
@@ -35,7 +36,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
+  // Cast locale to allowed types for getTranslations
+  const t = await getTranslations({
+    locale: locale as AppLocale,
+    namespace: 'LocaleLayout'
+  });
 
   return {
     title: t('title')
