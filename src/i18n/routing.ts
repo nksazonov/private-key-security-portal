@@ -1,8 +1,9 @@
 import {defineRouting} from 'next-intl/routing';
+import { AppLocale } from './types';
 
 export const routing = defineRouting({
-  locales: ['en', 'uk'],
-  defaultLocale: 'en',
+  locales: ['en', 'uk'] as AppLocale[],
+  defaultLocale: 'en' as AppLocale,
   pathnames: {
     '/': '/',
     '/private-keys': '/private-keys',
