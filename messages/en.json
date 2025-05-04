@@ -40,7 +40,9 @@
     "title": "Page not found"
   },
   "Footer": {
-    "text": "Educational Portal on Cryptocurrency Wallet Security"
+    "text": "Educational Portal on Cryptocurrency Wallet Security",
+    "previousArticle": "Previous article",
+    "nextArticle": "Next article"
   },
   "PrivateKeysPage": {
     "title": "Private Key Generation",

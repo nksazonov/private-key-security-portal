@@ -20,10 +20,11 @@ export default function Footer() {
     { path: '/wallet-matrix', label: t('walletMatrix') }
   ] as const;
 
-  // Find current page index
-  const currentIndex = pageOrder.findIndex(page => page.path === pathname);
+  const firstSlashLoc = pathname.indexOf('/', 1);
+  const normalizedPath = firstSlashLoc === -1 ? '/' : pathname.substring(firstSlashLoc);
 
-  // Determine previous and next pages
+  const currentIndex = pageOrder.findIndex(page => page.path === normalizedPath);
+
   const prevPage = currentIndex > 0 ? pageOrder[currentIndex - 1] : null;
   const nextPage = currentIndex < pageOrder.length - 1 ? pageOrder[currentIndex + 1] : null;
 
@@ -38,7 +39,7 @@ export default function Footer() {
                 className="flex items-center gap-2 text-blue-900 hover:text-blue-700 active:text-blue-500 transition-colors px-4 py-2 rounded-md"
               >
                 <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
-                <span>Previous article: {prevPage.label}</span>
+                <span>{footerT('previousArticle')}: {prevPage.label}</span>
               </Link>
             )}
           </div>
@@ -49,15 +50,11 @@ export default function Footer() {
                 href={nextPage.path}
                 className="flex items-center gap-2 text-blue-900 hover:text-blue-700 active:text-blue-500 transition-colors px-4 py-2 rounded-md"
               >
-                <span>Next article: {nextPage.label}</span>
+                <span>{footerT('nextArticle')}: {nextPage.label}</span>
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
               </Link>
             )}
           </div>
-        </div>
-
-        <div className="text-center mt-6 text-gray-600">
-          {footerT('text')}
         </div>
       </div>
     </footer>
