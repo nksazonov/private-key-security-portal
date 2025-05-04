@@ -1,20 +1,23 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 export default function Footer() {
   const pathname = usePathname();
+  const t = useTranslations('Navigation');
+  const footerT = useTranslations('Footer');
 
   // Define the order of pages for navigation
   const pageOrder = [
-    { path: '/', label: 'Головна' },
-    { path: '/private-keys', label: 'Приватні ключі' },
-    { path: '/key-management', label: 'Управління ключами' },
-    { path: '/security-features', label: 'Функції безпеки' },
-    { path: '/wallet-matrix', label: 'Матриця гаманців' }
+    { path: '/', label: t('home') },
+    { path: '/private-keys', label: t('privateKeys') },
+    { path: '/key-management', label: t('keyManagement') },
+    { path: '/security-features', label: t('securityFeatures') },
+    { path: '/wallet-matrix', label: t('walletMatrix') }
   ];
 
   // Find current page index
@@ -35,7 +38,7 @@ export default function Footer() {
                 className="flex items-center gap-2 text-blue-900 hover:text-blue-700 active:text-blue-500 transition-colors px-4 py-2 rounded-md"
               >
                 <FontAwesomeIcon icon={faArrowLeft} className="mr-1" />
-                <span>Попередня стаття: {prevPage.label}</span>
+                <span>Previous article: {prevPage.label}</span>
               </Link>
             )}
           </div>
@@ -46,11 +49,15 @@ export default function Footer() {
                 href={nextPage.path}
                 className="flex items-center gap-2 text-blue-900 hover:text-blue-700 active:text-blue-500 transition-colors px-4 py-2 rounded-md"
               >
-                <span>Наступна стаття: {nextPage.label}</span>
+                <span>Next article: {nextPage.label}</span>
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
               </Link>
             )}
           </div>
+        </div>
+        
+        <div className="text-center mt-6 text-gray-600">
+          {footerT('text')}
         </div>
       </div>
     </footer>
