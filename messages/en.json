@@ -1,0 +1,64 @@
+{
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "IndexPage": {
+    "description": "Welcome to our educational portal dedicated to the importance of private key generation and security in blockchain",
+    "title": "Educational Portal on Cryptocurrency Wallet Security",
+    "features": "Features",
+    "PrivateKeysPage": {
+      "description": "Learn about the process of generating private keys in blockchain"
+    },
+    "KeyManagementPage": {
+      "description": "Explore methods for secure storage and management of private keys"
+    },
+    "SecurityFeaturesPage": {
+      "description": "Learn about advanced methods for protecting cryptocurrency accounts"
+    },
+    "WalletMatrixPage": {
+      "description": "Compare different types of wallets and their functionality"
+    }
+  },
+  "LocaleLayout": {
+    "title": "Cryptocurrency Wallet Security"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, en {🇺🇸 English} uk {🇺🇦 Ukrainian} other {Unknown}}"
+  },
+  "Navigation": {
+    "home": "Home",
+    "privateKeys": "Private Keys",
+    "keyManagement": "Key Management",
+    "securityFeatures": "Security Features",
+    "walletMatrix": "Wallet Matrix",
+    "portalName": "Educational Portal"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "Footer": {
+    "text": "Educational Portal on Cryptocurrency Wallet Security"
+  },
+  "PrivateKeysPage": {
+    "title": "Private Key Generation",
+    "description": "Learn about the process of generating private keys in blockchain"
+  },
+  "KeyManagementPage": {
+    "title": "Key Management",
+    "description": "This page will present information about methods for ensuring security when storing and processing private keys."
+  },
+  "SecurityFeaturesPage": {
+    "title": "Additional Security Features",
+    "description": "Learn about advanced methods for protecting cryptocurrency accounts"
+  },
+  "WalletMatrixPage": {
+    "title": "Wallet Feature Matrix",
+    "description": "Compare different types of wallets and their functionality"
+  },
+  "FeatureCards": {
+    "learnMore": "Learn more"
+  }
+}
