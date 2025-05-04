@@ -4,6 +4,7 @@ import { Locale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { AppLocale } from "@/i18n/types";
+import AnchorHeading from '@/components/AnchorHeading';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -28,7 +29,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
       <section className="my-8">
         <div className="flex flex-col md:flex-row items-center gap-8 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="md:w-3/5">
-            <h1 className="text-4xl font-bold mb-6 text-blue-900">{t('title')}</h1>
+            <h1 className="text-4xl font-bold mb-6 text-blue-900">
+              {t('title')}
+            </h1>
             <p className="text-gray-700 text-xl mb-4">
               {t('importance')}
             </p>
@@ -47,7 +50,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
       </section>
 
       <section className="my-12 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-blue-900">{t('features')}</h2>
+        <h2 className="text-3xl font-bold mb-8 text-blue-900">
+          {t('features')}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Link href="/private-keys" className="group">
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
