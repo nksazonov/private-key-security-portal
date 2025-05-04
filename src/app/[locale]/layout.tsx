@@ -66,7 +66,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}>
         <NextIntlClientProvider messages={messages}>
           <Navigation />
-          <div className="px-4 sm:px-6 md:px-8 lg:px-12 flex-grow">
+          <div className="flex-grow">
             <div className="max-w-7xl w-full mx-auto">
               {children}
             </div>

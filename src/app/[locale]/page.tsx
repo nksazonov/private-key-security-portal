@@ -25,15 +25,29 @@ export default function Home({ params }: { params: { locale: Locale } }) {
 
   return (
     <main className="py-8 w-full">
-      <section className="my-8 text-center">
-        <h1 className="text-4xl font-bold mb-6 text-blue-900">{t('title')}</h1>
-        <p className="text-gray-700 text-xl mb-8 max-w-3xl mx-auto">
-          {t('description')}
-        </p>
+      <section className="my-8">
+        <div className="flex flex-col md:flex-row items-center gap-8 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="md:w-3/5">
+            <h1 className="text-4xl font-bold mb-6 text-blue-900">{t('title')}</h1>
+            <p className="text-gray-700 text-xl mb-4">
+              {t('importance')}
+            </p>
+            <p className="text-gray-700 text-xl mb-8">
+              {t('description')}
+            </p>
+          </div>
+          <div className="md:w-2/5 flex justify-center md:justify-end">
+            <img
+              src="/images/ether-wallet-with-lock.png"
+              alt="Ethereum wallet security illustration"
+              className="rounded-lg max-w-full h-auto"
+            />
+          </div>
+        </div>
       </section>
 
-      <section className="my-12">
-        <h2 className="text-3xl font-bold mb-8 text-center text-blue-900">{t('features')}</h2>
+      <section className="my-12 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold mb-8 text-blue-900">{t('features')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Link href="/private-keys" className="group">
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
