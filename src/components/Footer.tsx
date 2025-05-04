@@ -30,7 +30,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-gray-200 py-6 bg-white shadow-sm w-full mt-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div>
             {prevPage && (

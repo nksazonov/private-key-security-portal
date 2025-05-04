@@ -11,7 +11,7 @@ export default function Navigation() {
 
   return (
     <nav className="bg-white text-gray-800 py-4 sticky top-0 z-50 shadow-md w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-wrap justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-wrap justify-between items-center">
         <Link href="/" className="text-xl font-bold flex items-center gap-2 text-blue-900">
           <FontAwesomeIcon icon={faHome} />
           <span>{t('portalName')}</span>
