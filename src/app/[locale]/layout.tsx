@@ -12,6 +12,8 @@ import "@/app/globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { AppLocale } from '@/i18n/types';
+// Syntax highlighting
+import 'highlight.js/styles/github-dark.css';
 // Prevent Font Awesome from adding its CSS since we did it manually above
 config.autoAddCss = false;
 

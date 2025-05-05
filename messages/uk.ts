@@ -1,4 +1,6 @@
-{
+import { privateKeysContent } from './content/uk/privateKeys';
+
+export default {
   "Error": {
     "description": "<p>На жаль, сталася помилка.</p><p>Ви можете спробувати <retry>перезавантажити сторінку</retry>, яку ви відвідували.</p>",
     "title": "Щось пішло не так!"
@@ -47,24 +49,10 @@
   },
   "PrivateKeysPage": {
     "title": "Генерація приватних ключів",
-    "description": "Дізнайтеся про процес генерації приватних ключів у блокчейні",
-    "whatArePrivateKeys": {
-      "title": "Що таке приватні ключі?",
-      "description": "Приватні ключі — це по суті довгі, випадково згенеровані числа, які служать паролем користувача для доступу та керування своєю криптовалютою. Вони математично пов'язані з вашою публічною адресою, але залишаються секретними."
-    },
-    "generationProcess": {
-      "title": "Процес генерації",
-      "description": "Генерація приватних ключів зазвичай включає створення захищених випадкових чисел за допомогою криптографічно захищених генераторів псевдовипадкових чисел (CSPRNG). Якісні гаманці використовують кілька джерел ентропії для забезпечення справжньої випадковості."
-    },
-    "entropySources": {
-      "title": "Джерела ентропії та CSPRNG",
-      "description": "Текст",
-      "useful_links": "Корисні посилання"
-    },
-    "nextSection": {
-      "title": "Наступний розділ",
-      "description": "Текст для наступного розділу."
-    }
+    // Import the description from the content file
+    "description": privateKeysContent.description,
+    // Import only the entropy sources section
+    "entropySources": privateKeysContent.entropySources
   },
   "KeyManagementPage": {
     "title": "Управління ключами",
@@ -80,5 +68,8 @@
   },
   "FeatureCards": {
     "learnMore": "Дізнатися більше"
+  },
+  "Common": {
+    "useful_links": "Корисні посилання"
   }
 }

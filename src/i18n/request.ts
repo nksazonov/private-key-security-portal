@@ -14,6 +14,7 @@ export default getRequestConfig(async ({requestLocale}) => {
 
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default
+    // Update to use .ts files instead of .json
+    messages: (await import(`../../messages/${locale}`)).default
   };
 });

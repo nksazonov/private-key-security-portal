@@ -1,4 +1,6 @@
-{
+import { privateKeysContent } from './content/en/privateKeys';
+
+export default {
   "Error": {
     "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
     "title": "Something went wrong!"
@@ -47,24 +49,10 @@
   },
   "PrivateKeysPage": {
     "title": "Private Key Generation",
-    "description": "Learn about the process of generating private keys in blockchain",
-    "whatArePrivateKeys": {
-      "title": "What are Private Keys?",
-      "description": "Private keys are essentially long, randomly generated numbers that serve as a user's password to access and manage their cryptocurrency. They are mathematically related to your public address but remain secret."
-    },
-    "generationProcess": {
-      "title": "The Generation Process",
-      "description": "The generation of private keys typically involves creating secure random numbers using cryptographically secure pseudorandom number generators (CSPRNGs). Quality wallets use multiple sources of entropy to ensure true randomness."
-    },
-    "entropySources": {
-      "title": "Entropy Sources and CSPRNG",
-      "description": "Text",
-      "useful_links": "Useful Links"
-    },
-    "nextSection": {
-      "title": "Next Section",
-      "description": "Text for the next section."
-    }
+    // Import the description from the content file
+    "description": privateKeysContent.description,
+    // Import only the entropy sources section
+    "entropySources": privateKeysContent.entropySources
   },
   "KeyManagementPage": {
     "title": "Key Management",
@@ -80,5 +68,8 @@
   },
   "FeatureCards": {
     "learnMore": "Learn more"
+  },
+  "Common": {
+    "useful_links": "Useful Links"
   }
 }

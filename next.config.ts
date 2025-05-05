@@ -1,11 +1,8 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin({
-  experimental: {
-    createMessagesDeclaration: './messages/uk.json'
-  }
-});
+const withNextIntl = createNextIntlPlugin();
+// Removed createMessagesDeclaration since we're now using TypeScript modules
 
 const nextConfig: NextConfig = {
   /* config options here */

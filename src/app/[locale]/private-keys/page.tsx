@@ -4,6 +4,9 @@ import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
 import ExternalLink from '@/components/ExternalLink';
 import SectionDivider from '@/components/SectionDivider';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -33,78 +36,35 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
 
         <AnchorHeading
           as="h2"
-          id="what-are-private-keys"
-          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
-        >
-          {t('whatArePrivateKeys.title')}
-        </AnchorHeading>
-        <p className="text-lg text-gray-700 mb-6">
-          {t('whatArePrivateKeys.description')}
-        </p>
-
-        <SectionDivider />
-
-        <AnchorHeading
-          as="h2"
-          id="generation-process"
-          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
-        >
-          {t('generationProcess.title')}
-        </AnchorHeading>
-        <p className="text-lg text-gray-700 mb-6">
-          {t('generationProcess.description')}
-        </p>
-
-        <SectionDivider />
-
-        <AnchorHeading
-          as="h2"
           id="entropy-sources"
           className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
         >
           {t('entropySources.title')}
         </AnchorHeading>
-        <p className="text-lg text-gray-700 mb-6">
-          {t('entropySources.description')}
-        </p>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm]} 
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t('entropySources.description')}
+          </ReactMarkdown>
+        </div>
 
         <div className="mt-8 mb-6">
           <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
-            {t('entropySources.useful_links')}
+            {useTranslations('Common')('useful_links')}
           </h3>
           <ul className="space-y-2 pl-4">
-            <li>
-              <ExternalLink href="https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator">
-                Wikipedia: CSPRNG
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="https://en.bitcoin.it/wiki/Secp256k1">
-                Bitcoin Wiki: Secp256k1
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="https://eth.wiki/fundamentals/private-keys">
-                Ethereum Wiki: Private Keys
-              </ExternalLink>
-            </li>
+            {/* Render links dynamically from the content */}
+            {t.raw('entropySources.links').map((link: {href: string, text: string}, index: number) => (
+              <li key={index}>
+                <ExternalLink href={link.href}>
+                  {link.text}
+                </ExternalLink>
+              </li>
+            ))}
           </ul>
         </div>
-
-        <SectionDivider />
-
-        <AnchorHeading
-          as="h2"
-          id="next-section"
-          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
-        >
-          {t('nextSection.title')}
-        </AnchorHeading>
-        <p className="text-lg text-gray-700 mb-6">
-          {t('nextSection.description')}
-        </p>
-
-        <SectionDivider isLast={true} />
       </div>
     </main>
   );
