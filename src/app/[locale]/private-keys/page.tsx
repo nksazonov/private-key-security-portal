@@ -2,6 +2,8 @@ import { AppLocale } from '@/i18n/types';
 import { Locale, useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
+import ExternalLink from '@/components/ExternalLink';
+import SectionDivider from '@/components/SectionDivider';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -21,7 +23,7 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
 
   return (
     <main className="py-8 w-full">
-      <div className="bg-white p-8 rounded-lg shadow-md">
+      <div className="bg-white p-8 rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-blue-900">
           {t('title')}
         </h1>
@@ -29,43 +31,80 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           {t('description')}
         </p>
 
-        <AnchorHeading 
-          as="h2" 
-          id="what-are-private-keys" 
+        <AnchorHeading
+          as="h2"
+          id="what-are-private-keys"
           className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
         >
-          What are Private Keys?
+          {t('whatArePrivateKeys.title')}
         </AnchorHeading>
         <p className="text-lg text-gray-700 mb-6">
-          Private keys are essentially long, randomly generated numbers that serve as a user's password 
-          to access and manage their cryptocurrency. They are mathematically related to your public 
-          address but remain secret.
+          {t('whatArePrivateKeys.description')}
         </p>
 
-        <AnchorHeading 
-          as="h2" 
-          id="generation-process" 
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="generation-process"
           className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
         >
-          The Generation Process
+          {t('generationProcess.title')}
         </AnchorHeading>
         <p className="text-lg text-gray-700 mb-6">
-          The generation of private keys typically involves creating secure random numbers using 
-          cryptographically secure pseudorandom number generators (CSPRNGs). Quality wallets use 
-          multiple sources of entropy to ensure true randomness.
+          {t('generationProcess.description')}
         </p>
 
-        <AnchorHeading 
-          as="h3" 
-          id="entropy-sources" 
-          className="text-xl font-medium mt-6 mb-3 text-blue-700"
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="entropy-sources"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
         >
-          Sources of Entropy
+          {t('entropySources.title')}
         </AnchorHeading>
         <p className="text-lg text-gray-700 mb-6">
-          Entropy sources might include mouse movements, keyboard timings, hardware random number 
-          generators, and system metrics to create unpredictable keys.
+          {t('entropySources.description')}
         </p>
+
+        <div className="mt-8 mb-6">
+          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
+            {t('entropySources.useful_links')}
+          </h3>
+          <ul className="space-y-2 pl-4">
+            <li>
+              <ExternalLink href="https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator">
+                Wikipedia: CSPRNG
+              </ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href="https://en.bitcoin.it/wiki/Secp256k1">
+                Bitcoin Wiki: Secp256k1
+              </ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href="https://eth.wiki/fundamentals/private-keys">
+                Ethereum Wiki: Private Keys
+              </ExternalLink>
+            </li>
+          </ul>
+        </div>
+
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="next-section"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
+        >
+          {t('nextSection.title')}
+        </AnchorHeading>
+        <p className="text-lg text-gray-700 mb-6">
+          {t('nextSection.description')}
+        </p>
+
+        <SectionDivider isLast={true} />
       </div>
     </main>
   );

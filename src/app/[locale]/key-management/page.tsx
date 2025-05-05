@@ -21,7 +21,7 @@ export default function KeyManagement({ params }: { params: { locale: Locale } }
 
   return (
     <main className="py-8 w-full">
-      <div className="bg-white p-8 rounded-lg shadow-md">
+      <div className="bg-white p-8 rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-blue-900">
           {t('title')}
         </h1>
