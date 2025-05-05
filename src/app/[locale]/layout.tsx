@@ -69,7 +69,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <Navigation />
           <div className="flex-grow">
-            <div className="max-w-7xl w-full mx-auto">
+            <div className="max-w-5xl w-full mx-auto">
               {children}
             </div>
           </div>

@@ -10,18 +10,10 @@ export default {
     "description": "Cryptocurrency security is not as complex as it might seem. With proper knowledge and a few essential practices, anyone can safeguard their digital assets effectively. This portal provides straightforward guidance to help you understand and implement robust security measures for your crypto holdings.",
     "title": "Educational Portal on Cryptocurrency Wallet Security",
     "features": "Topics in detail",
-    "PrivateKeysPage": {
-      "description": "Learn about the process of generating private keys in blockchain"
-    },
-    "KeyManagementPage": {
-      "description": "Explore methods for secure storage and management of private keys"
-    },
-    "SecurityFeaturesPage": {
-      "description": "Learn about advanced methods for protecting cryptocurrency accounts"
-    },
-    "WalletMatrixPage": {
-      "description": "Compare different types of wallets and their functionality"
-    }
+    "privateKeysCardDescription": "Learn about the process of generating private keys in blockchain",
+    "keyManagementCardDescription": "Explore methods for secure storage and management of private keys",
+    "securityFeaturesCardDescription": "Learn about advanced methods for protecting cryptocurrency accounts",
+    "walletMatrixCardDescription": "Compare different types of wallets and their functionality"
   },
   "LocaleLayout": {
     "title": "Cryptocurrency Wallet Security"
@@ -49,9 +41,7 @@ export default {
   },
   "PrivateKeysPage": {
     "title": "Private Key Generation",
-    // Import the description from the content file
     "description": privateKeysContent.description,
-    // Import only the entropy sources section
     "entropySources": privateKeysContent.entropySources
   },
   "KeyManagementPage": {
@@ -66,10 +56,8 @@ export default {
     "title": "Wallet Feature Matrix",
     "description": "Compare different types of wallets and their functionality"
   },
-  "FeatureCards": {
-    "learnMore": "Learn more"
-  },
   "Common": {
-    "useful_links": "Useful Links"
+    "useful_links": "Useful Links",
+    "learnMore": "Learn more"
   }
 }
