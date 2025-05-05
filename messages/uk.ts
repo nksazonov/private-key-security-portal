@@ -10,18 +10,10 @@ export default {
     "description": "Безпека криптовалют не така складна, як може здаватися. З належними знаннями та кількома основними практиками, кожен може ефективно захистити свої цифрові активи. Цей портал надає просте керівництво, яке допоможе вам зрозуміти та впровадити надійні заходи безпеки для ваших криптовалютних заощаджень.",
     "title": "Освітній портал з безпеки криптовалютних гаманців",
     "features": "Теми в деталях",
-    "PrivateKeysPage": {
-      "description": "Дізнайтеся про процес генерації приватних ключів у блокчейні"
-    },
-    "KeyManagementPage": {
-      "description": "Вивчіть методи безпечного зберігання та управління ключами"
-    },
-    "SecurityFeaturesPage": {
-      "description": "Ознайомтеся з просунутими методами захисту криптовалютних акаунтів"
-    },
-    "WalletMatrixPage": {
-      "description": "Порівняйте різні типи гаманців та їх функціональні можливості"
-    }
+    "privateKeysCardDescription": "Дізнайтеся про процес генерації приватних ключів у блокчейні",
+    "keyManagementCardDescription": "Вивчіть методи безпечного зберігання та управління ключами",
+    "securityFeaturesCardDescription": "Ознайомтеся з просунутими методами захисту криптовалютних акаунтів",
+    "walletMatrixCardDescription": "Порівняйте різні типи гаманців та їх функціональні можливості"
   },
   "LocaleLayout": {
     "title": "Безпека криптовалютних гаманців"
@@ -49,9 +41,7 @@ export default {
   },
   "PrivateKeysPage": {
     "title": "Генерація приватних ключів",
-    // Import the description from the content file
     "description": privateKeysContent.description,
-    // Import only the entropy sources section
     "entropySources": privateKeysContent.entropySources
   },
   "KeyManagementPage": {
@@ -66,10 +56,8 @@ export default {
     "title": "Матриця характеристик гаманців",
     "description": "Порівняйте різні типи гаманців та їх функціональні можливості"
   },
-  "FeatureCards": {
-    "learnMore": "Дізнатися більше"
-  },
   "Common": {
-    "useful_links": "Корисні посилання"
+    "useful_links": "Корисні посилання",
+    "learnMore": "Дізнатися більше"
   }
 }

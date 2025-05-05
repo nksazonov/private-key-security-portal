@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function Home({ params }: { params: { locale: Locale } }) {
   const t = useTranslations('IndexPage');
   const n = useTranslations('Navigation');
-  const ft = useTranslations('FeatureCards');
+  const c = useTranslations('Common');
 
   return (
     <main className="py-8 w-full">
@@ -58,9 +58,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
               <FontAwesomeIcon icon={faKey} className="text-blue-700 text-4xl mb-4" />
               <h3 className="text-xl font-semibold mb-3 text-blue-900">{n('privateKeys')}</h3>
-              <p className="mb-4 text-gray-700 flex-grow">{t('PrivateKeysPage.description')}</p>
+              <p className="mb-4 text-gray-700 flex-grow">{t('privateKeysCardDescription')}</p>
               <div className="text-blue-700 group-hover:text-blue-500 font-medium transition-colors inline-flex items-center">
-                {ft('learnMore')}
+                {c('learnMore')}
                 <FontAwesomeIcon icon={faArrowRight} className="ml-2 text-sm" />
               </div>
             </div>
@@ -70,9 +70,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
               <FontAwesomeIcon icon={faShield} className="text-blue-700 text-4xl mb-4" />
               <h3 className="text-xl font-semibold mb-3 text-blue-900">{n('keyManagement')}</h3>
-              <p className="mb-4 text-gray-700 flex-grow">{t('KeyManagementPage.description')}</p>
+              <p className="mb-4 text-gray-700 flex-grow">{t('keyManagementCardDescription')}</p>
               <div className="text-blue-700 group-hover:text-blue-500 font-medium transition-colors inline-flex items-center">
-                {ft('learnMore')}
+                {c('learnMore')}
                 <FontAwesomeIcon icon={faArrowRight} className="ml-2 text-sm" />
               </div>
             </div>
@@ -82,9 +82,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
               <FontAwesomeIcon icon={faSquarePlus} className="text-blue-700 text-4xl mb-4" />
               <h3 className="text-xl font-semibold mb-3 text-blue-900">{n('securityFeatures')}</h3>
-              <p className="mb-4 text-gray-700 flex-grow">{t('SecurityFeaturesPage.description')}</p>
+              <p className="mb-4 text-gray-700 flex-grow">{t('securityFeaturesCardDescription')}</p>
               <div className="text-blue-700 group-hover:text-blue-500 font-medium transition-colors inline-flex items-center">
-                {ft('learnMore')}
+                {c('learnMore')}
                 <FontAwesomeIcon icon={faArrowRight} className="ml-2 text-sm" />
               </div>
             </div>
@@ -94,9 +94,9 @@ export default function Home({ params }: { params: { locale: Locale } }) {
             <div className="bg-white p-6 rounded-lg shadow-md group-hover:shadow-lg transition-shadow h-full flex flex-col">
               <FontAwesomeIcon icon={faTable} className="text-blue-700 text-4xl mb-4" />
               <h3 className="text-xl font-semibold mb-3 text-blue-900">{n('walletMatrix')}</h3>
-              <p className="mb-4 text-gray-700 flex-grow">{t('WalletMatrixPage.description')}</p>
+              <p className="mb-4 text-gray-700 flex-grow">{t('walletMatrixCardDescription')}</p>
               <div className="text-blue-700 group-hover:text-blue-500 font-medium transition-colors inline-flex items-center">
-                {ft('learnMore')}
+                {c('learnMore')}
                 <FontAwesomeIcon icon={faArrowRight} className="ml-2 text-sm" />
               </div>
             </div>
