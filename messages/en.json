@@ -47,7 +47,24 @@
   },
   "PrivateKeysPage": {
     "title": "Private Key Generation",
-    "description": "Learn about the process of generating private keys in blockchain"
+    "description": "Learn about the process of generating private keys in blockchain",
+    "whatArePrivateKeys": {
+      "title": "What are Private Keys?",
+      "description": "Private keys are essentially long, randomly generated numbers that serve as a user's password to access and manage their cryptocurrency. They are mathematically related to your public address but remain secret."
+    },
+    "generationProcess": {
+      "title": "The Generation Process",
+      "description": "The generation of private keys typically involves creating secure random numbers using cryptographically secure pseudorandom number generators (CSPRNGs). Quality wallets use multiple sources of entropy to ensure true randomness."
+    },
+    "entropySources": {
+      "title": "Entropy Sources and CSPRNG",
+      "description": "Text",
+      "useful_links": "Useful Links"
+    },
+    "nextSection": {
+      "title": "Next Section",
+      "description": "Text for the next section."
+    }
   },
   "KeyManagementPage": {
     "title": "Key Management",
