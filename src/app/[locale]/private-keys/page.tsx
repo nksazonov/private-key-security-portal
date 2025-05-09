@@ -78,24 +78,82 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           {t('privateKeyGeneration.title')}
         </AnchorHeading>
 
+        {/* CSPRNG Section */}
+        <AnchorHeading
+          as="h3"
+          id="key-generation-csprng"
+          className="text-xl font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromCsprng.title')}
+        </AnchorHeading>
         <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeHighlight]}
           >
-            {t.raw('privateKeyGeneration.fromRandomSeed.description')}
+            {t.raw('privateKeyGeneration.fromCsprng.description')}
           </ReactMarkdown>
         </div>
 
-        <div className="mt-8 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+        {/* Entropy Section */}
+        <AnchorHeading
+          as="h3"
+          id="key-generation-entropy"
+          className="text-xl font-semibold mt-8 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromEntropy.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromEntropy.description')}
+          </ReactMarkdown>
+        </div>
+
+        <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
           <ClientKeyGeneratorWrapper
-            generateButtonText={t.raw('privateKeyGeneration.fromRandomSeed.generateKeyButton')}
-            notEnoughEntropyText={t.raw('privateKeyGeneration.fromRandomSeed.generateKeyNotEnoughEntropy')}
+            generateButtonText={t.raw('privateKeyGeneration.fromEntropy.generateKeyButton')}
+            notEnoughEntropyText={t.raw('privateKeyGeneration.fromEntropy.generateKeyNotEnoughEntropy')}
             copyHoverText={common('copyHover')}
             copiedText={common('copied')}
             entropyLevelText={common('entropyLevel')}
             moveMouseText={common('moveMouseForEntropy')}
           />
+        </div>
+
+        {/* Seed Section */}
+        <AnchorHeading
+          as="h3"
+          id="key-generation-seed"
+          className="text-xl font-semibold mt-8 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.description')}
+          </ReactMarkdown>
+        </div>
+
+        <div className="mt-6 mb-6">
+          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
+            {common('useful_links')}
+          </h3>
+          <ul className="space-y-2 pl-4">
+            {/* Render links dynamically from the content */}
+            {t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}, index: number) => (
+              <li key={index}>
+                <ExternalLink href={link.href}>
+                  {link.text}
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </main>
