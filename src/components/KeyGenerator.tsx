@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, MouseEvent } from 'react';
-import CopyableInput from './CopyableInput';
+import LabeledCopyableInput from './LabeledCopyableInput';
 import { keccak256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { useTranslations } from 'next-intl';
@@ -180,7 +180,7 @@ export default function KeyGenerator({
 
       {/* Display entropy bytes */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={entropyBytes.length > 0 ? entropyBytes.map(b => b.toString(16).padStart(2, '0')).join(' ') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.currentEntropy')}
@@ -190,7 +190,7 @@ export default function KeyGenerator({
       </div>
 
       <div className="flex flex-col gap-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={privateKey}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.privateKey')}
@@ -198,7 +198,7 @@ export default function KeyGenerator({
           copiedText={copiedText}
         />
 
-        <CopyableInput
+        <LabeledCopyableInput
           value={publicAddress}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.publicAddress')}

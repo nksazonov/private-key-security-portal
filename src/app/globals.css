@@ -35,17 +35,17 @@ body {
 }
 
 /* Remove outlines from copyable inputs */
-.copyable-input {
+.labeled-copyable-input {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   outline: none !important;
 }
 
-.copyable-input:focus,
-.copyable-input:focus-visible,
-.copyable-input:focus-within,
-.copyable-input:active {
+.labeled-copyable-input:focus,
+.labeled-copyable-input:focus-visible,
+.labeled-copyable-input:focus-within,
+.labeled-copyable-input:active {
   outline: none !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;

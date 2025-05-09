@@ -2,7 +2,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react';
 import { useTranslations } from 'next-intl';
-import CopyableInput from './CopyableInput';
+import LabeledCopyableInput from './LabeledCopyableInput';
 import MnemonicInput from './MnemonicInput';
 import { sha256 } from '@noble/hashes/sha2';
 import { validateMnemonic, entropyToMnemonic } from '@/utils/bip39';
@@ -239,18 +239,18 @@ export default function MnemonicValidator({
 
       {/* Decimal indices */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={decimalIndices.length > 0 ? decimalIndices.join(' ') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.decimalIndices')}
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
+          noCopying
+          noTooltip
         />
       </div>
 
       {/* Entropy + Checksum (Binary) */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={entropyWithChecksum}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.entropyChecksum')}
@@ -262,23 +262,22 @@ export default function MnemonicValidator({
       {/* Initial Entropy and Supplied Checksum */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
-          <CopyableInput
+          <LabeledCopyableInput
             value={entropyHex}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.initialBitSequenceHex')}
             copyHoverText={copyHoverText}
             copiedText={copiedText}
-            className={!isMnemonicValid ? 'border-red-500 bg-red-50' : ''}
           />
         </div>
         <div className="w-40">
-          <CopyableInput
+          <LabeledCopyableInput
             value={suppliedChecksumHex}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.suppliedChecksum')}
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
-            className={!isChecksumValid ? 'border-red-500 bg-red-50' : ''}
+            isError={!isChecksumValid}
+            noCopying
+            noTooltip
           />
         </div>
       </div>
@@ -286,7 +285,7 @@ export default function MnemonicValidator({
       {/* SHA-256 Hash and Calculated Checksum */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
-          <CopyableInput
+          <LabeledCopyableInput
             value={sha256Hash}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.sha256Hash')}
@@ -295,13 +294,13 @@ export default function MnemonicValidator({
           />
         </div>
         <div className="w-40">
-          <CopyableInput
+          <LabeledCopyableInput
             value={calculatedChecksumHex}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.calculatedChecksum')}
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
-            className={!isChecksumValid ? 'border-red-500 bg-red-50' : ''}
+            isError={!isChecksumValid}
+            noCopying
+            noTooltip
           />
         </div>
       </div>

@@ -2,8 +2,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react';
 import { useTranslations } from 'next-intl';
-import CopyableInput from './CopyableInput';
-import LabeledInput from './LabeledInput';
+import LabeledCopyableInput from './LabeledCopyableInput';
 import MnemonicInput from './MnemonicInput';
 import { keccak256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
@@ -131,7 +130,7 @@ export default function KeyFromMnemonicGenerator({
     if (wordlist.length > 0) {
       const validation = validateMnemonic(newMnemonic, wordlist);
       setIsMnemonicValid(validation.isValid);
-      
+
       if (validation.isValid) {
         setMnemonicError('');
         calculateSeed(newMnemonic, salt, passphrase);
@@ -154,7 +153,7 @@ export default function KeyFromMnemonicGenerator({
           }
         }
         setMnemonicError(errorMsg);
-        
+
         // Reset derived values if invalid
         setPrivateKey('-');
         setPublicAddress('-');
@@ -182,7 +181,6 @@ export default function KeyFromMnemonicGenerator({
 
   return (
     <div className="w-full">
-      {/* Mnemonic Input with stable layout */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <MnemonicInput
@@ -194,8 +192,7 @@ export default function KeyFromMnemonicGenerator({
             errorMessage={mnemonicError}
           />
         </div>
-        {/* Fixed-position button that doesn't move */}
-        <div className="w-36 flex items-start pt-5"> {/* Aligned to input, not label */}
+        <div className="w-36 flex items-start pt-5">
           <button
             onClick={generateRandomMnemonic}
             className="px-4 py-2 rounded-md font-medium bg-blue-600 hover:bg-blue-700 text-white cursor-pointer h-[42px]"
@@ -205,29 +202,30 @@ export default function KeyFromMnemonicGenerator({
         </div>
       </div>
 
-      {/* Salt and Passphrase Inputs */}
       <div className="mb-6 flex gap-4">
         <div className="flex-1">
-          <LabeledInput
+          <LabeledCopyableInput
             label={t('labels.salt')}
             value={salt}
             onChange={handleSaltChange}
             placeholder={t('placeholders.enterSalt')}
+            editable
+            noCopying
           />
         </div>
         <div className="flex-1">
-          <LabeledInput
+          <LabeledCopyableInput
             label={t('labels.passphrase')}
             value={passphrase}
             onChange={handlePassphraseChange}
             placeholder={t('placeholders.enterPassphrase')}
+            editable={true}
           />
         </div>
       </div>
 
-      {/* Final Seed */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={hasGenerated ? Array.from(seed).map(b => b.toString(16).padStart(2, '0')).join('') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.finalSeed')}
@@ -236,9 +234,8 @@ export default function KeyFromMnemonicGenerator({
         />
       </div>
 
-      {/* Private Key and Public Address */}
       <div className="flex flex-col gap-4 mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={privateKey}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.privateKey')}
@@ -246,7 +243,7 @@ export default function KeyFromMnemonicGenerator({
           copiedText={copiedText}
         />
 
-        <CopyableInput
+        <LabeledCopyableInput
           value={publicAddress}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.publicAddress')}
