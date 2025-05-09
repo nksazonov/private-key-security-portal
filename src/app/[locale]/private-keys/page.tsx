@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
 import ExternalLink from '@/components/ExternalLink';
 import SectionDivider from '@/components/SectionDivider';
+import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default function PrivateKeysPage({ params }: { params: { locale: Locale } }) {
   const t = useTranslations('PrivateKeysPage');
+  const common = useTranslations('Common');
 
   return (
     <main className="py-8 w-full">
@@ -42,8 +44,8 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           {t('entropySources.title')}
         </AnchorHeading>
         <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
-          <ReactMarkdown 
-            remarkPlugins={[remarkGfm]} 
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeHighlight]}
           >
             {t('entropySources.description')}
@@ -52,7 +54,7 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
 
         <div className="mt-8 mb-6">
           <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
-            {useTranslations('Common')('useful_links')}
+            {common('useful_links')}
           </h3>
           <ul className="space-y-2 pl-4">
             {/* Render links dynamically from the content */}
@@ -64,6 +66,36 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
               </li>
             ))}
           </ul>
+        </div>
+
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="key-generation"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
+        >
+          {t('privateKeyGeneration.title')}
+        </AnchorHeading>
+
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromRandomSeed.description')}
+          </ReactMarkdown>
+        </div>
+
+        <div className="mt-8 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+          <ClientKeyGeneratorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromRandomSeed.generateKeyButton')}
+            notEnoughEntropyText={t.raw('privateKeyGeneration.fromRandomSeed.generateKeyNotEnoughEntropy')}
+            copyHoverText={common('copyHover')}
+            copiedText={common('copied')}
+            entropyLevelText={common('entropyLevel')}
+            moveMouseText={common('moveMouseForEntropy')}
+          />
         </div>
       </div>
     </main>
