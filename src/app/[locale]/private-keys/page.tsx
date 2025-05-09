@@ -8,6 +8,7 @@ import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
 import ClientMnemonicGeneratorWrapper from '@/components/ClientMnemonicGeneratorWrapper';
 import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
 import ClientMnemonicValidatorWrapper from '@/components/ClientMnemonicValidatorWrapper';
+import ClientECPointGeneratorWrapper from '@/components/ClientECPointGeneratorWrapper';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -238,6 +239,23 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           />
         </div>
 
+        {/* HD Wallets Section */}
+        <AnchorHeading
+          as="h4"
+          id="hd-wallets"
+          className="text-lg font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.hdWallets.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.hdWallets.description')}
+          </ReactMarkdown>
+        </div>
+
         {/* Links Section */}
         <div className="mt-6 mb-6">
           <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
@@ -252,6 +270,70 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
                 </ExternalLink>
               </li>
             ))}
+          </ul>
+        </div>
+
+        <SectionDivider />
+
+        {/* New section: Private to Public Key, Address */}
+        <AnchorHeading
+          as="h2"
+          id="private-to-public"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
+        >
+          {t('privateToPublic.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateToPublic.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* Generator Point G section */}
+        <AnchorHeading
+          as="h3"
+          id="generator-point"
+          className="text-xl font-semibold mt-8 mb-3 text-blue-700"
+        >
+          {t('privateToPublic.generatorPoint.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateToPublic.generatorPoint.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* EC Point Calculator Component */}
+        <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+          <ClientECPointGeneratorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromEntropy.generateKeyButton')}
+            copyHoverText={common('copyHover')}
+            copiedText={common('copied')}
+          />
+        </div>
+
+        {/* Links for Private to Public Key section */}
+        <div className="mt-6 mb-6">
+          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
+            {common('useful_links')}
+          </h3>
+          <ul className="space-y-2 pl-4">
+            {/* Render links dynamically from the content */}
+            {Array.isArray(t.raw('privateToPublic.links')) && 
+              t.raw('privateToPublic.links').map((link: {href: string, text: string}, index: number) => (
+                <li key={index}>
+                  <ExternalLink href={link.href}>
+                    {link.text}
+                  </ExternalLink>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>

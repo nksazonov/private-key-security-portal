@@ -3,6 +3,11 @@ export const ui = {
     labels: {
       privateKey: "Private Key:",
       publicAddress: "Public Address:",
+      publicKey: "Public Key:",
+      publicKeyX: "P = k * G, x coordinate:",
+      publicKeyY: "P = k * G, y coordinate:",
+      keccakHash: "keccak256(publicKey):",
+      ethereumAddress: "Address:",
       mnemonicPhrase: "BIP-39 Mnemonic Phrase:",
       salt: "Salt:",
       passphrase: "Passphrase:",
@@ -41,6 +46,11 @@ export const ui = {
     labels: {
       privateKey: "Приватний ключ:",
       publicAddress: "Публічна адреса:",
+      publicKey: "Публічний ключ:",
+      publicKeyX: "P = k * G, x координата:",
+      publicKeyY: "P = k * G, y координата:",
+      keccakHash: "keccak256(публічний ключ):",
+      ethereumAddress: "Адреса:",
       mnemonicPhrase: "BIP-39 мнемонічна фраза:",
       salt: "Сіль:",
       passphrase: "Парольна фраза:",

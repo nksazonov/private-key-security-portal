@@ -45,7 +45,8 @@ export default {
     "title": "Private Key Operations",
     "description": privateKeysContent.description,
     "entropySources": privateKeysContent.entropySources,
-    "privateKeyGeneration": privateKeysContent.privateKeyGeneration
+    "privateKeyGeneration": privateKeysContent.privateKeyGeneration,
+    "privateToPublic": privateKeysContent.privateToPublic
   },
   "KeyManagementPage": {
     "title": "Key Management",
