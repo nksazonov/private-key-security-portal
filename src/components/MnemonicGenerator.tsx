@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import CopyableInput from './CopyableInput';
+import LabeledCopyableInput from './LabeledCopyableInput';
 import { sha256 } from '@noble/hashes/sha2';
 import { entropyToMnemonic } from '@/utils/bip39';
 import { useTranslations } from 'next-intl';
@@ -140,7 +140,7 @@ export default function MnemonicGenerator({
 
       {/* SHA-256 Hash of Random Bits */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={hasGenerated ? Array.from(sha256(initialEntropy))
             .map(b => b.toString(16).padStart(2, '0'))
             .join('') : ''}
@@ -154,7 +154,7 @@ export default function MnemonicGenerator({
       {/* Initial Entropy in Hex and Checksum in Hex in one row */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
-          <CopyableInput
+          <LabeledCopyableInput
             value={entropyHex}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.initialBitSequenceHex')}
@@ -163,12 +163,12 @@ export default function MnemonicGenerator({
           />
         </div>
         <div className="w-36">
-          <CopyableInput
+          <LabeledCopyableInput
             value={checksumHex}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.checksumHex')}
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
+            noCopying
+            noTooltip
           />
         </div>
       </div>
@@ -176,61 +176,61 @@ export default function MnemonicGenerator({
       {/* Initial Entropy in Binary and Checksum in Binary in one row */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
-          <CopyableInput
+          <LabeledCopyableInput
             value={entropyBinary}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.initialBitSequenceBinary')}
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
+            noCopying
+            noTooltip
           />
         </div>
         <div className="w-36">
-          <CopyableInput
+          <LabeledCopyableInput
             value={checksumBits}
             placeholder={t('placeholders.dashNoValue')}
             label={t('labels.checksumBinary')}
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
+            noCopying
+            noTooltip
           />
         </div>
       </div>
 
       {/* Entropy with Checksum (bin) */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={entropyWithChecksum}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.entropyChecksum')}
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
+          noCopying
+          noTooltip
         />
       </div>
 
       {/* 11-bit Groups in Binary */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={hasGenerated ? groups11Bits.join(' ') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.splitBitGroups')}
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
+          noCopying
+          noTooltip
         />
       </div>
 
       {/* 11-bit Groups in Decimal */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={hasGenerated ? groupsDecimal.join(' ') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.decimalIndices')}
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
+          noCopying
+          noTooltip
         />
       </div>
 
       {/* Mnemonic Words */}
       <div className="mb-4">
-        <CopyableInput
+        <LabeledCopyableInput
           value={hasGenerated ? mnemonicWords.join(' ') : ''}
           placeholder={t('placeholders.dashNoValue')}
           label={t('labels.mnemonicPhrase')}
