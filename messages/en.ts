@@ -1,6 +1,8 @@
 import { privateKeysContent } from './content/en/privateKeys';
+import { ui } from './ui';
 
 export default {
+  UI: ui.en,
   "Error": {
     "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
     "title": "Something went wrong!"

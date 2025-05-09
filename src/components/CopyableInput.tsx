@@ -3,6 +3,7 @@
 import { useState, MouseEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { useTranslations } from 'next-intl';
 
 interface CopyableInputProps {
   value: string;
@@ -18,15 +19,20 @@ export default function CopyableInput({
   value,
   placeholder,
   label,
-  copyHoverText = 'Click to copy',
-  copiedText = 'Copied!',
+  copyHoverText,
+  copiedText,
   noTooltip = false,
   noCopying = false
 }: CopyableInputProps) {
+  const t = useTranslations('UI');
   const [isHovering, setIsHovering] = useState(false);
   const [copyTooltip, setCopyTooltip] = useState<{visible: boolean, text: string, x: number, y: number}>(
     { visible: false, text: '', x: 0, y: 0 }
   );
+  
+  // Use translations or fallback to provided values or defaults
+  const hoverText = copyHoverText || t('tooltips.clickToCopy');
+  const textCopied = copiedText || t('tooltips.copied');
 
   const handleMouseMove = (e: MouseEvent) => {
     if (value && !noTooltip) {
@@ -50,7 +56,7 @@ export default function CopyableInput({
     navigator.clipboard.writeText(text).then(() => {
       setCopyTooltip({
         visible: true,
-        text: copiedText,
+        text: textCopied,
         x,
         y
       });
@@ -68,13 +74,13 @@ export default function CopyableInput({
 
   // Show tooltip on hover
   const showTooltip = (e: MouseEvent) => {
-    if (!copyTooltip.visible || copyTooltip.text === copyHoverText) {
+    if (!copyTooltip.visible || copyTooltip.text === hoverText) {
       const x = e.clientX;
       const y = e.clientY - 30; // Position above cursor
 
       setCopyTooltip({
         visible: true,
-        text: copyHoverText,
+        text: hoverText,
         x,
         y
       });
@@ -83,7 +89,7 @@ export default function CopyableInput({
 
   // Hide tooltip
   const hideTooltip = () => {
-    if (copyTooltip.text === copyHoverText) {
+    if (copyTooltip.text === hoverText) {
       setCopyTooltip({
         visible: false,
         text: '',

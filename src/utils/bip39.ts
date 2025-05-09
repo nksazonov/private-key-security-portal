@@ -8,7 +8,7 @@ import { sha256 } from '@noble/hashes/sha2';
  */
 export function validateMnemonic(phrase: string, wordlist: string[]): { isValid: boolean; reason?: string } {
   if (!phrase) {
-    return { isValid: false, reason: 'Mnemonic phrase is empty' };
+    return { isValid: false, reason: 'emptyMnemonic' };
   }
 
   // Split by spaces and filter out empty strings
@@ -19,7 +19,7 @@ export function validateMnemonic(phrase: string, wordlist: string[]): { isValid:
   if (invalidWords.length > 0) {
     return { 
       isValid: false, 
-      reason: `Invalid word(s) in mnemonic: ${invalidWords.join(', ')}` 
+      reason: `invalidWords:${invalidWords.join(', ')}` 
     };
   }
 
@@ -28,7 +28,7 @@ export function validateMnemonic(phrase: string, wordlist: string[]): { isValid:
   if (!validLengths.includes(words.length)) {
     return { 
       isValid: false, 
-      reason: `Invalid mnemonic length: ${words.length} words. Valid lengths are: ${validLengths.join(', ')} words.` 
+      reason: 'invalidLength' 
     };
   }
 
@@ -66,7 +66,7 @@ export function validateMnemonic(phrase: string, wordlist: string[]): { isValid:
   if (hashBinary !== checksumBits) {
     return { 
       isValid: false, 
-      reason: 'Invalid checksum' 
+      reason: 'invalidChecksum' 
     };
   }
   

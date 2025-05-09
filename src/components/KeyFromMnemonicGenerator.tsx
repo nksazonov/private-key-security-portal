@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useTranslations } from 'next-intl';
 import CopyableInput from './CopyableInput';
 import LabeledInput from './LabeledInput';
 import MnemonicInput from './MnemonicInput';
@@ -21,6 +22,7 @@ export default function KeyFromMnemonicGenerator({
   copyHoverText,
   copiedText
 }: KeyFromMnemonicGeneratorProps) {
+  const t = useTranslations('UI');
   // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
 
@@ -120,6 +122,7 @@ export default function KeyFromMnemonicGenerator({
       setMnemonicError('');
       setPrivateKey('-');
       setPublicAddress('-');
+      setSeed(new Uint8Array(64)); // Reset the seed
       setHasGenerated(false);
       return;
     }
@@ -128,16 +131,35 @@ export default function KeyFromMnemonicGenerator({
     if (wordlist.length > 0) {
       const validation = validateMnemonic(newMnemonic, wordlist);
       setIsMnemonicValid(validation.isValid);
-      setMnemonicError(validation.reason || '');
-
-      // Only calculate seed if mnemonic is valid
+      
       if (validation.isValid) {
+        setMnemonicError('');
         calculateSeed(newMnemonic, salt, passphrase);
         setHasGenerated(true);
       } else {
+        // Process error message
+        let errorMsg = '';
+        if (validation.reason) {
+          if (validation.reason === 'emptyMnemonic') {
+            errorMsg = t('validationErrors.emptyMnemonic');
+          } else if (validation.reason === 'invalidLength') {
+            errorMsg = t('validationErrors.invalidLength');
+          } else if (validation.reason === 'invalidChecksum') {
+            errorMsg = t('validationErrors.invalidChecksum');
+          } else if (validation.reason.startsWith('invalidWords:')) {
+            const invalidWords = validation.reason.substring('invalidWords:'.length);
+            errorMsg = `${t('validationErrors.invalidWords')} ${invalidWords}`;
+          } else {
+            errorMsg = validation.reason;
+          }
+        }
+        setMnemonicError(errorMsg);
+        
         // Reset derived values if invalid
         setPrivateKey('-');
         setPublicAddress('-');
+        setSeed(new Uint8Array(64)); // Reset the seed
+        setHasGenerated(false);
       }
     }
   };
@@ -164,10 +186,10 @@ export default function KeyFromMnemonicGenerator({
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <MnemonicInput
-            label="BIP-39 Mnemonic Phrase:"
+            label={t('labels.mnemonicPhrase')}
             value={mnemonic}
             onChange={handleMnemonicChange}
-            placeholder="Enter mnemonic phrase (12 words separated by spaces)"
+            placeholder={t('placeholders.noMnemonicPhrase')}
             isValid={isMnemonicValid}
             errorMessage={mnemonicError}
           />
@@ -187,18 +209,18 @@ export default function KeyFromMnemonicGenerator({
       <div className="mb-6 flex gap-4">
         <div className="flex-1">
           <LabeledInput
-            label="Salt:"
+            label={t('labels.salt')}
             value={salt}
             onChange={handleSaltChange}
-            placeholder="Enter salt"
+            placeholder={t('placeholders.enterSalt')}
           />
         </div>
         <div className="flex-1">
           <LabeledInput
-            label="Passphrase:"
+            label={t('labels.passphrase')}
             value={passphrase}
             onChange={handlePassphraseChange}
-            placeholder="Enter passphrase (optional)"
+            placeholder={t('placeholders.enterPassphrase')}
           />
         </div>
       </div>
@@ -207,8 +229,8 @@ export default function KeyFromMnemonicGenerator({
       <div className="mb-4">
         <CopyableInput
           value={hasGenerated ? Array.from(seed).map(b => b.toString(16).padStart(2, '0')).join('') : '-'}
-          placeholder="No seed generated yet"
-          label="Final seed (512 bits):"
+          placeholder={t('placeholders.noSeed')}
+          label={t('labels.finalSeed')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
@@ -218,16 +240,16 @@ export default function KeyFromMnemonicGenerator({
       <div className="flex flex-col gap-4 mb-4">
         <CopyableInput
           value={privateKey}
-          placeholder="No private key generated yet"
-          label="Private Key:"
+          placeholder={t('placeholders.noPrivateKey')}
+          label={t('labels.privateKey')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
 
         <CopyableInput
           value={publicAddress}
-          placeholder="No public address generated yet"
-          label="Public Address:"
+          placeholder={t('placeholders.noPublicAddress')}
+          label={t('labels.publicAddress')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
