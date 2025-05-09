@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, MouseEvent } from 'react';
 import CopyableInput from './CopyableInput';
 import { keccak256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
+import { useTranslations } from 'next-intl';
 
 interface KeyGeneratorProps {
   generateButtonText: string;
@@ -21,6 +22,7 @@ export default function KeyGenerator({
   entropyLevelText,
   moveMouseText
 }: KeyGeneratorProps) {
+  const t = useTranslations('UI');
   const [privateKey, setPrivateKey] = useState<string>('');
   const [publicAddress, setPublicAddress] = useState<string>('');
   const [hasEnoughEntropy, setHasEnoughEntropy] = useState(false);
@@ -180,8 +182,8 @@ export default function KeyGenerator({
       <div className="mb-4">
         <CopyableInput
           value={entropyBytes.length > 0 ? entropyBytes.map(b => b.toString(16).padStart(2, '0')).join(' ') : ''}
-          placeholder="No entropy collected yet"
-          label="Current Entropy:"
+          placeholder={t('placeholders.noEntropy')}
+          label={t('labels.currentEntropy')}
           noCopying
           noTooltip
         />
@@ -190,16 +192,16 @@ export default function KeyGenerator({
       <div className="flex flex-col gap-4">
         <CopyableInput
           value={privateKey}
-          placeholder="No private key generated yet"
-          label="Private Key:"
+          placeholder={t('placeholders.noPrivateKey')}
+          label={t('labels.privateKey')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
 
         <CopyableInput
           value={publicAddress}
-          placeholder="No public address generated yet"
-          label="Public Address:"
+          placeholder={t('placeholders.noPublicAddress')}
+          label={t('labels.publicAddress')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />

@@ -1,6 +1,8 @@
 import { privateKeysContent } from './content/uk/privateKeys';
+import { ui } from './ui';
 
 export default {
+  UI: ui.uk,
   "Error": {
     "description": "<p>На жаль, сталася помилка.</p><p>Ви можете спробувати <retry>перезавантажити сторінку</retry>, яку ви відвідували.</p>",
     "title": "Щось пішло не так!"
