@@ -42,29 +42,37 @@ The collected entropy bytes are displayed, allowing you to see the exact random 
     },
     fromSeed: {
       title: "Generation from seed-phrase. BIP-39",
-      description: `BIP-39 (Bitcoin Improvement Proposal 39) defines a mechanism for generating a mnemonic phrase and its subsequent conversion into a seed, which is then directly used to derive private keys. Its main components are:
+      description: `BIP-39 (Bitcoin Improvement Proposal 39) defines a mechanism for generating a mnemonic phrase and its subsequent conversion into a seed, which is then directly used to derive private keys. Its main components are:`,
+      
+      mnemonicPhrase: {
+        title: "1. Generating the mnemonic phrase",
+        description: `A mnemonic phrase, according to BIP-39, consists of a predetermined number of words from a special vocabulary. Typically, a set of 2048 words is used, available in the public domain (for English, Japanese, Korean, and other languages). The phrase length can be 12, 15, 18, 21, or 24 words. The most common formats are 12 or 24 words.
 
-1. **Generating the mnemonic phrase**
+Using a cryptographically secure random number generator, an initial bit sequence called entropy (e.g., 128 or 256 bits) is first obtained. Then, \`SHA-256(entropy)\` is calculated, from which only the first \`entropy/32\` bits are taken (e.g., for entropy of 256 bits, 8 bits are taken), which are called the checksum. Then the resulting checksum is added (concatenated) to the original random bits.
 
-  A mnemonic phrase, according to BIP-39, consists of a predetermined number of words from a special vocabulary. Typically, a set of 2048 words is used, available in the public domain (for English, Japanese, Korean, and other languages). The phrase length can be 12, 15, 18, 21, or 24 words. The most common formats are 12 or 24 words.
+After adding the checksum, the total bit length becomes convenient to split into groups of 11 bits, which are interpreted as a number from 0 to 2047 (i.e., 2^11 = 2048 possible values). This number is the word number in the corresponding BIP-39 dictionary.
 
-  Using a cryptographically secure random number generator, an initial bit sequence called entropy (e.g., 128 or 256 bits) is first obtained. Then, \`SHA-256(entropy)\` is calculated, from which only the first \`entropy/32\` bits are taken (e.g., for entropy of 256 bits, 8 bits are taken), which are called the checksum. Then the resulting checksum is added (concatenated) to the original random bits.
+Thanks to this mechanism, on one hand, we get a mnemonic that is easy to read and write, and on the other hand, we have built-in correctness verification. If a user accidentally confuses one of the words or the order of words, the checksum won't match, and during verification, the mnemonic will be recognized as incorrect.
 
-  After adding the checksum, the total bit length becomes convenient to split into groups of 11 bits, which are interpreted as a number from 0 to 2047 (i.e., 2^11 = 2048 possible values). This number is the word number in the corresponding BIP-39 dictionary.
+Below is an interactive example demonstrating the mnemonic generation process. Click "Generate" to create a new mnemonic phrase and see all the steps involved.`,
+        generateButtonText: "Generate Entropy"
+      },
+      
+      seedGeneration: {
+        title: "2. Converting the mnemonic phrase to a seed",
+        description: `After obtaining the sequence of words (mnemonic), a transition to a 512-bit seed is performed using the PBKDF2-HMAC-SHA512 function. The PBKDF2 input includes: the mnemonic phrase (word combination), a so-called "salt", which is the string "mnemonic" (as per BIP-39), and an additional passphrase, if the user chooses one. The resulting 512-bit seed is the main secret from which further (deterministic) derivation of private keys is performed.
 
-  Thanks to this mechanism, on one hand, we get a mnemonic that is easy to read and write, and on the other hand, we have built-in correctness verification. If a user accidentally confuses one of the words or the order of words, the checksum won't match, and during verification, the mnemonic will be recognized as incorrect.
-
-2. **Converting the mnemonic phrase to a seed**
-
-  After obtaining the sequence of words (mnemonic), a transition to a 512-bit seed is performed using the PBKDF2-HMAC-SHA512 function. The PBKDF2 input includes: the mnemonic phrase (word combination), a so-called "salt", which is the string "mnemonic" (as per BIP-39), and an additional passphrase, if the user chooses one. The resulting 512-bit seed is the main secret from which further (deterministic) derivation of private keys is performed.
-
-**Advantages and security of mnemonics:**
-- It is much easier to remember or store a mnemonic series of words than a cumbersome bit sequence.
+Below is an interactive example that shows how a mnemonic phrase is converted to a seed and then to a private key. Enter your own mnemonic or click "Random" to generate one.`,
+        randomButtonText: "Random",
+      },
+      
+      advantages: {
+        title: "Advantages and security of mnemonics",
+        description: `- It is much easier to remember or store a mnemonic series of words than a cumbersome bit sequence.
 - From the stored set of words, the user can at any time re-obtain their seed and restore access to all corresponding private keys.
-- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.
-
-Below is an interactive example demonstrating the BIP-39 process. Click "Generate" to create a new mnemonic seed phrase and see all the steps involved in creating a private key from it.`,
-      generateButtonText: "Generate BIP-39 Mnemonic",
+- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.`
+      },
+      
       links: [
         {
           href: "https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki",

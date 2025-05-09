@@ -5,6 +5,7 @@ import AnchorHeading from '@/components/AnchorHeading';
 import ExternalLink from '@/components/ExternalLink';
 import SectionDivider from '@/components/SectionDivider';
 import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
+import ClientMnemonicGeneratorWrapper from '@/components/ClientMnemonicGeneratorWrapper';
 import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -124,7 +125,7 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           />
         </div>
 
-        {/* Seed Section */}
+        {/* Seed Section - Main Heading */}
         <AnchorHeading
           as="h3"
           id="key-generation-seed"
@@ -141,15 +142,76 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           </ReactMarkdown>
         </div>
 
-        {/* BIP-39 Interactive Generator */}
+        {/* Mnemonic Generation Section */}
+        <AnchorHeading
+          as="h4"
+          id="mnemonic-generation"
+          className="text-lg font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.mnemonicPhrase.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.mnemonicPhrase.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* Mnemonic Generator Component */}
         <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
-          <ClientKeyFromMnemonicGeneratorWrapper
-            generateButtonText={t.raw('privateKeyGeneration.fromSeed.generateButtonText')}
+          <ClientMnemonicGeneratorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromSeed.mnemonicPhrase.generateButtonText')}
             copyHoverText={common('copyHover')}
             copiedText={common('copied')}
           />
         </div>
 
+        {/* Seed Generation Section */}
+        <AnchorHeading
+          as="h4"
+          id="seed-generation"
+          className="text-lg font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.seedGeneration.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.seedGeneration.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* Key From Mnemonic Generator Component */}
+        <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+          <ClientKeyFromMnemonicGeneratorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromSeed.seedGeneration.randomButtonText')}
+            copyHoverText={common('copyHover')}
+            copiedText={common('copied')}
+          />
+        </div>
+
+        {/* Advantages Section */}
+        <AnchorHeading
+          as="h4"
+          id="mnemonic-advantages"
+          className="text-lg font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.advantages.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.advantages.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* Links Section */}
         <div className="mt-6 mb-6">
           <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
             {common('useful_links')}

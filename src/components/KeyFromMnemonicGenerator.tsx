@@ -3,11 +3,12 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import CopyableInput from './CopyableInput';
 import LabeledInput from './LabeledInput';
+import MnemonicInput from './MnemonicInput';
 import { keccak256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { sha256 } from '@noble/hashes/sha2';
 import { pbkdf2 } from '@noble/hashes/pbkdf2';
-import { hmac } from '@noble/hashes/hmac';
+import { validateMnemonic, entropyToMnemonic } from '@/utils/bip39';
 
 interface KeyFromMnemonicGeneratorProps {
   generateButtonText: string;
@@ -23,22 +24,18 @@ export default function KeyFromMnemonicGenerator({
   // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
 
-  // State for all the BIP-39 steps
-  const [initialEntropy, setInitialEntropy] = useState<Uint8Array>(new Uint8Array(16));
-  const [entropyHex, setEntropyHex] = useState<string>('-');
-  const [entropyBinary, setEntropyBinary] = useState<string>('-');
-  const [checksumBits, setChecksumBits] = useState<string>('-');
-  const [checksumHex, setChecksumHex] = useState<string>('-');
-  const [entropyWithChecksum, setEntropyWithChecksum] = useState<string>('-');
-  const [groups11Bits, setGroups11Bits] = useState<string[]>([]);
-  const [groupsDecimal, setGroupsDecimal] = useState<number[]>([]);
-  const [mnemonicWords, setMnemonicWords] = useState<string[]>([]);
+  // State for mnemonic-to-key process
+  const [mnemonic, setMnemonic] = useState<string>('');
   const [salt, setSalt] = useState<string>('mnemonic');
   const [passphrase, setPassphrase] = useState<string>('');
   const [seed, setSeed] = useState<Uint8Array>(new Uint8Array(64)); // 512 bits
   const [privateKey, setPrivateKey] = useState<string>('-');
   const [publicAddress, setPublicAddress] = useState<string>('-');
   const [hasGenerated, setHasGenerated] = useState<boolean>(false);
+
+  // Validation state
+  const [isMnemonicValid, setIsMnemonicValid] = useState<boolean>(true);
+  const [mnemonicError, setMnemonicError] = useState<string>('');
 
   // Fetch the BIP-39 English wordlist
   useEffect(() => {
@@ -59,85 +56,37 @@ export default function KeyFromMnemonicGenerator({
     fetchWordlist();
   }, []);
 
-  // Generate initial random 128 bits (16 bytes) entropy
-  const generateRandomEntropy = () => {
+  // Generate random mnemonic
+  const generateRandomMnemonic = () => {
+    if (wordlist.length === 0) return;
+
     try {
-      // Generate 16 bytes (128 bits) of random data
+      // Generate 16 bytes (128 bits) of random data for entropy
       const randomBytes = new Uint8Array(16);
       window.crypto.getRandomValues(randomBytes);
 
-      // Process the entropy and generate the entire chain
-      processEntropy(randomBytes);
+      // Convert entropy to mnemonic phrase using our utility function
+      const mnemonicPhrase = entropyToMnemonic(randomBytes, wordlist);
+
+      // Reset validation state
+      setIsMnemonicValid(true);
+      setMnemonicError('');
+
+      // Update state
+      setMnemonic(mnemonicPhrase);
+      calculateSeed(mnemonicPhrase, salt, passphrase);
       setHasGenerated(true);
     } catch (error) {
-      console.error('Error generating random entropy:', error);
-    }
-  };
-
-  // Process the entropy and generate all the BIP-39 steps
-  const processEntropy = (entropyBytes: Uint8Array) => {
-    // Store the initial entropy
-    setInitialEntropy(entropyBytes);
-
-    // Convert to hex string for display
-    const entropyHexStr = Array.from(entropyBytes)
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-    setEntropyHex(entropyHexStr);
-
-    // Convert entropy to binary string for display
-    const entropyBinaryStr = Array.from(entropyBytes)
-      .map(b => b.toString(2).padStart(8, '0'))
-      .join('');
-    setEntropyBinary(entropyBinaryStr);
-
-    // Calculate SHA-256 hash of the entropy
-    const entropyHash = sha256(entropyBytes);
-
-    // For 128 bits of entropy, we need 4 bits of checksum (128/32 = 4)
-    const checksumLength = entropyBytes.length * 8 / 32;
-
-    // Convert the first byte of the hash to binary and take first checksumLength bits
-    const hashBinary = entropyHash[0].toString(2).padStart(8, '0');
-    const checksumBitsStr = hashBinary.slice(0, checksumLength);
-    setChecksumBits(checksumBitsStr);
-
-    // Display checksum in hex
-    const checksumHexStr = (parseInt(checksumBitsStr, 2) & 0xF).toString(16);
-    setChecksumHex(checksumHexStr);
-
-    // Combine entropy bits with checksum bits
-    const allBits = entropyBinaryStr + checksumBitsStr;
-    setEntropyWithChecksum(allBits);
-
-    // Split into 11-bit groups
-    const groups: string[] = [];
-    for (let i = 0; i < allBits.length; i += 11) {
-      groups.push(allBits.slice(i, i + 11));
-    }
-    setGroups11Bits(groups);
-
-    // Convert groups to decimal
-    const decimals = groups.map(group => parseInt(group, 2));
-    setGroupsDecimal(decimals);
-
-    // Convert decimals to words
-    if (wordlist.length > 0) {
-      const words = decimals.map(index => {
-        // Handle case where index is out of range
-        return index < wordlist.length ? wordlist[index] : '-';
-      });
-      setMnemonicWords(words);
-
-      // Calculate seed from mnemonic phrase
-      if (words.every(word => word !== '-')) {
-        calculateSeed(words.join(' '), salt, passphrase);
-      }
+      console.error('Error generating random mnemonic:', error);
+      setIsMnemonicValid(false);
+      setMnemonicError('Failed to generate mnemonic');
     }
   };
 
   // Calculate the seed from mnemonic phrase, salt, and passphrase
   const calculateSeed = (mnemonic: string, salt: string, passphrase: string) => {
+    if (!mnemonic) return;
+
     try {
       // PBKDF2-HMAC-SHA512 with 2048 iterations
       const saltValue = `${salt}${passphrase ? passphrase : ''}`;
@@ -160,122 +109,78 @@ export default function KeyFromMnemonicGenerator({
     }
   };
 
-  // Handle salt and passphrase input changes
+  // Handle input changes
+  const handleMnemonicChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newMnemonic = e.target.value;
+    setMnemonic(newMnemonic);
+
+    // Don't validate empty input
+    if (!newMnemonic) {
+      setIsMnemonicValid(true);
+      setMnemonicError('');
+      setPrivateKey('-');
+      setPublicAddress('-');
+      setHasGenerated(false);
+      return;
+    }
+
+    // Validate mnemonic if wordlist is loaded
+    if (wordlist.length > 0) {
+      const validation = validateMnemonic(newMnemonic, wordlist);
+      setIsMnemonicValid(validation.isValid);
+      setMnemonicError(validation.reason || '');
+
+      // Only calculate seed if mnemonic is valid
+      if (validation.isValid) {
+        calculateSeed(newMnemonic, salt, passphrase);
+        setHasGenerated(true);
+      } else {
+        // Reset derived values if invalid
+        setPrivateKey('-');
+        setPublicAddress('-');
+      }
+    }
+  };
+
   const handleSaltChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newSalt = e.target.value;
     setSalt(newSalt);
-    if (hasGenerated && mnemonicWords.length > 0 && mnemonicWords.every(word => word !== '-')) {
-      calculateSeed(mnemonicWords.join(' '), newSalt, passphrase);
+    if (isMnemonicValid && mnemonic) {
+      calculateSeed(mnemonic, newSalt, passphrase);
     }
   };
 
   const handlePassphraseChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newPassphrase = e.target.value;
     setPassphrase(newPassphrase);
-    if (hasGenerated && mnemonicWords.length > 0 && mnemonicWords.every(word => word !== '-')) {
-      calculateSeed(mnemonicWords.join(' '), salt, newPassphrase);
+    if (isMnemonicValid && mnemonic) {
+      calculateSeed(mnemonic, salt, newPassphrase);
     }
   };
 
   return (
     <div className="w-full">
-      <div className="mb-6 flex flex-wrap gap-4">
-        <button
-          onClick={generateRandomEntropy}
-          className="px-4 py-2 rounded-md font-medium bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
-        >
-          {generateButtonText}
-        </button>
-      </div>
-
-      {/* SHA-256 Hash of Random Bits */}
-      <div className="mb-4">
-        <CopyableInput
-          value={hasGenerated ? Array.from(sha256(initialEntropy))
-            .map(b => b.toString(16).padStart(2, '0'))
-            .join('') : '-'}
-          placeholder="No SHA-256 hash generated yet"
-          label="SHA-256(Initial bit sequence):"
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
-        />
-      </div>
-
-      {/* Initial Entropy in Hex and Checksum in Hex in one row */}
+      {/* Mnemonic Input with stable layout */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
-          <CopyableInput
-            value={entropyHex}
-            placeholder="No entropy generated yet"
-            label="Initial bit sequence (HEX, 128 bits):"
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
+          <MnemonicInput
+            label="BIP-39 Mnemonic Phrase:"
+            value={mnemonic}
+            onChange={handleMnemonicChange}
+            placeholder="Enter mnemonic phrase (12 words separated by spaces)"
+            isValid={isMnemonicValid}
+            errorMessage={mnemonicError}
           />
         </div>
-        <div className="w-36">
-          <CopyableInput
-            value={checksumHex}
-            placeholder="No checksum generated yet"
-            label="Checksum (HEX):"
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
-          />
+        {/* Fixed-position button that doesn't move */}
+        <div className="w-36 flex items-start pt-5"> {/* Aligned to input, not label */}
+          <button
+            onClick={generateRandomMnemonic}
+            className="px-4 py-2 rounded-md font-medium bg-blue-600 hover:bg-blue-700 text-white cursor-pointer h-[42px]"
+          >
+            {generateButtonText}
+          </button>
         </div>
-      </div>
-
-      {/* Initial Entropy in Binary and Checksum in Binary in one row */}
-      <div className="mb-4 flex gap-4">
-        <div className="flex-grow">
-          <CopyableInput
-            value={entropyBinary}
-            placeholder="No entropy generated yet"
-            label="Initial bit sequence (Binary, 128 bits):"
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
-          />
-        </div>
-        <div className="w-36">
-          <CopyableInput
-            value={checksumBits}
-            placeholder="No checksum generated yet"
-            label="Checksum (Binary):"
-            copyHoverText={copyHoverText}
-            copiedText={copiedText}
-          />
-        </div>
-      </div>
-
-      {/* 11-bit Groups in Binary */}
-      <div className="mb-4">
-        <CopyableInput
-          value={hasGenerated ? groups11Bits.join(' ') : '-'}
-          placeholder="No 11-bit groups generated yet"
-          label="Split in 11-bit groups (Binary):"
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
-        />
-      </div>
-
-      {/* 11-bit Groups in Decimal */}
-      <div className="mb-4">
-        <CopyableInput
-          value={hasGenerated ? groupsDecimal.join(' ') : '-'}
-          placeholder="No decimal values generated yet"
-          label="Decimal values (0-2047):"
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
-        />
-      </div>
-
-      {/* Mnemonic Words */}
-      <div className="mb-6">
-        <CopyableInput
-          value={hasGenerated ? mnemonicWords.join(' ') : '-'}
-          placeholder="No mnemonic words generated yet"
-          label="BIP-39 Mnemonic Words:"
-          copyHoverText={copyHoverText}
-          copiedText={copiedText}
-        />
       </div>
 
       {/* Salt and Passphrase Inputs */}
