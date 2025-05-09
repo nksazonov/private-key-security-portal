@@ -5,6 +5,7 @@ import AnchorHeading from '@/components/AnchorHeading';
 import ExternalLink from '@/components/ExternalLink';
 import SectionDivider from '@/components/SectionDivider';
 import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
+import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -138,6 +139,15 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           >
             {t.raw('privateKeyGeneration.fromSeed.description')}
           </ReactMarkdown>
+        </div>
+
+        {/* BIP-39 Interactive Generator */}
+        <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+          <ClientKeyFromMnemonicGeneratorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromSeed.generateButtonText')}
+            copyHoverText={common('copyHover')}
+            copiedText={common('copied')}
+          />
         </div>
 
         <div className="mt-6 mb-6">
