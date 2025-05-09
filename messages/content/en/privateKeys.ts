@@ -61,7 +61,10 @@ The collected entropy bytes are displayed, allowing you to see the exact random 
 **Advantages and security of mnemonics:**
 - It is much easier to remember or store a mnemonic series of words than a cumbersome bit sequence.
 - From the stored set of words, the user can at any time re-obtain their seed and restore access to all corresponding private keys.
-- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.`,
+- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.
+
+Below is an interactive example demonstrating the BIP-39 process. Click "Generate" to create a new mnemonic seed phrase and see all the steps involved in creating a private key from it.`,
+      generateButtonText: "Generate BIP-39 Mnemonic",
       links: [
         {
           href: "https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki",
