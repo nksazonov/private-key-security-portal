@@ -20,14 +20,14 @@ export default function MnemonicGenerator({
   const t = useTranslations('UI');
   // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
-  
+
   // State for all the BIP-39 steps to generate mnemonic
   const [initialEntropy, setInitialEntropy] = useState<Uint8Array>(new Uint8Array(16));
-  const [entropyHex, setEntropyHex] = useState<string>('-');
-  const [entropyBinary, setEntropyBinary] = useState<string>('-');
-  const [checksumBits, setChecksumBits] = useState<string>('-');
-  const [checksumHex, setChecksumHex] = useState<string>('-');
-  const [entropyWithChecksum, setEntropyWithChecksum] = useState<string>('-');
+  const [entropyHex, setEntropyHex] = useState<string>('');
+  const [entropyBinary, setEntropyBinary] = useState<string>('');
+  const [checksumBits, setChecksumBits] = useState<string>('');
+  const [checksumHex, setChecksumHex] = useState<string>('');
+  const [entropyWithChecksum, setEntropyWithChecksum] = useState<string>('');
   const [groups11Bits, setGroups11Bits] = useState<string[]>([]);
   const [groupsDecimal, setGroupsDecimal] = useState<number[]>([]);
   const [mnemonicWords, setMnemonicWords] = useState<string[]>([]);
@@ -48,7 +48,7 @@ export default function MnemonicGenerator({
         setWordlist(['abandon', 'ability', 'able', 'about', 'above']);
       }
     }
-    
+
     fetchWordlist();
   }, []);
 
@@ -58,7 +58,7 @@ export default function MnemonicGenerator({
       // Generate 16 bytes (128 bits) of random data
       const randomBytes = new Uint8Array(16);
       window.crypto.getRandomValues(randomBytes);
-      
+
       // Process the entropy and generate the entire chain
       processEntropy(randomBytes);
       setHasGenerated(true);
@@ -71,7 +71,7 @@ export default function MnemonicGenerator({
   const processEntropy = (entropyBytes: Uint8Array) => {
     // Store the initial entropy
     setInitialEntropy(entropyBytes);
-    
+
     // Convert to hex string for display
     const entropyHexStr = Array.from(entropyBytes)
       .map(b => b.toString(16).padStart(2, '0'))
@@ -86,15 +86,15 @@ export default function MnemonicGenerator({
 
     // Calculate SHA-256 hash of the entropy
     const entropyHash = sha256(entropyBytes);
-    
+
     // For 128 bits of entropy, we need 4 bits of checksum (128/32 = 4)
     const checksumLength = entropyBytes.length * 8 / 32;
-    
+
     // Convert the first byte of the hash to binary and take first checksumLength bits
     const hashBinary = entropyHash[0].toString(2).padStart(8, '0');
     const checksumBitsStr = hashBinary.slice(0, checksumLength);
     setChecksumBits(checksumBitsStr);
-    
+
     // Display checksum in hex
     const checksumHexStr = (parseInt(checksumBitsStr, 2) & 0xF).toString(16);
     setChecksumHex(checksumHexStr);
@@ -143,8 +143,8 @@ export default function MnemonicGenerator({
         <CopyableInput
           value={hasGenerated ? Array.from(sha256(initialEntropy))
             .map(b => b.toString(16).padStart(2, '0'))
-            .join('') : '-'}
-          placeholder={t('placeholders.noSha256')}
+            .join('') : ''}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.sha256Hash')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -156,7 +156,7 @@ export default function MnemonicGenerator({
         <div className="flex-grow">
           <CopyableInput
             value={entropyHex}
-            placeholder={t('placeholders.noEntropyGenerated')}
+            placeholder={t('placeholders.dashNoValue')}
             label={t('labels.initialBitSequenceHex')}
             copyHoverText={copyHoverText}
             copiedText={copiedText}
@@ -165,7 +165,7 @@ export default function MnemonicGenerator({
         <div className="w-36">
           <CopyableInput
             value={checksumHex}
-            placeholder={t('placeholders.noChecksumGenerated')}
+            placeholder={t('placeholders.dashNoValue')}
             label={t('labels.checksumHex')}
             copyHoverText={copyHoverText}
             copiedText={copiedText}
@@ -178,7 +178,7 @@ export default function MnemonicGenerator({
         <div className="flex-grow">
           <CopyableInput
             value={entropyBinary}
-            placeholder={t('placeholders.noEntropyGenerated')}
+            placeholder={t('placeholders.dashNoValue')}
             label={t('labels.initialBitSequenceBinary')}
             copyHoverText={copyHoverText}
             copiedText={copiedText}
@@ -187,7 +187,7 @@ export default function MnemonicGenerator({
         <div className="w-36">
           <CopyableInput
             value={checksumBits}
-            placeholder={t('placeholders.noChecksumGenerated')}
+            placeholder={t('placeholders.dashNoValue')}
             label={t('labels.checksumBinary')}
             copyHoverText={copyHoverText}
             copiedText={copiedText}
@@ -195,11 +195,11 @@ export default function MnemonicGenerator({
         </div>
       </div>
 
-      {/* Entropy with Checksum (Binary) */}
+      {/* Entropy with Checksum (bin) */}
       <div className="mb-4">
         <CopyableInput
           value={entropyWithChecksum}
-          placeholder={t('placeholders.noEntropyChecksumGenerated')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.entropyChecksum')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -209,8 +209,8 @@ export default function MnemonicGenerator({
       {/* 11-bit Groups in Binary */}
       <div className="mb-4">
         <CopyableInput
-          value={hasGenerated ? groups11Bits.join(' ') : '-'}
-          placeholder={t('placeholders.noBitGroups')}
+          value={hasGenerated ? groups11Bits.join(' ') : ''}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.splitBitGroups')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -220,9 +220,9 @@ export default function MnemonicGenerator({
       {/* 11-bit Groups in Decimal */}
       <div className="mb-4">
         <CopyableInput
-          value={hasGenerated ? groupsDecimal.join(' ') : '-'}
-          placeholder={t('placeholders.noDecimalValues')}
-          label={t('labels.decimalValues')}
+          value={hasGenerated ? groupsDecimal.join(' ') : ''}
+          placeholder={t('placeholders.dashNoValue')}
+          label={t('labels.decimalIndices')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
@@ -231,9 +231,9 @@ export default function MnemonicGenerator({
       {/* Mnemonic Words */}
       <div className="mb-4">
         <CopyableInput
-          value={hasGenerated ? mnemonicWords.join(' ') : '-'}
-          placeholder={t('placeholders.noMnemonicWords')}
-          label={t('labels.bip39Words')}
+          value={hasGenerated ? mnemonicWords.join(' ') : ''}
+          placeholder={t('placeholders.dashNoValue')}
+          label={t('labels.mnemonicPhrase')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
         />
