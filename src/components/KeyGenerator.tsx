@@ -67,8 +67,6 @@ export default function KeyGenerator({
           const x = Math.floor(relativeX) % 256;
           const y = Math.abs(Math.floor(relativeY) % 256);
 
-        console.log(`x: ${x}, y: ${y}`);
-
           setEntropyBytes(prev => {
             // Calculate the new array first
             const newBytes = [...prev, x, y];
