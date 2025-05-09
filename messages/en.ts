@@ -40,9 +40,10 @@ export default {
     "nextArticle": "Next article"
   },
   "PrivateKeysPage": {
-    "title": "Private Key Generation",
+    "title": "Private Key Operations",
     "description": privateKeysContent.description,
-    "entropySources": privateKeysContent.entropySources
+    "entropySources": privateKeysContent.entropySources,
+    "privateKeyGeneration": privateKeysContent.privateKeyGeneration
   },
   "KeyManagementPage": {
     "title": "Key Management",
@@ -58,6 +59,10 @@ export default {
   },
   "Common": {
     "useful_links": "Useful Links",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "copyHover": "Copy",
+    "copied": "Copied",
+    "entropyLevel": "Entropy level:",
+    "moveMouseForEntropy": "Move your mouse in this rectangle to generate entropy!"
   }
 }

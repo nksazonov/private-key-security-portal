@@ -40,9 +40,10 @@ export default {
     "nextArticle": "Наступна стаття"
   },
   "PrivateKeysPage": {
-    "title": "Генерація приватних ключів",
+    "title": "Операції з приватними ключами",
     "description": privateKeysContent.description,
-    "entropySources": privateKeysContent.entropySources
+    "entropySources": privateKeysContent.entropySources,
+    "privateKeyGeneration": privateKeysContent.privateKeyGeneration
   },
   "KeyManagementPage": {
     "title": "Управління ключами",
@@ -58,6 +59,10 @@ export default {
   },
   "Common": {
     "useful_links": "Корисні посилання",
-    "learnMore": "Дізнатися більше"
+    "learnMore": "Дізнатися більше",
+    "copyHover": "Скопіювати",
+    "copied": "Скопійовано",
+    "entropyLevel": "Рівень ентропії:",
+    "moveMouseForEntropy": "Рухайте мишею в цьому прямокутнику для генерації ентропії!"
   }
 }

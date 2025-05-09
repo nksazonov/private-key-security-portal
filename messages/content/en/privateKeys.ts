@@ -19,5 +19,15 @@ In web environments, it's advisable to combine pointer movements, timing microdi
         text: "NIST SP 800-90B: Recommendation for the Entropy Sources"
       }
     ]
+  },
+  privateKeyGeneration: {
+    title: "Private Key Generation Methods",
+    fromRandomSeed: {
+      description: `The most common and straightforward method for generating private keys is to use a cryptographically secure pseudorandom number generator (CSPRNG), the output of which either directly becomes the private key or is transformed into one using a hash function.
+
+Below is an example of generating a private key and address using a CSPRNG that uses mouse movements as entropy. Try moving your mouse, generate the key again, and check if it has changed.`,
+      generateKeyButton: "Generate Key",
+      generateKeyNotEnoughEntropy: "Not enough mouse movements for entropy, please try again.",
+    },
   }
 };

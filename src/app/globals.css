@@ -33,3 +33,21 @@ body {
 .test-tailwind {
   @apply text-blue-500 bg-yellow-200 p-4 rounded-lg;
 }
+
+/* Remove outlines from copyable inputs */
+.copyable-input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  outline: none !important;
+}
+
+.copyable-input:focus,
+.copyable-input:focus-visible,
+.copyable-input:focus-within,
+.copyable-input:active {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border-color: #d1d5db !important; /* gray-300 */
+}
