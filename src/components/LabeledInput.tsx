@@ -7,13 +7,17 @@ interface LabeledInputProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  isError?: boolean;
+  className?: string;
 }
 
 export default function LabeledInput({
   label,
   value,
   onChange,
-  placeholder = ''
+  placeholder = '',
+  isError = false,
+  className = ''
 }: LabeledInputProps) {
   return (
     <div>
@@ -23,7 +27,7 @@ export default function LabeledInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full p-2 border border-gray-300 rounded-md bg-gray-50 font-mono text-sm text-gray-900 transition-colors"
+        className={`w-full p-2 border ${isError ? 'border-red-500' : 'border-gray-300'} rounded-md bg-gray-50 font-mono text-sm ${value ? 'text-gray-900' : 'text-gray-500'} transition-colors ${className}`}
       />
     </div>
   );

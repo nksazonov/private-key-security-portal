@@ -45,7 +45,8 @@ export default {
     "title": "Операції з приватними ключами",
     "description": privateKeysContent.description,
     "entropySources": privateKeysContent.entropySources,
-    "privateKeyGeneration": privateKeysContent.privateKeyGeneration
+    "privateKeyGeneration": privateKeysContent.privateKeyGeneration,
+    "privateToPublic": privateKeysContent.privateToPublic
   },
   "KeyManagementPage": {
     "title": "Управління ключами",
