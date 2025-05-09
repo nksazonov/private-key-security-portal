@@ -182,7 +182,7 @@ export default function KeyGenerator({
       <div className="mb-4">
         <CopyableInput
           value={entropyBytes.length > 0 ? entropyBytes.map(b => b.toString(16).padStart(2, '0')).join(' ') : ''}
-          placeholder={t('placeholders.noEntropy')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.currentEntropy')}
           noCopying
           noTooltip
@@ -192,7 +192,7 @@ export default function KeyGenerator({
       <div className="flex flex-col gap-4">
         <CopyableInput
           value={privateKey}
-          placeholder={t('placeholders.noPrivateKey')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.privateKey')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -200,7 +200,7 @@ export default function KeyGenerator({
 
         <CopyableInput
           value={publicAddress}
-          placeholder={t('placeholders.noPublicAddress')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.publicAddress')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}

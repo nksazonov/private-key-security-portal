@@ -70,7 +70,16 @@ Below is an interactive example that shows how a mnemonic phrase is converted to
         title: "Advantages and security of mnemonics",
         description: `- It is much easier to remember or store a mnemonic series of words than a cumbersome bit sequence.
 - From the stored set of words, the user can at any time re-obtain their seed and restore access to all corresponding private keys.
-- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.`
+- Adding a passphrase increases security, as it makes it more difficult for an attacker to guess the seed even if they have the basic 12 or 24 words.
+- Mnemonics contain a built-in checksum, which serves as a validity check. If a user makes a typo or replaces a word with another one, the checksum will fail and the mnemonic will be identified as incorrect.`
+      },
+      
+      mnemonicValidator: {
+        title: "Mnemonics validator",
+        description: `This interactive tool allows you to validate any BIP-39 mnemonic phrase. Enter a mnemonic or generate a random one, and the tool will show all the intermediate values in the validation process.
+
+If the mnemonic is invalid (due to incorrect words, wrong length, or a checksum mismatch), the relevant fields will be highlighted in red.`,
+        randomButton: "Random"
       },
       
       links: [

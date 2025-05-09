@@ -13,6 +13,7 @@ interface CopyableInputProps {
   copiedText?: string;
   noTooltip?: boolean;
   noCopying?: boolean;
+  className?: string;
 }
 
 export default function CopyableInput({
@@ -22,7 +23,8 @@ export default function CopyableInput({
   copyHoverText,
   copiedText,
   noTooltip = false,
-  noCopying = false
+  noCopying = false,
+  className = ''
 }: CopyableInputProps) {
   const t = useTranslations('UI');
   const [isHovering, setIsHovering] = useState(false);
@@ -35,13 +37,13 @@ export default function CopyableInput({
   const textCopied = copiedText || t('tooltips.copied');
 
   const handleMouseMove = (e: MouseEvent) => {
-    if (value && !noTooltip) {
+    if (value && value.length > 0 && !noTooltip) {
       showTooltip(e);
     }
   };
 
   const handleClick = (e: MouseEvent) => {
-    if (value && !noCopying) {
+    if (value && value.length > 0 && !noCopying) {
       copyToClipboard(value, e);
     }
   };
@@ -122,13 +124,14 @@ export default function CopyableInput({
         <input
           type="text"
           readOnly
-          value={value || placeholder}
-          className={`copyable-input w-full p-2 border border-gray-300 rounded-md bg-gray-50 font-mono text-sm text-gray-900 ${!noCopying ? 'cursor-pointer' : ''} hover:bg-gray-100 transition-colors`}
+          value={value}
+          placeholder={placeholder}
+          className={`copyable-input w-full p-2 border border-gray-300 rounded-md bg-gray-50 font-mono text-sm ${value ? 'text-gray-900' : 'text-gray-500'} ${!noCopying ? 'cursor-pointer' : ''} hover:bg-gray-100 transition-colors ${className}`}
           style={{ WebkitAppearance: 'none' }}
           onMouseMove={handleMouseMove}
           onClick={handleClick}
         />
-        {value && !noCopying && (
+        {value && value.length > 0 && !noCopying && (
           <div 
             className={`absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer ${isHovering ? 'text-gray-600' : 'text-gray-300'} pointer-events-none`}
           >

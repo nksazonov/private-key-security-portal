@@ -31,8 +31,8 @@ export default function KeyFromMnemonicGenerator({
   const [salt, setSalt] = useState<string>('mnemonic');
   const [passphrase, setPassphrase] = useState<string>('');
   const [seed, setSeed] = useState<Uint8Array>(new Uint8Array(64)); // 512 bits
-  const [privateKey, setPrivateKey] = useState<string>('-');
-  const [publicAddress, setPublicAddress] = useState<string>('-');
+  const [privateKey, setPrivateKey] = useState<string>('');
+  const [publicAddress, setPublicAddress] = useState<string>('');
   const [hasGenerated, setHasGenerated] = useState<boolean>(false);
 
   // Validation state
@@ -228,8 +228,8 @@ export default function KeyFromMnemonicGenerator({
       {/* Final Seed */}
       <div className="mb-4">
         <CopyableInput
-          value={hasGenerated ? Array.from(seed).map(b => b.toString(16).padStart(2, '0')).join('') : '-'}
-          placeholder={t('placeholders.noSeed')}
+          value={hasGenerated ? Array.from(seed).map(b => b.toString(16).padStart(2, '0')).join('') : ''}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.finalSeed')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -240,7 +240,7 @@ export default function KeyFromMnemonicGenerator({
       <div className="flex flex-col gap-4 mb-4">
         <CopyableInput
           value={privateKey}
-          placeholder={t('placeholders.noPrivateKey')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.privateKey')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}
@@ -248,7 +248,7 @@ export default function KeyFromMnemonicGenerator({
 
         <CopyableInput
           value={publicAddress}
-          placeholder={t('placeholders.noPublicAddress')}
+          placeholder={t('placeholders.dashNoValue')}
           label={t('labels.publicAddress')}
           copyHoverText={copyHoverText}
           copiedText={copiedText}

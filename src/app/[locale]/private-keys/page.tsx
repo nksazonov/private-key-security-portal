@@ -7,6 +7,7 @@ import SectionDivider from '@/components/SectionDivider';
 import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
 import ClientMnemonicGeneratorWrapper from '@/components/ClientMnemonicGeneratorWrapper';
 import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
+import ClientMnemonicValidatorWrapper from '@/components/ClientMnemonicValidatorWrapper';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -209,6 +210,32 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           >
             {t.raw('privateKeyGeneration.fromSeed.advantages.description')}
           </ReactMarkdown>
+        </div>
+        
+        {/* Mnemonic Validator Section */}
+        <AnchorHeading
+          as="h4"
+          id="mnemonic-validator"
+          className="text-lg font-semibold mt-6 mb-3 text-blue-700"
+        >
+          {t('privateKeyGeneration.fromSeed.mnemonicValidator.title')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('privateKeyGeneration.fromSeed.mnemonicValidator.description')}
+          </ReactMarkdown>
+        </div>
+
+        {/* Mnemonic Validator Component */}
+        <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+          <ClientMnemonicValidatorWrapper
+            generateButtonText={t.raw('privateKeyGeneration.fromSeed.mnemonicValidator.randomButton')}
+            copyHoverText={common('copyHover')}
+            copiedText={common('copied')}
+          />
         </div>
 
         {/* Links Section */}
