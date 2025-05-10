@@ -1,4 +1,5 @@
 import { privateKeysContent } from './content/en/privateKeys';
+import { keyManagementContent } from './content/en/keyManagement';
 import { ui } from './ui';
 
 export default {
@@ -50,7 +51,12 @@ export default {
   },
   "KeyManagementPage": {
     "title": "Key Management",
-    "description": "This page will present information about methods for ensuring security when storing and processing private keys."
+    "description": keyManagementContent.description,
+    "keyHolder": keyManagementContent.keyHolder,
+    "hardware": keyManagementContent.hardware,
+    "software": keyManagementContent.software,
+    "paper": keyManagementContent.paper,
+    "memory": keyManagementContent.memory
   },
   "SecurityFeaturesPage": {
     "title": "Additional Security Features",
