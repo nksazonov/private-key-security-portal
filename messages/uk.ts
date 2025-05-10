@@ -1,4 +1,5 @@
 import { privateKeysContent } from './content/uk/privateKeys';
+import { keyManagementContent } from './content/uk/keyManagement';
 import { ui } from './ui';
 
 export default {
@@ -50,7 +51,12 @@ export default {
   },
   "KeyManagementPage": {
     "title": "Управління ключами",
-    "description": "На цій сторінці буде представлена інформація про методи забезпечення безпеки при зберіганні та обробці приватних ключів."
+    "description": keyManagementContent.description,
+    "keyHolder": keyManagementContent.keyHolder,
+    "hardware": keyManagementContent.hardware,
+    "software": keyManagementContent.software,
+    "paper": keyManagementContent.paper,
+    "memory": keyManagementContent.memory
   },
   "SecurityFeaturesPage": {
     "title": "Додаткові функції безпеки",
