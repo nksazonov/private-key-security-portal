@@ -125,5 +125,34 @@ export const keyManagementContent = {
         }
       ]
     }
+  },
+  networkConnectivity: {
+    name: "Network Connectivity",
+    description: "A possible attack vector for private keys is the Internet, as the key carrier itself may be infected with malicious software that can gain access to the key and transfer it to third parties. Therefore, network connectivity describes the degree of connection of the carrier to the Internet.",
+    chooseConnectivity: "Choose network connectivity for your private key:",
+    advantages: "Advantages",
+    disadvantages: "Disadvantages",
+    safeDeposit: "Deep-cold connectivity",
+    paperHardware: "Cold connectivity",
+    yourPC: "Hot connectivity",
+    internet: "Internet",
+    hot: {
+      name: "Hot Storage",
+      description: "Private keys are stored and used in an environment with a constant network connection (online). An example is a wallet on a computer or smartphone with internet access.",
+      advantages: "**Advantages:**\n\n* Instant access to funds and transaction convenience.",
+      disadvantages: "**Disadvantages:**\n\n* Significantly increases the risk of unauthorized access through online threats.\n* If such a connected device or application is compromised, the private key can be stolen by attackers."
+    },
+    cold: {
+      name: "Cold Storage",
+      description: "The key is stored offline, without a direct connection to the internet. Transactions in this mode are signed in an isolated environment (on a separate device or computer that has no network access), and then transmitted to the online network for confirmation.",
+      advantages: "**Advantages:**\n\n* The private key does not contact internet servers during signing.\n* Even if the transaction is intercepted online, an attacker cannot access the key itself.\n* Cold storage significantly increases security as the key is physically isolated from network attacks.",
+      disadvantages: "**Disadvantages:**\n\n* Access to assets becomes less immediate and requires additional actions."
+    },
+    deepCold: {
+      name: "Deep Cold Storage",
+      description: "The key is stored offline with additional barriers to access. This involves maximally isolated long-term storage, where accessing the key is deliberately difficult and requires significant time. For example, the private key may be placed in a bank vault or other secure repository.",
+      advantages: "**Advantages:**\n\n* Minimizes the likelihood of compromise as the key is almost inaccessible to network attacks.",
+      disadvantages: "**Disadvantages:**\n\n* Impractical for frequent use, as access to funds can take hours or days.\n* Requires going through several stages of authorization or physical actions."
+    }
   }
 };
