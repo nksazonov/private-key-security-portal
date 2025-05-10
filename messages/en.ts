@@ -53,10 +53,6 @@ export default {
     "title": "Key Management",
     "description": keyManagementContent.description,
     "keyHolder": keyManagementContent.keyHolder,
-    "hardware": keyManagementContent.hardware,
-    "software": keyManagementContent.software,
-    "paper": keyManagementContent.paper,
-    "memory": keyManagementContent.memory
   },
   "SecurityFeaturesPage": {
     "title": "Additional Security Features",

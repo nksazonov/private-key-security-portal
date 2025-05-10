@@ -53,10 +53,6 @@ export default {
     "title": "Управління ключами",
     "description": keyManagementContent.description,
     "keyHolder": keyManagementContent.keyHolder,
-    "hardware": keyManagementContent.hardware,
-    "software": keyManagementContent.software,
-    "paper": keyManagementContent.paper,
-    "memory": keyManagementContent.memory
   },
   "SecurityFeaturesPage": {
     "title": "Додаткові функції безпеки",
