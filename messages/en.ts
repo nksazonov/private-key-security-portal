@@ -53,6 +53,7 @@ export default {
     "title": "Key Management",
     "description": keyManagementContent.description,
     "keyHolder": keyManagementContent.keyHolder,
+    "networkConnectivity": keyManagementContent.networkConnectivity,
   },
   "SecurityFeaturesPage": {
     "title": "Additional Security Features",

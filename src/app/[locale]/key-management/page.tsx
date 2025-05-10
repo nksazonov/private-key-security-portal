@@ -11,6 +11,7 @@ import Carousel from '@/components/Carousel';
 import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 import RatingIndicator from '@/components/RatingIndicator';
+import SectionDivider from '@/components/SectionDivider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMemory,
@@ -22,6 +23,7 @@ import {
   faLock,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
+import NetworkConnectivitySelector from '@/components/NetworkConnectivitySelector';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -232,11 +234,23 @@ export default function KeyManagement({ params }: { params: { locale: Locale } }
 
                 {/* Card content */}
                 <div className="flex-1">
-                  <Card
-                    icon={wallet.icon}
-                    title={wallet.title}
-                    description={wallet.description}
-                  >
+                  <Card>
+                    <div className="flex items-center mb-6">
+                      <div className="text-blue-600 flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                        {wallet.icon}
+                      </div>
+                      <h3 className="text-2xl font-semibold text-blue-700 ml-4">{wallet.title}</h3>
+                    </div>
+
+                    <div className="prose prose-blue max-w-none mb-6">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                      >
+                        {wallet.description}
+                      </ReactMarkdown>
+                    </div>
+
                     {/* Ratings section */}
                     <div className="my-6">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
@@ -303,6 +317,32 @@ export default function KeyManagement({ params }: { params: { locale: Locale } }
               </div>
             </div>
           ))}
+        </div>
+
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="network-connectivity"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
+        >
+          {t('networkConnectivity.name')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('networkConnectivity.description')}
+          </ReactMarkdown>
+        </div>
+
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold text-blue-800 mb-6">
+            {t('networkConnectivity.chooseConnectivity')}
+          </h3>
+
+          <NetworkConnectivitySelector locale={params.locale} />
         </div>
       </div>
     </main>
