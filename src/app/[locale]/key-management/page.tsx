@@ -25,6 +25,7 @@ import {
   faLink
 } from '@fortawesome/free-solid-svg-icons';
 import NetworkConnectivitySelector from '@/components/NetworkConnectivitySelector';
+import CustodyModelSelector from '@/components/CustodyModelSelector';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -305,6 +306,36 @@ export default function KeyManagement() {
 
           <div className="mt-10">
             <UsefulLinks links={t.raw('networkConnectivity.useful_links')} />
+          </div>
+        </div>
+
+        <SectionDivider />
+
+        <AnchorHeading
+          as="h2"
+          id="custody-model"
+          className="text-2xl font-semibold mt-8 mb-4 text-blue-800"
+        >
+          {t('custodyModel.name')}
+        </AnchorHeading>
+        <div className="text-lg text-gray-700 mb-6 prose prose-blue max-w-none">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+          >
+            {t.raw('custodyModel.description')}
+          </ReactMarkdown>
+        </div>
+
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold text-blue-800 mb-6">
+            {t('custodyModel.chooseCustody')}
+          </h3>
+
+          <CustodyModelSelector />
+
+          <div className="mt-10">
+            <UsefulLinks links={t.raw('custodyModel.useful_links')} />
           </div>
         </div>
       </div>
