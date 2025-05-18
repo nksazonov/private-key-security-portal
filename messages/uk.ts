@@ -1,5 +1,6 @@
 import { privateKeysContent } from './content/uk/privateKeys';
 import { keyManagementContent } from './content/uk/keyManagement';
+import { securityFeaturesContent } from './content/uk/securityFeatures';
 import { ui } from './ui';
 
 export default {
@@ -57,8 +58,9 @@ export default {
     "custodyModel": keyManagementContent.custodyModel,
   },
   "SecurityFeaturesPage": {
-    "title": "Додаткові функції безпеки",
-    "description": "Ознайомтеся з просунутими методами захисту криптовалютних акаунтів"
+    "title": "Безпека завдяки додатковому функціоналу",
+    "description": "У сучасних блокчейн-системах все більшої популярності набувають механізми, що забезпечують додатковий рівень безпеки завдяки надбудові у формі спеціалізованих криптовалютних гаманців. Такий підхід передбачає створення гнучких та програмованих правил доступу, контролю використання коштів і процедур авторизації, які виходять за межі базового захисту ключа.",
+    "accountType": securityFeaturesContent.accountType
   },
   "WalletMatrixPage": {
     "title": "Матриця характеристик гаманців",

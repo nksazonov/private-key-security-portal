@@ -1,5 +1,6 @@
 import { privateKeysContent } from './content/en/privateKeys';
 import { keyManagementContent } from './content/en/keyManagement';
+import { securityFeaturesContent } from './content/en/securityFeatures';
 import { ui } from './ui';
 
 export default {
@@ -57,8 +58,9 @@ export default {
     "custodyModel": keyManagementContent.custodyModel,
   },
   "SecurityFeaturesPage": {
-    "title": "Additional Security Features",
-    "description": "Learn about advanced methods for protecting cryptocurrency accounts"
+    "title": "Security Through Additional Functionality",
+    "description": "In modern blockchain systems, mechanisms that provide an additional layer of security through specialized cryptocurrency wallets are becoming increasingly popular. This approach involves creating flexible and programmable rules for access, fund usage control, and authorization procedures that go beyond basic key protection.",
+    "accountType": securityFeaturesContent.accountType
   },
   "WalletMatrixPage": {
     "title": "Wallet Feature Matrix",
