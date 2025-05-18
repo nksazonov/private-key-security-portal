@@ -145,14 +145,14 @@ export const keyManagementContent = {
     cold: {
       name: "Cold Storage",
       description: "The key is stored offline, without a direct connection to the internet. Transactions in this mode are signed in an isolated environment (on a separate device or computer that has no network access), and then transmitted to the online network for confirmation.",
-      advantages: "**Advantages:**\n\n* The private key does not contact internet servers during signing.\n* Even if the transaction is intercepted online, an attacker cannot access the key itself.\n* Cold storage significantly increases security as the key is physically isolated from network attacks.",
+      advantages: "**Advantages:**\n\n* Significantly increases security as the key is physically isolated from network attacks.\n* Even if the transaction is intercepted online, an attacker cannot access the key itself.",
       disadvantages: "**Disadvantages:**\n\n* Access to assets becomes less immediate and requires additional actions."
     },
     deepCold: {
       name: "Deep Cold Storage",
       description: "The key is stored offline with additional barriers to access. This involves maximally isolated long-term storage, where accessing the key is deliberately difficult and requires significant time. For example, the private key may be placed in a bank vault or other secure repository.",
-      advantages: "**Advantages:**\n\n* Minimizes the likelihood of compromise as the key is almost inaccessible to network attacks.",
-      disadvantages: "**Disadvantages:**\n\n* Impractical for frequent use, as access to funds can take hours or days.\n* Requires going through several stages of authorization or physical actions."
+      advantages: "**Advantages:**\n\n* Minimizes the likelihood of compromise as the key is almost inaccessible to network attacks. \n* Provides the highest level of security in the physical world.",
+      disadvantages: "**Disadvantages:**\n\n* Impractical for frequent use, as access to funds can take hours or days."
     }
   }
 };

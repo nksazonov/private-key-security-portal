@@ -16,10 +16,6 @@ import ReactMarkdown from 'react-markdown';
 import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 
-interface NetworkConnectivitySelectorProps {
-  locale: Locale;
-}
-
 type ConnectivityType = 'deepCold' | 'cold' | 'hot';
 
 interface ConnectivityOption {
@@ -28,7 +24,7 @@ interface ConnectivityOption {
   label: string;
 }
 
-export default function NetworkConnectivitySelector({ locale }: NetworkConnectivitySelectorProps) {
+export default function NetworkConnectivitySelector() {
   const t = useTranslations('KeyManagementPage.networkConnectivity');
   const [selectedType, setSelectedType] = useState<ConnectivityType | null>(null);
 
