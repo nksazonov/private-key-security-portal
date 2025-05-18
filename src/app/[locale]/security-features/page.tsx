@@ -9,6 +9,8 @@ import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 import CodeBlock from '@/components/CodeBlock';
 import SectionDivider from '@/components/SectionDivider';
+import UsefulLinks from '@/components/UsefulLinks';
+import Card from '@/components/Card';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -23,66 +25,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function SecurityFeaturesPage({ params }: { params: { locale: Locale } }) {
+export default function SecurityFeaturesPage() {
   const t = useTranslations('SecurityFeaturesPage');
-
-  // Sample code snippets for each account type
-  const eoaCode = `// No smart contract code, just a private key
-// Address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-// Private key: 0x123...abc (stored only client-side)
-
-// Example usage: sign a transaction via Web3.js
-const tx = await web3.eth.accounts.signTransaction({
-  to: '0x...',
-  value: '1000000000000000000', // 1 ETH
-  gas: 21000
-}, privateKey);`;
-
-  const smartContractCode = `// Smart Contract Wallet Example
-contract SmartContractWallet {
-    address public owner;
-    address[] public guardians;
-    uint256 public threshold;
-
-    // Additional security features
-    uint256 public dailyLimit;
-    mapping(address => bool) public whitelisted;
-
-    function executeTransaction(address to, uint256 value, bytes calldata data, bytes[] calldata signatures) external {
-        // Verify multiple signatures
-        // Execute if threshold met
-    }
-
-    function recoverWallet(address newOwner) external {
-        // Social recovery logic
-    }
-}`;
-
-  const erc4337Code = `// ERC-4337 Account Example
-contract ERC4337Account is IAccount {
-    address public owner;
-    IEntryPoint private immutable _entryPoint;
-
-    function validateUserOp(UserOperation calldata userOp, bytes32 userOpHash, uint256 missingAccountFunds)
-        external returns (uint256 validationData) {
-        // Verify signature or other authentication method
-        // Check limits and restrictions
-        // Return validation status
-    }
-
-    function execute(address target, uint256 value, bytes calldata data) external {
-        // Execute transaction after validation
-    }
-}`;
 
   // Account types to render
   const accountTypes = ['eoa', 'smartContract', 'erc4337'];
-  const codeSnippets = {
-    'eoa': eoaCode,
-    'smartContract': smartContractCode,
-    'erc4337': erc4337Code
-  };
-  
+
   const ui = useTranslations('UI.labels');
 
   return (
@@ -104,69 +52,91 @@ contract ERC4337Account is IAccount {
         </p>
 
         {/* Individual Account Types */}
-        {accountTypes.map((type, index) => (
-          <div key={type} className="mb-12">
-            <AnchorHeading
-              as="h3"
-              id={`account-type-${type}`}
-              className="text-xl font-semibold text-blue-700 mb-3"
-            >
-              {t(`accountType.${type}.name`)}
-            </AnchorHeading>
-
-            <div className="text-gray-700 mb-6 text-lg">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
+        <div className="space-y-10">
+          {accountTypes.map((type, index) => (
+            <Card key={type} className="mb-10">
+              <AnchorHeading
+                as="h3"
+                id={`account-type-${type}`}
+                className="text-xl font-semibold text-blue-700 mb-3"
               >
-                {t.raw(`accountType.${type}.description`) || ''}
-              </ReactMarkdown>
-            </div>
+                {t(`accountType.${type}.name`)}
+              </AnchorHeading>
 
-            {/* Features, Code, Advantages, Disadvantages in a 2x2 Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              {/* Features - As a list with black text */}
-              <div>
-                <h4 className="text-lg font-semibold text-blue-600 mb-2">Features</h4>
-                <div className="ml-2 text-gray-900">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeHighlight]}
-                    components={{
-                      ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
-                      li: ({node, ...props}) => <li className="mb-1" {...props} />
-                    }}
-                  >
-                    {t.raw(`accountType.${type}.features`) || ''}
-                  </ReactMarkdown>
+              <div className="text-gray-700 mb-6 text-lg">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeHighlight]}
+                >
+                  {t.raw(`accountType.${type}.description`) || ''}
+                </ReactMarkdown>
+              </div>
+
+              {/* Grid layout with rows and separators */}
+              <div className="mt-6">
+                {/* Row 1: Features and Code */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Features */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-blue-600 mb-2">Features</h4>
+                    <div className="ml-2 text-gray-900">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                        components={{
+                          ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
+                          li: ({node, ...props}) => <li className="mb-1" {...props} />
+                        }}
+                      >
+                        {t.raw(`accountType.${type}.features`) || ''}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
+                  
+                  {/* Code Example */}
+                  <div>
+                    <CodeBlock
+                      code={t.raw(`accountType.${type}.code`) || ''}
+                      label={ui('implementationInsight')}
+                    />
+                  </div>
+                </div>
+                
+                {/* Separator */}
+                <hr className="border-t border-gray-200 my-6" />
+                
+                {/* Row 2: Advantages and Disadvantages */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Advantages */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-green-600 mb-2">Advantages</h4>
+                    <AdvantagesList content={t.raw(`accountType.${type}.advantages`) || ''} />
+                  </div>
+                  
+                  {/* Disadvantages */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-red-600 mb-2">Disadvantages</h4>
+                    <DisadvantagesList content={t.raw(`accountType.${type}.disadvantages`) || ''} />
+                  </div>
+                </div>
+                
+                {/* Separator */}
+                <hr className="border-t border-gray-200 my-6" />
+                
+                {/* Row 3: Useful Links */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Useful Links */}
+                  <div>
+                    <UsefulLinks links={t.raw(`accountType.${type}.useful_links`) || []} />
+                  </div>
+                  
+                  {/* Empty space for balance */}
+                  <div></div>
                 </div>
               </div>
-
-              {/* Code Example with Implementation Insight label */}
-              <div>
-                <CodeBlock 
-                  code={codeSnippets[type as keyof typeof codeSnippets]} 
-                  label={ui('implementationInsight')}
-                />
-              </div>
-
-              {/* Advantages - Using AdvantagesList component */}
-              <div>
-                <AdvantagesList content={`**Advantages:**\n\n${t.raw(`accountType.${type}.advantages`) || ''}`.replace(/^\*\*Advantages:\*\*\n\n\*\*Advantages:\*\*\n\n/g, '**Advantages:**\n\n')} />
-              </div>
-
-              {/* Disadvantages - Using DisadvantagesList component */}
-              <div>
-                <DisadvantagesList content={`**Disadvantages:**\n\n${t.raw(`accountType.${type}.disadvantages`) || ''}`.replace(/^\*\*Disadvantages:\*\*\n\n\*\*Disadvantages:\*\*\n\n/g, '**Disadvantages:**\n\n')} />
-              </div>
-            </div>
-
-            {/* Add divider between account types except after the last one */}
-            {index < accountTypes.length - 1 && (
-              <SectionDivider />
-            )}
-          </div>
-        ))}
+            </Card>
+          ))}
+        </div>
       </div>
     </main>
   );
