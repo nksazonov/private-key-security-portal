@@ -32,6 +32,9 @@ export const ui = {
       account: "Account Address",
       weight: "Weight",
       threshold: "Threshold",
+      features: "Features",
+      advantages: "Advantages",
+      disadvantages: "Disadvantages",
     },
     placeholders: {
       dashNoValue: "—",
@@ -84,6 +87,9 @@ export const ui = {
       account: "Адреса акаунту",
       weight: "Вага",
       threshold: "Поріг",
+      features: "Функціонал",
+      advantages: "Переваги",
+      disadvantages: "Недоліки",
     },
     placeholders: {
       dashNoValue: "—",
