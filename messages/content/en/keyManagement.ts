@@ -168,5 +168,42 @@ export const keyManagementContent = {
       advantages: "**Advantages:**\n\n* Minimizes the likelihood of compromise as the key is almost inaccessible to network attacks. \n* Provides the highest level of security in the physical world.",
       disadvantages: "**Disadvantages:**\n\n* Impractical for frequent use, as access to funds can take hours or days."
     }
+  },
+  custodyModel: {
+    name: "Custody Model",
+    description: "The custody model determines who owns and manages the private keys of a blockchain account, thereby affecting risk distribution and user experience. On one hand, fully centralized custody by a third party can simplify interaction for the user, but requires trust in that party and creates a single point of failure. On the other hand, full self-custody eliminates the need to trust someone else, but places the entire burden of security responsibility on the user. Accordingly, the choice of custody model significantly impacts the balance between security and convenience.",
+    chooseCustody: "Choose a custody model for your private keys:",
+    self: {
+      name: "Self-Custody",
+      description: "The self-custody model gives the user complete control over private keys without involving third parties. This approach solves the problem of trust and confidentiality, providing autonomy and cryptographic security.",
+      advantages: "**Advantages:**\n\n* Complete control over your private keys (full cryptographic security)\n* No need to trust third parties (enhanced privacy and confidentiality)",
+      disadvantages: "**Disadvantages:**\n\n* Responsibility for key security falls entirely on the user\n* Requires technical skills and discipline\n* Irreversible loss of assets if keys are lost"
+    },
+    thirdParty: {
+      name: "Custodial Model",
+      description: "The custodial model involves managing the user's keys by a third-party service (for example, a cryptocurrency exchange or custodian) that creates and stores private keys instead of the user.",
+      advantages: "**Advantages:**\n\n* Ease of use and simplified experience\n* Password recovery option usually available",
+      disadvantages: "**Disadvantages:**\n\n* Complete dependence on third-party security\n* Risk of asset loss if provider goes bankrupt (e.g., FTX incident)"
+    },
+    combined: {
+      name: "Shared Custody",
+      description: "The shared model is a compromise solution that distributes control over keys between the user and service provider using cryptographic threshold schemes (MPC and TSS).\n\n_Social providers_ form a separate subclass of the shared model, in which the management of encrypted shard fragments of the private key is integrated with popular authentication services - Google, Apple, Discord, WhatsApp, etc. After passing OAuth login, the backend of such a provider (for example, Privy, Web3Auth, Magic) sends the user an encrypted shard, which, together with the local shard backup, is assembled into a complete key directly in the browser or mobile application.",
+      advantages: "**Advantages:**\n\n* Eliminates single point of failure (requires both parties to authorize transactions)\n* Simplifies access recovery (biometrics, social logins)",
+      disadvantages: "**Disadvantages:**\n\n* Partial dependence on service reliability\n* Potential privacy risks (service sees operations)"
+    },
+    useful_links: [
+      {
+        title: "Understanding Wallet Custody Models",
+        url: "https://help.coinbase.com/en/wallet/managing-account/self-custody-wallet"
+      },
+      {
+        title: "Pros and Cons of Custodial vs Non-Custodial Wallets",
+        url: "https://www.ledger.com/academy/custodial-vs-non-custodial-wallets"
+      },
+      {
+        title: "MPC Wallets: Shared Security for Digital Assets",
+        url: "https://medium.com/coinmonks/understanding-mpc-wallets-multiparty-computation-explained-52cee1957269"
+      }
+    ]
   }
 };

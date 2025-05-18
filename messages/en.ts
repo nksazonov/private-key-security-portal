@@ -54,6 +54,7 @@ export default {
     "description": keyManagementContent.description,
     "keyHolder": keyManagementContent.keyHolder,
     "networkConnectivity": keyManagementContent.networkConnectivity,
+    "custodyModel": keyManagementContent.custodyModel,
   },
   "SecurityFeaturesPage": {
     "title": "Additional Security Features",
