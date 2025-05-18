@@ -1,4 +1,68 @@
 export const securityFeaturesContent = {
+  authorizationScheme: {
+    name: "Authorization Schemes",
+    description: "The choice of authorization scheme directly impacts the security and reliability of a blockchain account. The traditional approach with a single key (single-sig) places all responsibility on the private key owner. If it's compromised, attackers instantly gain access to funds, and if the key is lost, the owner permanently loses access. The absence of convenient recovery mechanisms forces many to choose centralized solutions (exchanges, custodial wallets), which creates systemic risks. Therefore, in recent years, new account management schemes have emerged – such as multi-signature, threshold signatures based on multi-party computations, and social recovery – which aim to enhance security without significantly degrading user convenience.",
+    singleSig: {
+      name: "Single Signature",
+      description: "Each account is controlled by a single private key used to sign transactions. For example, standard Ethereum wallets operate on this logic, where the key is generated based on a 12-word seed phrase. The security of such a scheme relies on the full responsibility of the user, meaning that key compromise instantly grants access to assets, and key loss means irreversible loss of funds. This creates a single point of failure, which is the main vulnerability.",
+      features: "* Single point of access",
+      useful_links: [
+        {
+          title: "Understanding Private Key Vulnerabilities",
+          url: "https://ethereum.org/en/security/"
+        },
+        {
+          title: "Best Practices for Key Security",
+          url: "https://metamask.io/security/"
+        }
+      ]
+    },
+    multiSig: {
+      name: "Multi-Signature",
+      description: "A multi-signature scheme operates through a smart contract that requires multiple signatures to execute a transaction, typically in an M-of-N format: for example, for a transaction with three key owners, signatures from at least two of them are required. The security of multi-sig is ensured by the fact that no single key can execute a transaction independently – access to funds requires coordination of multiple participants, which eliminates the risk from losing or stealing a single key.",
+      features: "* Distribution of responsibility\n* Ability to delegate signatures to third parties",
+      useful_links: [
+        {
+          title: "Ledger Academy. What Is a Multisig Wallet?",
+          url: "https://www.ledger.com/academy/what-is-a-multisig-wallet"
+        },
+        {
+          title: "Krayon Digital. Multisig Wallets: Complete Guide 2024",
+          url: "https://www.krayondigital.com/blog/multisig-wallets-complete-guide-2024"
+        }
+      ]
+    },
+    mpcTss: {
+      name: "Multi-Party Computation and Threshold Signatures",
+      description: "MPC/TSS (Multi-Party Computation/Threshold Signatures) are built on the idea of distributed generation and signing of transactions, where the private key doesn't exist in a complete form, but only as shares belonging to different participants. During a transaction, at least t of n participants compute the signature jointly, without revealing their shares to each other, which provides a standard ECDSA signature, visible in the blockchain as from a single key. The security of such a scheme lies in the fact that an attack requires compromising multiple participants, and an external observer cannot identify the authorization peculiarities, as the signature appears normal.",
+      features: "* Distributed generation and signing of transactions\n* No single point of failure\n* Invisibility to external observers",
+      useful_links: [
+        {
+          title: "Screen Protocol. MPC vs Multi-sig — Misconceptions and Valid Arguments",
+          url: "https://screenprotocol.medium.com/mpc-vs-multi-sig-misconceptions-and-valid-arguments-95fc92ecf842"
+        }
+      ]
+    },
+    socialRecovery: {
+      name: "Social Recovery",
+      description: "Social recovery works in such a way that a user can recover access to their account through trusted individuals (guardians) who confirm the replacement of lost authorization with a new one. The main control over the account remains with the user, and under normal conditions, they sign transactions independently. Security lies in the fact that guardians do not have permanent access to assets, but only together, in case of loss of the main key, can approve a change to a new one. This eliminates a single point of failure and allows for flexible responses to access loss incidents.",
+      features: "* Recovery of access through trusted individuals\n* Reduced risk of asset loss",
+      useful_links: [
+        {
+          title: "Vault12. Expanding on Vitalik Buterin's Vision for Social Recovery Security",
+          url: "https://vault12.com/blog/expanding-on-vitalik-buterin-vision-for-social-recovery-security/"
+        },
+        {
+          title: "Safe Global. Introducing Social Recovery Module",
+          url: "https://safe.global/blog/introducing-candides-social-recovery"
+        },
+        {
+          title: "Argent. What Is Social Recovery?",
+          url: "https://www.argent.xyz/learn/what-is-social-recovery"
+        }
+      ]
+    }
+  },
   accountType: {
     name: "Account Type",
     description: "In the Ethereum network, there are different types of accounts, and proper understanding of them is crucial for the security of storing and managing digital assets. Incorrect choice or use of an account can lead to loss of funds or their compromise, as attackers actively exploit weaknesses in access control mechanisms.",
