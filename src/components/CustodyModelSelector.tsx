@@ -122,7 +122,7 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
 
       {/* Description of selected type */}
       {selectedType && (
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200 w-full">
+        <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 w-full hover:border-blue-300 transition-colors shadow-sm">
           <h4 className="text-xl font-semibold text-blue-800 mb-3">
             {t(`${selectedType}.name`)}
           </h4>
@@ -133,7 +133,7 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
           </div>
 
           {/* Reliability, Comfort and Security Ratings */}
-          <hr className="border-t border-blue-200 my-4" />
+          <hr className="border-t border-gray-200 my-4" />
           <div className="my-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
               {custodyModels.find(model => model.id === selectedType)?.ratings.map((rating, index) => (
@@ -148,7 +148,7 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
               ))}
             </div>
           </div>
-          <hr className="border-t border-blue-200 my-4" />
+          <hr className="border-t border-gray-200 my-4" />
 
           {/* Advantages and Disadvantages */}
           <div className="flex flex-col md:flex-row gap-6 mt-4">
