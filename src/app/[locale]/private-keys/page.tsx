@@ -2,8 +2,8 @@ import { AppLocale } from '@/i18n/types';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
-import ExternalLink from '@/components/ExternalLink';
 import SectionDivider from '@/components/SectionDivider';
+import UsefulLinks from '@/components/UsefulLinks';
 import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
 import ClientMnemonicGeneratorWrapper from '@/components/ClientMnemonicGeneratorWrapper';
 import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
@@ -57,19 +57,10 @@ export default function PrivateKeysPage() {
         </div>
 
         <div className="mt-8 mb-6">
-          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
-            {common('useful_links')}
-          </h3>
-          <ul className="space-y-2 pl-4">
-            {/* Render links dynamically from the content */}
-            {t.raw('entropySources.links').map((link: {href: string, text: string}, index: number) => (
-              <li key={index}>
-                <ExternalLink href={link.href}>
-                  {link.text}
-                </ExternalLink>
-              </li>
-            ))}
-          </ul>
+          <UsefulLinks links={t.raw('entropySources.links').map((link: {href: string, text: string}) => ({
+            title: link.text,
+            url: link.href
+          }))} />
         </div>
 
         <SectionDivider />
@@ -258,19 +249,10 @@ export default function PrivateKeysPage() {
 
         {/* Links Section */}
         <div className="mt-6 mb-6">
-          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
-            {common('useful_links')}
-          </h3>
-          <ul className="space-y-2 pl-4">
-            {/* Render links dynamically from the content */}
-            {t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}, index: number) => (
-              <li key={index}>
-                <ExternalLink href={link.href}>
-                  {link.text}
-                </ExternalLink>
-              </li>
-            ))}
-          </ul>
+          <UsefulLinks links={t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}) => ({
+            title: link.text,
+            url: link.href
+          }))} />
         </div>
 
         <SectionDivider />
@@ -320,21 +302,14 @@ export default function PrivateKeysPage() {
 
         {/* Links for Private to Public Key section */}
         <div className="mt-6 mb-6">
-          <h3 className="text-xl font-medium mt-6 mb-3 text-blue-700">
-            {common('useful_links')}
-          </h3>
-          <ul className="space-y-2 pl-4">
-            {/* Render links dynamically from the content */}
-            {Array.isArray(t.raw('privateToPublic.links')) &&
-              t.raw('privateToPublic.links').map((link: {href: string, text: string}, index: number) => (
-                <li key={index}>
-                  <ExternalLink href={link.href}>
-                    {link.text}
-                  </ExternalLink>
-                </li>
-              ))
-            }
-          </ul>
+          {Array.isArray(t.raw('privateToPublic.links')) && (
+            <UsefulLinks 
+              links={t.raw('privateToPublic.links').map((link: {href: string, text: string}) => ({
+                title: link.text,
+                url: link.href
+              }))} 
+            />
+          )}
         </div>
       </div>
     </main>

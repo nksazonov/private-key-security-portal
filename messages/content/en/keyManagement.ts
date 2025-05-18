@@ -136,6 +136,20 @@ export const keyManagementContent = {
     paperHardware: "Cold connectivity",
     yourPC: "Hot connectivity",
     internet: "Internet",
+    useful_links: [
+      {
+        title: "Cold Storage for Cryptocurrencies Explained",
+        url: "https://river.com/learn/terms/c/cold-storage-crypto/"
+      },
+      {
+        title: "Hot Wallet vs. Cold Wallet: Understanding the Differences",
+        url: "https://www.coinbase.com/learn/crypto-basics/hot-wallet-vs-cold-wallet"
+      },
+      {
+        title: "Securing Your Crypto: Hot vs Cold Wallet Guide",
+        url: "https://blog.trezor.io/hot-wallets-vs-cold-wallets-c3ae853ed08b"
+      }
+    ],
     hot: {
       name: "Hot Storage",
       description: "Private keys are stored and used in an environment with a constant network connection (online). An example is a wallet on a computer or smartphone with internet access.",
