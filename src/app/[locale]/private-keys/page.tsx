@@ -73,7 +73,6 @@ export default function PrivateKeysPage() {
           {t('privateKeyGeneration.title')}
         </AnchorHeading>
 
-        {/* CSPRNG Section */}
         <AnchorHeading
           as="h3"
           id="key-generation-csprng"
@@ -90,7 +89,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Entropy Section */}
         <AnchorHeading
           as="h3"
           id="key-generation-entropy"
@@ -118,7 +116,6 @@ export default function PrivateKeysPage() {
           />
         </div>
 
-        {/* Seed Section - Main Heading */}
         <AnchorHeading
           as="h3"
           id="key-generation-seed"
@@ -135,7 +132,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Mnemonic Generation Section */}
         <AnchorHeading
           as="h4"
           id="mnemonic-generation"
@@ -152,7 +148,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Mnemonic Generator Component */}
         <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
           <ClientMnemonicGeneratorWrapper
             generateButtonText={t.raw('privateKeyGeneration.fromSeed.mnemonicPhrase.generateButtonText')}
@@ -161,7 +156,6 @@ export default function PrivateKeysPage() {
           />
         </div>
 
-        {/* Seed Generation Section */}
         <AnchorHeading
           as="h4"
           id="seed-generation"
@@ -178,7 +172,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Key From Mnemonic Generator Component */}
         <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
           <ClientKeyFromMnemonicGeneratorWrapper
             generateButtonText={t.raw('privateKeyGeneration.fromSeed.seedGeneration.randomButtonText')}
@@ -187,7 +180,6 @@ export default function PrivateKeysPage() {
           />
         </div>
 
-        {/* Advantages Section */}
         <AnchorHeading
           as="h4"
           id="mnemonic-advantages"
@@ -204,7 +196,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Mnemonic Validator Section */}
         <AnchorHeading
           as="h4"
           id="mnemonic-validator"
@@ -221,7 +212,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Mnemonic Validator Component */}
         <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
           <ClientMnemonicValidatorWrapper
             generateButtonText={t.raw('privateKeyGeneration.fromSeed.mnemonicValidator.randomButton')}
@@ -230,7 +220,6 @@ export default function PrivateKeysPage() {
           />
         </div>
 
-        {/* HD Wallets Section */}
         <AnchorHeading
           as="h4"
           id="hd-wallets"
@@ -247,7 +236,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Links Section */}
         <div className="mt-6 mb-6">
           <UsefulLinks links={t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}) => ({
             title: link.text,
@@ -257,7 +245,6 @@ export default function PrivateKeysPage() {
 
         <SectionDivider />
 
-        {/* New section: Private to Public Key, Address */}
         <AnchorHeading
           as="h2"
           id="private-to-public"
@@ -274,7 +261,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* Generator Point G section */}
         <AnchorHeading
           as="h3"
           id="generator-point"
@@ -291,7 +277,6 @@ export default function PrivateKeysPage() {
           </ReactMarkdown>
         </div>
 
-        {/* EC Point Calculator Component */}
         <div className="mt-6 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
           <ClientECPointGeneratorWrapper
             generateButtonText={t.raw('privateKeyGeneration.fromEntropy.generateKeyButton')}
@@ -300,7 +285,6 @@ export default function PrivateKeysPage() {
           />
         </div>
 
-        {/* Links for Private to Public Key section */}
         <div className="mt-6 mb-6">
           {Array.isArray(t.raw('privateToPublic.links')) && (
             <UsefulLinks 

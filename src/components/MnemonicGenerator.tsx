@@ -18,10 +18,8 @@ export default function MnemonicGenerator({
   copiedText
 }: MnemonicGeneratorProps) {
   const t = useTranslations('UI');
-  // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
 
-  // State for all the BIP-39 steps to generate mnemonic
   const [initialEntropy, setInitialEntropy] = useState<Uint8Array>(new Uint8Array(16));
   const [entropyHex, setEntropyHex] = useState<string>('');
   const [entropyBinary, setEntropyBinary] = useState<string>('');
@@ -33,7 +31,6 @@ export default function MnemonicGenerator({
   const [mnemonicWords, setMnemonicWords] = useState<string[]>([]);
   const [hasGenerated, setHasGenerated] = useState<boolean>(false);
 
-  // Fetch the BIP-39 English wordlist
   useEffect(() => {
     async function fetchWordlist() {
       try {
@@ -52,14 +49,11 @@ export default function MnemonicGenerator({
     fetchWordlist();
   }, []);
 
-  // Generate initial random 128 bits (16 bytes) entropy
   const generateRandomEntropy = () => {
     try {
-      // Generate 16 bytes (128 bits) of random data
       const randomBytes = new Uint8Array(16);
       window.crypto.getRandomValues(randomBytes);
 
-      // Process the entropy and generate the entire chain
       processEntropy(randomBytes);
       setHasGenerated(true);
     } catch (error) {
@@ -67,54 +61,43 @@ export default function MnemonicGenerator({
     }
   };
 
-  // Process the entropy and generate all the BIP-39 steps
   const processEntropy = (entropyBytes: Uint8Array) => {
-    // Store the initial entropy
     setInitialEntropy(entropyBytes);
 
-    // Convert to hex string for display
     const entropyHexStr = Array.from(entropyBytes)
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
     setEntropyHex(entropyHexStr);
 
-    // Convert entropy to binary string for display
     const entropyBinaryStr = Array.from(entropyBytes)
       .map(b => b.toString(2).padStart(8, '0'))
       .join('');
     setEntropyBinary(entropyBinaryStr);
 
-    // Calculate SHA-256 hash of the entropy
     const entropyHash = sha256(entropyBytes);
 
     // For 128 bits of entropy, we need 4 bits of checksum (128/32 = 4)
     const checksumLength = entropyBytes.length * 8 / 32;
 
-    // Convert the first byte of the hash to binary and take first checksumLength bits
     const hashBinary = entropyHash[0].toString(2).padStart(8, '0');
     const checksumBitsStr = hashBinary.slice(0, checksumLength);
     setChecksumBits(checksumBitsStr);
 
-    // Display checksum in hex
     const checksumHexStr = (parseInt(checksumBitsStr, 2) & 0xF).toString(16);
     setChecksumHex(checksumHexStr);
 
-    // Combine entropy bits with checksum bits
     const allBits = entropyBinaryStr + checksumBitsStr;
     setEntropyWithChecksum(allBits);
 
-    // Split into 11-bit groups
     const groups: string[] = [];
     for (let i = 0; i < allBits.length; i += 11) {
       groups.push(allBits.slice(i, i + 11));
     }
     setGroups11Bits(groups);
 
-    // Convert groups to decimal
     const decimals = groups.map(group => parseInt(group, 2));
     setGroupsDecimal(decimals);
 
-    // Convert to mnemonic using our utility function
     if (wordlist.length > 0) {
       try {
         const mnemonicPhrase = entropyToMnemonic(entropyBytes, wordlist);

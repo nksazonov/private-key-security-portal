@@ -27,16 +27,13 @@ export default function ECPointGenerator({
   const [address, setAddress] = useState<string>('');
   const [privateKeyError, setPrivateKeyError] = useState<string>('');
 
-  // Validate and compute when private key changes
   useEffect(() => {
-    // Don't validate empty input
     if (!privateKey) {
       setPrivateKeyError('');
       resetOutputs();
       return;
     }
 
-    // Validate and compute
     validateAndComputeKey();
   }, [privateKey]);
 
@@ -54,10 +51,8 @@ export default function ECPointGenerator({
   };
 
   const validateAndComputeKey = () => {
-    // Reset outputs before validation
     resetOutputs();
 
-    // Strip 0x prefix if present
     let keyHex = privateKey.startsWith('0x') ? privateKey.slice(2) : privateKey;
 
     // Check if it's a valid hex string
@@ -75,12 +70,10 @@ export default function ECPointGenerator({
     // If it's longer than 64 characters, take only the last 64
     if (keyHex.length > 64) {
       keyHex = keyHex.slice(-64);
-      // Update the displayed value with the trimmed one
       setPrivateKey('0x' + keyHex);
     }
 
     try {
-      // Convert hex to bytes
       const privateKeyBytes = hexToBytes(keyHex);
 
       // Verify it's a valid private key for secp256k1
@@ -89,7 +82,6 @@ export default function ECPointGenerator({
         return;
       }
 
-      // Key is valid, compute results
       setPrivateKeyError('');
       computeResults(keyHex, privateKeyBytes);
     } catch (error) {
@@ -98,17 +90,13 @@ export default function ECPointGenerator({
     }
   };
 
-  // Generate a random private key and compute EC multiplication
   const generateRandomKey = () => {
     try {
-      // Generate a random private key
       const privateKeyBytes = secp256k1.utils.randomPrivateKey();
       const privateKeyHex = bytesToHex(privateKeyBytes);
 
-      // Update state with the new private key
       setPrivateKey('0x' + privateKeyHex);
       setPrivateKeyError('');
-
       // Computation will happen in the useEffect
     } catch (error) {
       console.error('Error generating key:', error);
@@ -123,7 +111,6 @@ export default function ECPointGenerator({
       const x = publicKeyPoint.x.toString(16).padStart(64, '0');
       const y = publicKeyPoint.y.toString(16).padStart(64, '0');
 
-      // Format the full public key (in hex format without 0x04 prefix)
       const fullPublicKey = `0x${x}${y}`;
 
       // Calculate Ethereum address: keccak256(public_key)[12:32]
@@ -135,7 +122,6 @@ export default function ECPointGenerator({
       // Take the last 20 bytes of the hash to create the Ethereum address
       const ethereumAddress = `0x${hashHex.slice(hashHex.length - 40)}`;
 
-      // Update all states
       setPublicKeyX(x);
       setPublicKeyY(y);
       setPublicKey(fullPublicKey);
@@ -151,7 +137,6 @@ export default function ECPointGenerator({
   return (
     <div className="w-full">
       <div className="flex flex-col gap-4">
-        {/* Private key input with button */}
         <div className="mb-4 flex gap-4">
           <div className="flex-grow">
             <LabeledCopyableInput
@@ -174,8 +159,6 @@ export default function ECPointGenerator({
             </button>
           </div>
         </div>
-
-        {/* Results section - always visible */}
         <LabeledCopyableInput
           label={t('labels.publicKeyX')}
           value={publicKeyX}
