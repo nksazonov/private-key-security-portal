@@ -1,5 +1,5 @@
 import { AppLocale } from '@/i18n/types';
-import { Locale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
 import ExternalLink from '@/components/ExternalLink';
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function PrivateKeysPage({ params }: { params: { locale: Locale } }) {
+export default function PrivateKeysPage() {
   const t = useTranslations('PrivateKeysPage');
   const common = useTranslations('Common');
 
@@ -212,7 +212,7 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
             {t.raw('privateKeyGeneration.fromSeed.advantages.description')}
           </ReactMarkdown>
         </div>
-        
+
         {/* Mnemonic Validator Section */}
         <AnchorHeading
           as="h4"
@@ -325,7 +325,7 @@ export default function PrivateKeysPage({ params }: { params: { locale: Locale }
           </h3>
           <ul className="space-y-2 pl-4">
             {/* Render links dynamically from the content */}
-            {Array.isArray(t.raw('privateToPublic.links')) && 
+            {Array.isArray(t.raw('privateToPublic.links')) &&
               t.raw('privateToPublic.links').map((link: {href: string, text: string}, index: number) => (
                 <li key={index}>
                   <ExternalLink href={link.href}>

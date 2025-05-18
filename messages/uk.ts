@@ -53,6 +53,7 @@ export default {
     "title": "Управління ключами",
     "description": keyManagementContent.description,
     "keyHolder": keyManagementContent.keyHolder,
+    "networkConnectivity": keyManagementContent.networkConnectivity
   },
   "SecurityFeaturesPage": {
     "title": "Додаткові функції безпеки",

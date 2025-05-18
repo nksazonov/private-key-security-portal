@@ -63,7 +63,7 @@ interface WalletType {
   useful_links: LinkItem[];
 }
 
-export default function KeyManagement({ params }: { params: { locale: Locale } }) {
+export default function KeyManagement() {
   const t = useTranslations('KeyManagementPage');
   const ui = useTranslations('UI.labels');
   const common = useTranslations('Common');
@@ -342,7 +342,7 @@ export default function KeyManagement({ params }: { params: { locale: Locale } }
             {t('networkConnectivity.chooseConnectivity')}
           </h3>
 
-          <NetworkConnectivitySelector locale={params.locale} />
+          <NetworkConnectivitySelector/>
         </div>
       </div>
     </main>
