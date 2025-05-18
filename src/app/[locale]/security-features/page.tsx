@@ -83,7 +83,7 @@ export default function SecurityFeaturesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Features */}
                   <div>
-                    <h4 className="text-lg font-semibold text-blue-600 mb-2">Features</h4>
+                    <h4 className="text-lg font-semibold text-blue-600 mb-2">{ui('features')}</h4>
                     <div className="ml-2 text-gray-900">
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
@@ -114,13 +114,13 @@ export default function SecurityFeaturesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Advantages */}
                   <div>
-                    <h4 className="text-lg font-semibold text-green-600 mb-2">Advantages</h4>
+                    <h4 className="text-lg font-semibold text-green-600 mb-2">{ui('advantages')}</h4>
                     <AdvantagesList content={t.raw(`accountType.${type}.advantages`) || ''} />
                   </div>
 
                   {/* Disadvantages */}
                   <div>
-                    <h4 className="text-lg font-semibold text-red-600 mb-2">Disadvantages</h4>
+                    <h4 className="text-lg font-semibold text-red-600 mb-2">{ui('disadvantages')}</h4>
                     <DisadvantagesList content={t.raw(`accountType.${type}.disadvantages`) || ''} />
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export default function SecurityFeaturesPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Features */}
                 <div>
-                  <h4 className="text-lg font-semibold text-blue-600 mb-2">Features</h4>
+                  <h4 className="text-lg font-semibold text-blue-600 mb-2">{ui('features')}</h4>
                   <div className="ml-2 text-gray-900">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
