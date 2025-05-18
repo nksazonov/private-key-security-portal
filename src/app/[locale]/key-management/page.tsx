@@ -39,7 +39,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-// Types for wallet data
 interface RatingItem {
   name: string;
   icon: any;
@@ -69,7 +68,6 @@ export default function KeyManagement() {
   const ui = useTranslations('UI.labels');
   const common = useTranslations('Common');
 
-  // Define the wallet types with their data
   const walletTypes: WalletType[] = [
     {
       id: 'hardware-wallets',
@@ -186,12 +184,10 @@ export default function KeyManagement() {
         <div className="flex flex-col gap-16 mt-8">
           {walletTypes.map((wallet, index) => (
             <div key={wallet.id} className="space-y-8">
-              {/* Card and Carousel container */}
               <div
                 id={wallet.id}
                 className="flex flex-col md:flex-row items-start gap-8"
               >
-                {/* Carousel - position left on odd indexes */}
                 {index % 2 !== 0 && wallet.carouselImages && wallet.carouselImages.length > 0 && (
                   <div className="flex-shrink-0 order-1 md:order-none">
                     <Carousel images={wallet.carouselImages} height={320} width={320} />
@@ -208,7 +204,6 @@ export default function KeyManagement() {
                         </div>
                       )}
 
-                      {/* Useful links section */}
                       {wallet.useful_links && (
                         <UsefulLinks links={wallet.useful_links} />
                       )}
@@ -216,7 +211,6 @@ export default function KeyManagement() {
                   </div>
                 )}
 
-                {/* Card content */}
                 <div className="flex-1">
                   <Card>
                     <div className="flex items-center mb-6">
@@ -235,7 +229,6 @@ export default function KeyManagement() {
                       </ReactMarkdown>
                     </div>
 
-                    {/* Ratings section */}
                     <hr className="border-t border-blue-200 my-4" />
                     <div className="my-6">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
@@ -253,13 +246,11 @@ export default function KeyManagement() {
                     </div>
                     <hr className="border-t border-blue-200 my-4" />
 
-                    {/* Advantages and disadvantages */}
                     <AdvantagesList content={wallet.advantages} />
                     <DisadvantagesList content={wallet.disadvantages} />
                   </Card>
                 </div>
 
-                {/* Carousel - position right on even indexes */}
                 {index % 2 === 0 && wallet.carouselImages && wallet.carouselImages.length > 0 && (
                   <div className="flex-shrink-0 order-1">
                     <Carousel images={wallet.carouselImages} height={320} width={320} />
@@ -276,7 +267,6 @@ export default function KeyManagement() {
                         </div>
                       )}
 
-                      {/* Useful links section */}
                       {wallet.useful_links && (
                         <UsefulLinks links={wallet.useful_links} />
                       )}
@@ -313,7 +303,6 @@ export default function KeyManagement() {
 
           <NetworkConnectivitySelector/>
 
-          {/* Network Connectivity Useful Links */}
           <div className="mt-10">
             <UsefulLinks links={t.raw('networkConnectivity.useful_links')} />
           </div>

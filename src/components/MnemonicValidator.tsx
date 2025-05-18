@@ -20,10 +20,7 @@ export default function MnemonicValidator({
 }: MnemonicValidatorProps) {
   const t = useTranslations('UI');
 
-  // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
-
-  // State for mnemonic validation
   const [mnemonic, setMnemonic] = useState<string>('');
   const [decimalIndices, setDecimalIndices] = useState<number[]>([]);
   const [entropyWithChecksum, setEntropyWithChecksum] = useState<string>('');
@@ -32,13 +29,10 @@ export default function MnemonicValidator({
   const [sha256Hash, setSha256Hash] = useState<string>('');
   const [calculatedChecksumHex, setCalculatedChecksumHex] = useState<string>('');
   const [hasGenerated, setHasGenerated] = useState<boolean>(false);
-
-  // Validation state
   const [isMnemonicValid, setIsMnemonicValid] = useState<boolean>(true);
   const [mnemonicError, setMnemonicError] = useState<string>('');
   const [isChecksumValid, setIsChecksumValid] = useState<boolean>(true);
 
-  // Fetch the BIP-39 English wordlist
   useEffect(() => {
     async function fetchWordlist() {
       try {
@@ -57,7 +51,6 @@ export default function MnemonicValidator({
     fetchWordlist();
   }, []);
 
-  // Generate random mnemonic
   const generateRandomMnemonic = () => {
     if (wordlist.length === 0) return;
 
@@ -66,10 +59,8 @@ export default function MnemonicValidator({
       const randomBytes = new Uint8Array(16);
       window.crypto.getRandomValues(randomBytes);
 
-      // Convert entropy to mnemonic phrase using our utility function
       const mnemonicPhrase = entropyToMnemonic(randomBytes, wordlist);
 
-      // Update state and validate
       setMnemonic(mnemonicPhrase);
       validateAndProcessMnemonic(mnemonicPhrase);
       setHasGenerated(true);
@@ -80,20 +71,17 @@ export default function MnemonicValidator({
     }
   };
 
-  // Validate and process the mnemonic
   const validateAndProcessMnemonic = (mnemonicPhrase: string) => {
     if (!mnemonicPhrase) {
       resetState();
       return;
     }
 
-    // Split mnemonic into words and validate format first
     const words = mnemonicPhrase.trim().split(/\s+/);
 
     // Always attempt to calculate indices and binary representation,
     // even if the mnemonic is invalid
     try {
-      // Get decimal indices
       const indices = words.map(word => {
         const index = wordlist.indexOf(word);
         return index >= 0 ? index : 0; // Use 0 as fallback for invalid words
@@ -114,7 +102,6 @@ export default function MnemonicValidator({
       const entropyBits = allBits.slice(0, entropyLengthBits);
       const checksumBits = allBits.slice(entropyLengthBits);
 
-      // Convert entropy bits to hex
       let entropyHexValue = '';
       for (let i = 0; i < entropyBits.length; i += 8) {
         const byte = entropyBits.slice(i, i + 8);
@@ -122,18 +109,15 @@ export default function MnemonicValidator({
       }
       setEntropyHex(entropyHexValue);
 
-      // Convert checksum bits to hex
       const checksumHexValue = parseInt(checksumBits, 2).toString(16).padStart(checksumLengthBits % 4 === 0 ? checksumLengthBits/4 : 1, '0');
       setSuppliedChecksumHex(checksumHexValue);
 
-      // Convert entropy hex to bytes and calculate SHA-256
       const entropyBytes = new Uint8Array(entropyLengthBits / 8);
       for (let i = 0; i < entropyLengthBits; i += 8) {
         const byte = entropyBits.slice(i, i + 8);
         entropyBytes[i / 8] = parseInt(byte, 2);
       }
 
-      // Calculate SHA-256 hash of the entropy
       const entropyHash = sha256(entropyBytes);
       const hashHex = Array.from(entropyHash)
         .map(b => b.toString(16).padStart(2, '0'))
@@ -146,17 +130,13 @@ export default function MnemonicValidator({
       const calculatedChecksumHexValue = parseInt(calculatedChecksumBits, 2).toString(16).padStart(checksumLengthBits % 4 === 0 ? checksumLengthBits/4 : 1, '0');
       setCalculatedChecksumHex(calculatedChecksumHexValue);
 
-      // Now perform the full BIP-39 validation
       const validation = validateMnemonic(mnemonicPhrase, wordlist);
       setIsMnemonicValid(validation.isValid);
-
-      // Check if the checksum is valid specifically
       setIsChecksumValid(checksumBits === calculatedChecksumBits);
 
       if (validation.isValid) {
         setMnemonicError('');
       } else {
-        // Process error message
         let errorMsg = '';
         if (validation.reason) {
           if (validation.reason === 'emptyMnemonic') {
@@ -182,7 +162,6 @@ export default function MnemonicValidator({
     }
   };
 
-  // Reset state for empty input
   const resetState = () => {
     setDecimalIndices([]);
     setEntropyWithChecksum('');
@@ -196,7 +175,6 @@ export default function MnemonicValidator({
     setHasGenerated(false);
   };
 
-  // Handle mnemonic input change
   const handleMnemonicChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newMnemonic = e.target.value;
     setMnemonic(newMnemonic);
@@ -206,7 +184,6 @@ export default function MnemonicValidator({
       return;
     }
 
-    // Only validate if wordlist is loaded
     if (wordlist.length > 0) {
       validateAndProcessMnemonic(newMnemonic);
     }
@@ -214,7 +191,6 @@ export default function MnemonicValidator({
 
   return (
     <div className="w-full">
-      {/* Mnemonic Input with stable layout */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <MnemonicInput
@@ -226,7 +202,6 @@ export default function MnemonicValidator({
             errorMessage={mnemonicError}
           />
         </div>
-        {/* Fixed-position button that doesn't move */}
         <div className="w-36 flex items-start pt-5"> {/* Aligned to input, not label */}
           <button
             onClick={generateRandomMnemonic}
@@ -237,7 +212,6 @@ export default function MnemonicValidator({
         </div>
       </div>
 
-      {/* Decimal indices */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={decimalIndices.length > 0 ? decimalIndices.join(' ') : ''}
@@ -248,7 +222,6 @@ export default function MnemonicValidator({
         />
       </div>
 
-      {/* Entropy + Checksum (Binary) */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={entropyWithChecksum}
@@ -259,7 +232,6 @@ export default function MnemonicValidator({
         />
       </div>
 
-      {/* Initial Entropy and Supplied Checksum */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <LabeledCopyableInput
@@ -282,7 +254,6 @@ export default function MnemonicValidator({
         </div>
       </div>
 
-      {/* SHA-256 Hash and Calculated Checksum */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <LabeledCopyableInput

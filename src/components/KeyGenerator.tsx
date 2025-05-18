@@ -34,7 +34,6 @@ export default function KeyGenerator({
   const rectRef = useRef<DOMRect | null>(null);
   const lastPositionRef = useRef<{x: number, y: number} | null>(null);
 
-  // Get container dimensions when component mounts
   useEffect(() => {
     if (containerRef.current) {
       rectRef.current = containerRef.current.getBoundingClientRect();
@@ -44,10 +43,8 @@ export default function KeyGenerator({
   // Track collecting state with ref to prevent dependency issues in the effect
   const isCollectingRef = useRef(true);
 
-  // Set up/tear down mouse move listener once on mount
   useEffect(() => {
     const handleMouseMove = (e: globalThis.MouseEvent) => {
-      // Skip if we're not collecting or already have enough entropy
       if (!isCollectingRef.current || entropyBytes.length >= entropyThreshold) {
         return;
       }
@@ -63,17 +60,14 @@ export default function KeyGenerator({
           Math.abs(relativeY - lastPos.y) >= entropyDiffThreshold;
 
         if (hasMoveEnough) {
-          // Update last position reference
           lastPositionRef.current = { x: relativeX, y: relativeY };
 
           const x = Math.floor(relativeX) % 256;
           const y = Math.abs(Math.floor(relativeY) % 256);
 
           setEntropyBytes(prev => {
-            // Calculate the new array first
             const newBytes = [...prev, x, y];
 
-            // Update state if we've reached the threshold
             if (newBytes.length >= entropyThreshold) {
               setHasEnoughEntropy(true);
             }
@@ -95,13 +89,11 @@ export default function KeyGenerator({
     };
   }, []); // Empty dependency array - only run on mount and unmount
 
-  // Update collecting ref when needed
   useEffect(() => {
     // If we have enough entropy or reset after key generation, update the ref
     isCollectingRef.current = entropyBytes.length < entropyThreshold;
   }, [entropyBytes.length, entropyThreshold]);
 
-  // Generate private key using viem's keccak256 and entropy from mouse movements
   const generateKey = () => {
     if (!hasEnoughEntropy || entropyBytes.length < entropyThreshold) {
       console.log('Not enough entropy to generate key. Please move your mouse more.');
@@ -116,10 +108,8 @@ export default function KeyGenerator({
       const bytesArray = new Uint8Array(bytes);
 
       // Hash the bytes using keccak256 to get a private key
-      // Note: We take the first 32 bytes of the hash as our private key
       const hashedBytes = keccak256(bytesArray);
 
-      // Format the private key with '0x' prefix
       const newPrivateKey = hashedBytes;
 
       // Use privateKeyToAccount to get the Ethereum address

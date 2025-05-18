@@ -66,7 +66,6 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
   return (
     <div className="relative flex items-center justify-center" style={{ height, width }}>
       <div className="overflow-hidden w-full h-full rounded-lg relative">
-        {/* Previous image layer */}
         {isAnimating && (
           <div className="absolute inset-0 flex items-center justify-center">
             <Image
@@ -79,7 +78,6 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
           </div>
         )}
         
-        {/* Current/next image layer */}
         <div 
           ref={slideRef}
           className="absolute inset-0 flex items-center justify-center"
@@ -94,7 +92,6 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
           />
         </div>
         
-        {/* Navigation areas - full height, 15% width on each side */}
         <button
           onClick={goToPrevious}
           className={`absolute left-0 top-0 h-full w-[15%] flex items-center justify-start pl-2 z-10 group ${
@@ -103,12 +100,10 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
           disabled={currentIndex === 0}
           aria-label="Previous slide"
         >
-          {/* Gradient overlay that appears on hover */}
           <div className={`absolute inset-0 bg-gradient-to-r from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
             currentIndex === 0 ? 'opacity-0 group-hover:opacity-0' : ''
           }`}></div>
           
-          {/* Arrow button */}
           <div className={`bg-white/70 text-gray-800 p-2 rounded-full hover:bg-white transition-colors z-10 ${
             currentIndex === 0 ? 'opacity-40' : 'opacity-80 hover:opacity-100'
           }`}>
@@ -124,12 +119,10 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
           disabled={currentIndex === images.length - 1}
           aria-label="Next slide"
         >
-          {/* Gradient overlay that appears on hover */}
           <div className={`absolute inset-0 bg-gradient-to-l from-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
             currentIndex === images.length - 1 ? 'opacity-0 group-hover:opacity-0' : ''
           }`}></div>
           
-          {/* Arrow button */}
           <div className={`bg-white/70 text-gray-800 p-2 rounded-full hover:bg-white transition-colors z-10 ${
             currentIndex === images.length - 1 ? 'opacity-40' : 'opacity-80 hover:opacity-100'
           }`}>
@@ -138,7 +131,6 @@ export default function Carousel({ images, height = 300, width = 300 }: Carousel
         </button>
       </div>
 
-      {/* Indicator dots */}
       {images.length > 1 && (
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
           {images.map((_, index) => (
