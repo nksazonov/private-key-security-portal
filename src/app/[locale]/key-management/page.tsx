@@ -12,6 +12,7 @@ import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 import RatingIndicator from '@/components/RatingIndicator';
 import SectionDivider from '@/components/SectionDivider';
+import UsefulLinks from '@/components/UsefulLinks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMemory,
@@ -209,24 +210,7 @@ export default function KeyManagement() {
 
                       {/* Useful links section */}
                       {wallet.useful_links && (
-                        <div>
-                          <h4 className="font-semibold text-lg text-blue-700">{common('useful_links')}</h4>
-                          <ul className="mt-2 space-y-2">
-                            {wallet.useful_links.map((link: LinkItem, i: number) => (
-                              <li key={i} className="flex items-center">
-                                <FontAwesomeIcon icon={faLink} className="text-blue-500 mr-2" />
-                                <Link
-                                  href={link.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-600 hover:text-blue-800 hover:underline"
-                                >
-                                  {link.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <UsefulLinks links={wallet.useful_links} />
                       )}
                     </div>
                   </div>
@@ -252,6 +236,7 @@ export default function KeyManagement() {
                     </div>
 
                     {/* Ratings section */}
+                    <hr className="border-t border-blue-200 my-4" />
                     <div className="my-6">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
                         {wallet.ratings.map((rating, ratingIndex) => (
@@ -266,6 +251,7 @@ export default function KeyManagement() {
                         ))}
                       </div>
                     </div>
+                    <hr className="border-t border-blue-200 my-4" />
 
                     {/* Advantages and disadvantages */}
                     <AdvantagesList content={wallet.advantages} />
@@ -292,24 +278,7 @@ export default function KeyManagement() {
 
                       {/* Useful links section */}
                       {wallet.useful_links && (
-                        <div>
-                          <h4 className="font-semibold text-lg text-blue-700">{common('useful_links')}</h4>
-                          <ul className="mt-2 space-y-2">
-                            {wallet.useful_links.map((link: LinkItem, i: number) => (
-                              <li key={i} className="flex items-center">
-                                <FontAwesomeIcon icon={faLink} className="text-blue-500 mr-2" />
-                                <Link
-                                  href={link.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-600 hover:text-blue-800 hover:underline"
-                                >
-                                  {link.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <UsefulLinks links={wallet.useful_links} />
                       )}
                     </div>
                   </div>
@@ -343,6 +312,11 @@ export default function KeyManagement() {
           </h3>
 
           <NetworkConnectivitySelector/>
+
+          {/* Network Connectivity Useful Links */}
+          <div className="mt-10">
+            <UsefulLinks links={t.raw('networkConnectivity.useful_links')} />
+          </div>
         </div>
       </div>
     </main>

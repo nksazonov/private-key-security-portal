@@ -10,39 +10,66 @@ import {
   faKey,
   faArrowRight,
   faGlobe,
-  faEquals
+  faEquals,
+  faShieldHalved,
+  faThumbsUp,
+  faLock
 } from '@fortawesome/free-solid-svg-icons';
 import ReactMarkdown from 'react-markdown';
 import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
+import RatingIndicator from '@/components/RatingIndicator';
 
 type ConnectivityType = 'deepCold' | 'cold' | 'hot';
+
+interface RatingItem {
+  name: string;
+  icon: any;
+  rating: number;
+}
 
 interface ConnectivityOption {
   id: ConnectivityType;
   icon: any;
   label: string;
+  ratings: RatingItem[];
 }
 
 export default function NetworkConnectivitySelector() {
   const t = useTranslations('KeyManagementPage.networkConnectivity');
+  const ui = useTranslations('UI.labels');
   const [selectedType, setSelectedType] = useState<ConnectivityType | null>(null);
 
   const connectivityOptions: ConnectivityOption[] = [
     {
       id: 'deepCold',
       icon: faUniversity,
-      label: t('safeDeposit')
+      label: t('safeDeposit'),
+      ratings: [
+        { name: ui('reliability'), icon: faShieldHalved, rating: 5 },
+        { name: ui('comfort'), icon: faThumbsUp, rating: 1 },
+        { name: ui('security'), icon: faLock, rating: 5 },
+      ]
     },
     {
       id: 'cold',
       icon: faFileAlt,
-      label: t('paperHardware')
+      label: t('paperHardware'),
+      ratings: [
+        { name: ui('reliability'), icon: faShieldHalved, rating: 4 },
+        { name: ui('comfort'), icon: faThumbsUp, rating: 3 },
+        { name: ui('security'), icon: faLock, rating: 4 },
+      ]
     },
     {
       id: 'hot',
       icon: faLaptop,
-      label: t('yourPC')
+      label: t('yourPC'),
+      ratings: [
+        { name: ui('reliability'), icon: faShieldHalved, rating: 3 },
+        { name: ui('comfort'), icon: faThumbsUp, rating: 5 },
+        { name: ui('security'), icon: faLock, rating: 2 },
+      ]
     }
   ];
 
@@ -144,6 +171,24 @@ export default function NetworkConnectivitySelector() {
               {t.raw(`${selectedType}.description`)}
             </ReactMarkdown>
           </div>
+
+          {/* Reliability-Comfort-Security Ratings */}
+          <hr className="border-t border-blue-200 my-4" />
+          <div className="my-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
+              {connectivityOptions.find(opt => opt.id === selectedType)?.ratings.map((rating, index) => (
+                <RatingIndicator
+                  key={index}
+                  name={rating.name}
+                  icon={rating.icon}
+                  themeColor="text-yellow-500"
+                  totalAmount={5}
+                  rating={rating.rating}
+                />
+              ))}
+            </div>
+          </div>
+          <hr className="border-t border-blue-200 my-4" />
 
           {/* Advantages and Disadvantages */}
           <div className="flex flex-col md:flex-row gap-4 mt-4">

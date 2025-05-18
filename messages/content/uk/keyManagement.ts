@@ -136,6 +136,20 @@ export const keyManagementContent = {
     paperHardware: "Холодний стан",
     yourPC: "Гарячий стан",
     internet: "Інтернет",
+    useful_links: [
+      {
+        title: "Пояснення холодного зберігання для криптовалют",
+        url: "https://river.com/learn/terms/c/cold-storage-crypto/"
+      },
+      {
+        title: "Гарячий гаманець проти холодного: розуміння відмінностей",
+        url: "https://www.coinbase.com/learn/crypto-basics/hot-wallet-vs-cold-wallet"
+      },
+      {
+        title: "Захист вашої криптовалюти: посібник по гарячим і холодним гаманцям",
+        url: "https://blog.trezor.io/hot-wallets-vs-cold-wallets-c3ae853ed08b"
+      }
+    ],
     hot: {
       name: "Гарячий стан",
       description: "Приватний ключ зберігається та використовуються у середовищі з постійним мережевим підключенням (онлайн). Прикладом є гаманець на комп'ютері чи смартфоні з доступом до інтернету.",
