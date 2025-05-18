@@ -6,6 +6,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { routing } from '@/i18n/routing';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import ScrollPositionRestorer from '@/components/ScrollPositionRestorer';
 import "@/app/globals.css";
 
 // Font Awesome
@@ -65,8 +66,33 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html className="h-full" lang={locale}>
+      <head>
+        {/* Inline script to prevent scroll flicker - runs before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var savedScrollPosition = localStorage.getItem('scrollPosition');
+                  var savedPath = localStorage.getItem('lastPath');
+                  var currentPath = window.location.pathname;
+                  
+                  if (savedScrollPosition && savedPath === currentPath) {
+                    // Set scroll immediately, before any rendering
+                    // Use scrollTo without changing document styles
+                    window.scrollTo(0, parseInt(savedScrollPosition, 10));
+                  }
+                } catch (e) {
+                  // Fail silently - localStorage might be unavailable
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}>
         <NextIntlClientProvider messages={messages}>
+          <ScrollPositionRestorer />
           <Navigation />
           <div className="flex-grow">
             <div className="max-w-5xl w-full mx-auto">
