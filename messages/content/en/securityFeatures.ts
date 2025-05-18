@@ -70,6 +70,35 @@ export const securityFeaturesContent = {
           url: "https://www.argent.xyz/learn/what-is-social-recovery"
         }
       ]
+    },
+    socialRecoveryDemo: {
+      title: "Social Recovery Interactive Demo",
+      description: "Try out this interactive example of a social recovery wallet. The owner has primary control of the account, but guardians can collectively approve changes like owner replacement in case access is lost.",
+      owner: "Owner",
+      guardians: "Guardians",
+      changeOwner: "Change Owner",
+      addGuardian: "Add Guardian",
+      removeGuardian: "Remove Guardian",
+      signTransaction: "Sign Transaction",
+      ownerMustSign: "Owner must sign",
+      onlyOwnerSign: "Only owner can sign regular transactions",
+      signTransactionHelp: "For regular transactions, only the owner's signature is required",
+      guardiansMustAgree: "Guardians must agree",
+      allGuardiansAgree: "All guardians agree",
+      ownerMustAgree: "Owner must agree",
+      ownerAgreesChange: "Owner agrees to change",
+      everyoneMustAgree: "Everyone must agree",
+      addNewGuardian: "Add new guardian",
+      cancelRequest: "Cancel request",
+      newOwner: "New Owner:",
+      newGuardian: "New Guardian:",
+      addGuardianHelp: "To add a new guardian, both owner and all guardians must agree",
+      removeGuardianHelp: "To remove a guardian, both owner and all other guardians must agree",
+      changeOwnerHelp: "Select all guardians to approve the new owner. The owner can cancel a change owner request.",
+      changeOwnerNoGuardiansHelp: "With no guardians, the owner must approve the change",
+      lostMessage: "And this is how users usually lose control over their account",
+      reloadMessage: "Reload the page to get interactive example up running",
+      reload: "Reset Demo"
     }
   },
   accountType: {

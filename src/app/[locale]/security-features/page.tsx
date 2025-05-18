@@ -12,6 +12,7 @@ import SectionDivider from '@/components/SectionDivider';
 import UsefulLinks from '@/components/UsefulLinks';
 import Card from '@/components/Card';
 import MultipleWeightedSignatureWrapper from '@/components/MultipleWeightedSignatureWrapper';
+import SocialRecoveryWrapper from '@/components/SocialRecoveryWrapper';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -38,8 +39,8 @@ export default function SecurityFeaturesPage() {
   const ui = useTranslations('UI.labels');
 
   return (
-    <main className="py-8 w-full">
-      <div className="bg-white p-8 rounded-lg">
+    <main className="pt-8 w-full">
+      <div className="bg-white p-8 pb-0 rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-blue-900">
           {t('title')}
         </h1>
@@ -192,9 +193,10 @@ export default function SecurityFeaturesPage() {
                   <UsefulLinks links={t.raw(`authorizationScheme.${type}.useful_links`) || []} />
                 </div>
               </div>
-              
-              {/* Add Multiple Weighted Signature component after multiSig */}
+
+              {/* Add interactive components after their respective sections */}
               {type === 'multiSig' && <MultipleWeightedSignatureWrapper />}
+              {type === 'socialRecovery' && <SocialRecoveryWrapper />}
             </div>
           ))}
         </div>
