@@ -11,6 +11,7 @@ import CodeBlock from '@/components/CodeBlock';
 import SectionDivider from '@/components/SectionDivider';
 import UsefulLinks from '@/components/UsefulLinks';
 import Card from '@/components/Card';
+import MultipleWeightedSignatureWrapper from '@/components/MultipleWeightedSignatureWrapper';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -191,6 +192,9 @@ export default function SecurityFeaturesPage() {
                   <UsefulLinks links={t.raw(`authorizationScheme.${type}.useful_links`) || []} />
                 </div>
               </div>
+              
+              {/* Add Multiple Weighted Signature component after multiSig */}
+              {type === 'multiSig' && <MultipleWeightedSignatureWrapper />}
             </div>
           ))}
         </div>

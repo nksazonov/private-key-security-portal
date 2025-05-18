@@ -28,6 +28,10 @@ export const ui = {
       sha256Hash: "SHA-256(Initial bit sequence):",
       suppliedChecksum: "Supplied checksum:",
       calculatedChecksum: "Calculated checksum:",
+      sign: "Sign",
+      account: "Account Address",
+      weight: "Weight",
+      threshold: "Threshold",
     },
     placeholders: {
       dashNoValue: "—",
@@ -76,6 +80,10 @@ export const ui = {
       sha256Hash: "SHA-256(Початкова бітова послідовність):",
       suppliedChecksum: "Надана контр. сума:",
       calculatedChecksum: "Обчислена к. сума:",
+      sign: "Підпис",
+      account: "Адреса акаунту",
+      weight: "Вага",
+      threshold: "Поріг",
     },
     placeholders: {
       dashNoValue: "—",
