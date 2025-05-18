@@ -32,6 +32,15 @@ export const securityFeaturesContent = {
         }
       ]
     },
+    multiWeightedSig: {
+      title: "Multiple Weighted Signature",
+      description: "Try out this interactive example of a weighted multi-signature setup. Different signers can have different weights, and a transaction is executed only when the combined weight of the signers reaches or exceeds the threshold.",
+      addAccount: "Add Account",
+      enoughWeight: "Enough weight to sign",
+      notEnoughWeight: "Not enough weight to sign",
+      weightNote: "Adjust the threshold by moving the red line. Add signatures by checking boxes next to accounts.",
+      threshold: "Threshold"
+    },
     mpcTss: {
       name: "Multi-Party Computation and Threshold Signatures",
       description: "MPC/TSS (Multi-Party Computation/Threshold Signatures) are built on the idea of distributed generation and signing of transactions, where the private key doesn't exist in a complete form, but only as shares belonging to different participants. During a transaction, at least t of n participants compute the signature jointly, without revealing their shares to each other, which provides a standard ECDSA signature, visible in the blockchain as from a single key. The security of such a scheme lies in the fact that an attack requires compromising multiple participants, and an external observer cannot identify the authorization peculiarities, as the signature appears normal.",
