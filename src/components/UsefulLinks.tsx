@@ -29,8 +29,8 @@ export default function UsefulLinks({ links }: UsefulLinksProps) {
       <h4 className="font-semibold text-lg text-blue-700 mb-4">{common('useful_links')}</h4>
       <ul className="mt-2 space-y-2">
         {linkItems.map((link, i) => (
-          <li key={i} className="flex items-center">
-            <FontAwesomeIcon icon={faLink} className="text-blue-500 mr-2" />
+          <li key={i} className="flex items-start">
+            <FontAwesomeIcon icon={faLink} className="text-blue-500 mr-2 mt-1 flex-shrink-0" />
             <Link
               href={link.url}
               target="_blank"
