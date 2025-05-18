@@ -60,7 +60,8 @@ export default {
   "SecurityFeaturesPage": {
     "title": "Security Through Additional Functionality",
     "description": "In modern blockchain systems, mechanisms that provide an additional layer of security through specialized cryptocurrency wallets are becoming increasingly popular. This approach involves creating flexible and programmable rules for access, fund usage control, and authorization procedures that go beyond basic key protection.",
-    "accountType": securityFeaturesContent.accountType
+    "accountType": securityFeaturesContent.accountType,
+    "authorizationScheme": securityFeaturesContent.authorizationScheme
   },
   "WalletMatrixPage": {
     "title": "Wallet Feature Matrix",

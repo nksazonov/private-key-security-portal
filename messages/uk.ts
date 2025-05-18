@@ -60,7 +60,8 @@ export default {
   "SecurityFeaturesPage": {
     "title": "Безпека завдяки додатковому функціоналу",
     "description": "У сучасних блокчейн-системах все більшої популярності набувають механізми, що забезпечують додатковий рівень безпеки завдяки надбудові у формі спеціалізованих криптовалютних гаманців. Такий підхід передбачає створення гнучких та програмованих правил доступу, контролю використання коштів і процедур авторизації, які виходять за межі базового захисту ключа.",
-    "accountType": securityFeaturesContent.accountType
+    "accountType": securityFeaturesContent.accountType,
+    "authorizationScheme": securityFeaturesContent.authorizationScheme
   },
   "WalletMatrixPage": {
     "title": "Матриця характеристик гаманців",
