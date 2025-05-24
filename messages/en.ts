@@ -1,6 +1,7 @@
 import { privateKeysContent } from './content/en/privateKeys';
 import { keyManagementContent } from './content/en/keyManagement';
 import { securityFeaturesContent } from './content/en/securityFeatures';
+import { walletMatrixContent } from './content/en/walletMatrix';
 import { ui } from './ui';
 
 export default {
@@ -65,7 +66,14 @@ export default {
   },
   "WalletMatrixPage": {
     "title": "Wallet Feature Matrix",
-    "description": "Compare different types of wallets and their functionality"
+    "description": "Previously, aspects of blockchain account protection through private key protection and through add-ons in the form of additional functionality were defined. Combining these two concepts, we get a cryptographic wallet that provides security to a cryptographic account thanks to both of these aspects. In modern blockchain ecosystems, different types of wallets demonstrate significant differences in security and ease of use. Proper classification of blockchain accounts allows taking these differences into account when choosing solutions for protection and improving user experience. Key storage security, access recovery capabilities, and custody model directly affect asset loss risks and system usage complexity. To systematize approaches to account protection, five independent (orthogonal) classification axes have been identified:",
+    "criteria": walletMatrixContent.criteria,
+    "modal": {
+      "popularImplementations": "Popular Implementations",
+      "usefulLinks": "Useful Links",
+      "noImplementations": "No implementations listed",
+      "noLinks": "No useful links available"
+    }
   },
   "Common": {
     "useful_links": "Useful Links",
