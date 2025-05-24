@@ -24,7 +24,7 @@ export const walletMatrixContent = {
           useful_links: [
             {
               title: "Безпека апаратних гаманців",
-              url: "https://www.ledger.com/academy/security/hack-of-hardware-wallets"
+              url: "https://www.ledger.com/academy/hardwarewallet/best-practices-when-using-a-hardware-wallet"
             },
             {
               title: "Як працюють апаратні гаманці",
@@ -53,6 +53,10 @@ export const walletMatrixContent = {
             {
               title: "Що таке програмний гаманець?",
               url: "https://www.ledger.com/academy/what-is-a-software-wallet"
+            },
+            {
+              title: "Як обрати програмний гаманець",
+              url: "https://ethereum.org/en/wallets/find-wallet/"
             }
           ]
         },
@@ -69,13 +73,35 @@ export const walletMatrixContent = {
               url: "https://www.myetherwallet.com/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Що таке паперовий гаманець?",
+              url: "https://www.gemini.com/cryptopedia/paper-wallet-crypto-cold-storage"
+            },
+            {
+              title: "Як створити паперовий гаманець",
+              url: "https://www.investopedia.com/terms/p/paper-wallet.asp"
+            },
+            {
+              title: "Міркування безпеки для паперових гаманців",
+              url: "https://bitcoin.org/en/secure-your-wallet"
+            }
+          ]
         },
         brain: {
           title: "Мнемонічний гаманець",
           description: "Пам'ять (мнемонічний носій) — це **приватний ключ, що зберігається в пам'яті людини** у вигляді мнемонічної чи парольної фрази. Такий підхід повністю усуває будь-який фізичний носій, забезпечуючи абсолютну мобільність та недоступність для фізичних атак.\n\nПроте практично цей метод несе **високі ризики**: забування фрази або використання надто простої фрази, яку можуть підібрати зловмисники. Через ці причини цей спосіб нині майже не застосовується у відповідальних сценаріях, поступаючись іншим, більш надійним носіям ключів.",
           implementations: [],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Чому brain-гаманці небезпечні",
+              url: "https://en.bitcoin.it/wiki/Brainwallet"
+            },
+            {
+              title: "Методи запам'ятовування seed-фраз",
+              url: "https://blog.lopp.net/metal-bitcoin-seed-storage-stress-test-round-iii/"
+            }
+          ]
         }
       }
     },
@@ -88,19 +114,40 @@ export const walletMatrixContent = {
           description: "Гарячий стан — це режим, в якому приватний ключ зберігається та використовується у середовищі з **постійним мережевим підключенням (онлайн)**. Прикладом є гаманець на комп'ютері чи смартфоні з доступом до інтернету, біржові гаманці або web-гаманці.\n\nГарячий стан забезпечує **миттєвий доступ до коштів** і максимальну зручність транзакцій, проте водночас значно підвищує ризик несанкціонованого доступу через онлайн-загрози. У разі компрометації такого підключеного пристрою або додатка приватний ключ може бути викрадено зловмисниками.",
           implementations: [
             {
-              title: "Біржові гаманці (Binance, Coinbase)",
+              title: "Binance",
               url: "https://www.binance.com/"
+            },
+            {
+              title: "Coinbase",
+              url: "https://www.coinbase.com/"
+            },
+            {
+              title: "Kraken",
+              url: "https://www.kraken.com/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Поради безпеки для гарячих гаманців",
+              url: "https://academy.binance.com/en/articles/how-to-secure-your-cryptocurrency"
+            },
+            {
+              title: "Порівняння гарячих та холодних гаманців",
+              url: "https://www.investopedia.com/hot-wallet-vs-cold-wallet-7098461"
+            }
+          ]
         },
         cold: {
           title: "Холодний гаманець",
           description: "Холодний стан — це режим, в якому ключ зберігається **офлайн, без прямого з'єднання з інтернетом**. Транзакції в цьому режимі підписуються в ізольованому середовищі (на відокремленому пристрої або комп'ютері, що не має доступу до мережі), а потім передаються в онлайн-мережу для їхнього підтвердження.\n\nЗавдяки тому, що приватний ключ не контактує з інтернет-серверами під час підписання, навіть у випадку перехоплення транзакції онлайн-зловмисник не зможе дістатися до самого ключа. Холодний стан значно підвищує безпеку зберігання, однак доступ до активів стає менш оперативним і потребує додаткових дій.",
           implementations: [
             {
-              title: "Апаратні гаманці",
-              url: "https://www.ledger.com/"
+              title: "Ledger Nano S/X/S Plus",
+              url: "https://shop.ledger.com/pages/hardware-wallet"
+            },
+            {
+              title: "Trezor Safe 5 / Safe 3 / Model One",
+              url: "https://trezor.io/compare"
             }
           ],
           useful_links: [
@@ -111,6 +158,14 @@ export const walletMatrixContent = {
             {
               title: "Гаманці холодного зберігання",
               url: "https://blog.chainport.io/cold-storage-wallets"
+            },
+            {
+              title: "Найкращі практики холодного зберігання",
+              url: "https://bitcoin.org/en/secure-your-wallet"
+            },
+            {
+              title: "Налаштування холодного зберігання",
+              url: "https://github.com/BlockchainCommons/SmartCustody"
             }
           ]
         },
@@ -118,7 +173,20 @@ export const walletMatrixContent = {
           title: "Глибоко-холодне зберігання",
           description: "Глибоко-холодний стан — це режим, в якому ключ зберігається **офлайн з додатковими бар'єрами для доступу**. Це передбачає максимально ізольоване довгострокове зберігання, при якому отримання доступу до ключа навмисно утруднене і потребує значного часу.\n\nНаприклад, приватний ключ може бути розміщено в банківському сейфі або іншому захищеному сховищі, і щоб його дістати, потрібно пройти через кілька етапів авторизації чи фізичних дій. Такий 'глибоко холодний' підхід мінімізує ймовірність компрометації, проте є непрактичним для частого використання, оскільки доступ до коштів може займати години чи дні.",
           implementations: [],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Детальний розбір глибоко-холодного зберігання",
+              url: "https://blog.keyst.one/deep-cold-storage-how-beginners-can-swim-in-the-deep-end-430af49d03bd"
+            },
+            {
+              title: "Посібник з глибокого холодного зберігання",
+              url: "https://blog.lopp.net/metal-bitcoin-seed-storage-stress-test/"
+            },
+            {
+              title: "Фізична безпека для криптовалют",
+              url: "https://bitcoin.org/en/secure-your-wallet"
+            }
+          ]
         }
       }
     },
@@ -139,7 +207,12 @@ export const walletMatrixContent = {
               url: "https://www.binance.com/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Кастодіальні проти некастодіальних гаманців",
+              url: "https://academy.binance.com/en/articles/custodial-vs-non-custodial-wallets-what-s-the-difference"
+            }
+          ]
         },
         selfCustody: {
           title: "Самостійна (некастодіальна) модель",
@@ -154,12 +227,29 @@ export const walletMatrixContent = {
               url: "https://www.ledger.com/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Найкращі практики самостійної опіки",
+              url: "https://bitcoin.org/en/secure-your-wallet"
+            },
+            {
+              title: "Управління ключами для самостійної опіки",
+              url: "https://github.com/BlockchainCommons/SmartCustody"
+            }
+          ]
         },
         sharedCustody: {
           title: "Спільна опіка",
           description: "Спільна модель (MPC/TSS) є **компромісним рішенням**, що розподіляє контроль над ключами між користувачем та сервіс-провайдером за допомогою криптографічних порогових схем. Перевагою цього підходу є **усунення єдиної точки відмови**, що підвищує безпеку активів — транзакція можлива лише за взаємодії обох сторін.\n\nКрім того, ця модель спрощує механізми відновлення доступу за допомогою альтернативних методів автентифікації (біометрія, соціальні логіни тощо), набираючи популярності через баланс між безпекою та зручністю. Окремим підкласом є **соціальні провайдери**, які інтегрують керування shard-фрагментами ключа з популярними сервісами автентифікації (Google, Apple, Discord), поєднуючи стійкість із знайомим Web2 UX.",
           implementations: [
+            {
+              title: "Fireblocks",
+              url: "https://www.fireblocks.com/platforms/treasury-management/"
+            },
+            {
+              title: "Argent",
+              url: "https://www.argent.xyz/"
+            },
             {
               title: "BitGo",
               url: "https://www.bitgo.com/"
@@ -169,7 +259,12 @@ export const walletMatrixContent = {
               url: "https://keys.casa/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Що таке спільна опіка",
+              url: "https://web3.okx.com/learn/what-is-crypto-custody"
+            }
+          ]
         }
       }
     },
@@ -190,7 +285,12 @@ export const walletMatrixContent = {
               url: "https://trustwallet.com/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Розуміння EOA акаунтів",
+              url: "https://ethereum.org/en/developers/docs/accounts/"
+            }
+          ]
         },
         smartContract: {
           title: "Контрактний акаунт / смарт-гаманець",
@@ -229,6 +329,10 @@ export const walletMatrixContent = {
             {
               title: "EIP-4337: Account Abstraction",
               url: "https://eips.ethereum.org/EIPS/eip-4337"
+            },
+            {
+              title: "Пояснення абстракції акаунтів",
+              url: "https://ethereum.org/en/roadmap/account-abstraction/"
             }
           ]
         }
@@ -247,7 +351,12 @@ export const walletMatrixContent = {
               url: "https://ethereum.org/en/developers/docs/accounts/"
             }
           ],
-          useful_links: []
+          useful_links: [
+            {
+              title: "Безпека однопідписних гаманців",
+              url: "https://bitcoin.org/en/secure-your-wallet"
+            }
+          ]
         },
         multiSig: {
           title: "Мультипідпис",
@@ -293,7 +402,7 @@ export const walletMatrixContent = {
             },
             {
               title: "Fireblocks MPC-CMP Whitepaper",
-              url: "https://www.fireblocks.com/whitepaper/mpc-cmp-wallet-as-a-service/"
+              url: "https://www.fireblocks.com/a-guide-to-digital-asset-wallets-and-service-providers/"
             }
           ]
         },
@@ -325,6 +434,40 @@ export const walletMatrixContent = {
             }
           ]
         }
+      }
+    }
+  },
+  modes: {
+    mode: "Режим",
+    description: "Опис",
+    compatibility: "Сумісність",
+    descriptionHint: "Натисніть для перегляду повного опису та прикладів",
+    noSelection: "Оберіть типи гаманців для перевірки сумісності",
+    selectionActive: "критеріїв обрано"
+  },
+  modal: {
+    popularImplementations: "Популярні реалізації",
+    usefulLinks: "Корисні посилання"
+  },
+  popularScenarios: {
+    title: "Популярні сценарії використання",
+    description: "Різні користувачі мають різні потреби щодо балансу між зручністю і безпекою. Можна виокремити кілька найбільш поширених сценаріїв використання криптогаманців і відповідних вимог:",
+    applyScenario: "Застосувати сценарій",
+    scenarios: {
+      daily: {
+        title: "Щоденні платежі",
+        subtitle: "(малі суми)",
+        description: "Для повсякденних транзакцій користувачі цінують зручність і швидкість, а значить гаманці мають бути мобільними та простими, навіть за умови зниження безпеки. Рекомендовано використовувати гарячий некастодіальний гаманець на смартфоні чи ПК, що забезпечує повний контроль."
+      },
+      regular: {
+        title: "Регулярні платежі",
+        subtitle: "(помірні суми)",
+        description: "Для регулярних платежів середніх сум потрібен вищий рівень безпеки. Оптимальним варіантом є смарт-гаманці з функціями відновлення або двох-факторної автентифікації. Також використовуються смарт-гаманці з мультипідписом (наприклад, 2 з 2: смартфон + апаратний ключ)."
+      },
+      rare: {
+        title: "Рідкісні платежі",
+        subtitle: "(великі суми)",
+        description: "Для зберігання великих активів безпека має пріоритет над зручністю. Поширений підхід – зберігання коштів на апаратному гаманці, який більшість часу є відключеним від мережі. Для максимального захисту використовується холодне зберігання з мультипідписом."
       }
     }
   }
