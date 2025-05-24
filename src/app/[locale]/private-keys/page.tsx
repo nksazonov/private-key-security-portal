@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import AnchorHeading from '@/components/AnchorHeading';
 import SectionDivider from '@/components/SectionDivider';
-import UsefulLinks from '@/components/UsefulLinks';
+import LinksList from '@/components/LinksList';
 import ClientKeyGeneratorWrapper from '@/components/ClientKeyGeneratorWrapper';
 import ClientMnemonicGeneratorWrapper from '@/components/ClientMnemonicGeneratorWrapper';
 import ClientKeyFromMnemonicGeneratorWrapper from '@/components/ClientKeyFromMnemonicGeneratorWrapper';
@@ -57,10 +57,10 @@ export default function PrivateKeysPage() {
         </div>
 
         <div className="mt-8 mb-6">
-          <UsefulLinks links={t.raw('entropySources.links').map((link: {href: string, text: string}) => ({
+          <LinksList links={t.raw('entropySources.links').map((link: {href: string, text: string}) => ({
             title: link.text,
             url: link.href
-          }))} />
+          }))} heading={common('useful_links')} />
         </div>
 
         <SectionDivider />
@@ -237,10 +237,10 @@ export default function PrivateKeysPage() {
         </div>
 
         <div className="mt-6 mb-6">
-          <UsefulLinks links={t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}) => ({
+          <LinksList links={t.raw('privateKeyGeneration.fromSeed.links').map((link: {href: string, text: string}) => ({
             title: link.text,
             url: link.href
-          }))} />
+          }))} heading={common('useful_links')} />
         </div>
 
         <SectionDivider />
@@ -287,11 +287,12 @@ export default function PrivateKeysPage() {
 
         <div className="mt-6 mb-6">
           {Array.isArray(t.raw('privateToPublic.links')) && (
-            <UsefulLinks 
+            <LinksList 
               links={t.raw('privateToPublic.links').map((link: {href: string, text: string}) => ({
                 title: link.text,
                 url: link.href
               }))} 
+              heading={common('useful_links')}
             />
           )}
         </div>

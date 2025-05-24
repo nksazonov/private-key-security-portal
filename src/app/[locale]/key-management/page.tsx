@@ -12,7 +12,7 @@ import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 import RatingIndicator from '@/components/RatingIndicator';
 import SectionDivider from '@/components/SectionDivider';
-import UsefulLinks from '@/components/UsefulLinks';
+import LinksList from '@/components/LinksList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMemory,
@@ -206,7 +206,7 @@ export default function KeyManagement() {
                       )}
 
                       {wallet.useful_links && (
-                        <UsefulLinks links={wallet.useful_links} />
+                        <LinksList links={wallet.useful_links} heading={common('useful_links')} />
                       )}
                     </div>
                   </div>
@@ -269,7 +269,7 @@ export default function KeyManagement() {
                       )}
 
                       {wallet.useful_links && (
-                        <UsefulLinks links={wallet.useful_links} />
+                        <LinksList links={wallet.useful_links} heading={common('useful_links')} />
                       )}
                     </div>
                   </div>
@@ -305,7 +305,7 @@ export default function KeyManagement() {
           <NetworkConnectivitySelector/>
 
           <div className="mt-10">
-            <UsefulLinks links={t.raw('networkConnectivity.useful_links')} />
+            <LinksList links={t.raw('networkConnectivity.useful_links')} heading={common('useful_links')} />
           </div>
         </div>
 
@@ -335,7 +335,7 @@ export default function KeyManagement() {
           <CustodyModelSelector />
 
           <div className="mt-10">
-            <UsefulLinks links={t.raw('custodyModel.useful_links')} />
+            <LinksList links={t.raw('custodyModel.useful_links')} heading={common('useful_links')} />
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 "use client"
 
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
@@ -10,13 +9,12 @@ interface LinkItem {
   url: string;
 }
 
-interface UsefulLinksProps {
+interface LinksListProps {
   links: LinkItem[];
+  heading?: string;
 }
 
-export default function UsefulLinks({ links }: UsefulLinksProps) {
-  const common = useTranslations('Common');
-
+export default function LinksList({ links, heading }: LinksListProps) {
   // Make sure links is an array before mapping
   const linkItems = Array.isArray(links) ? links : [];
 
@@ -26,7 +24,7 @@ export default function UsefulLinks({ links }: UsefulLinksProps) {
 
   return (
     <div>
-      <h4 className="font-semibold text-lg text-blue-700 mb-4">{common('useful_links')}</h4>
+      {heading && <h4 className="font-semibold text-lg text-blue-700 mb-4">{heading}</h4>}
       <ul className="mt-2 space-y-2">
         {linkItems.map((link, i) => (
           <li key={i} className="flex items-start">
