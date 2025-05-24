@@ -9,7 +9,7 @@ import AdvantagesList from '@/components/AdvantagesList';
 import DisadvantagesList from '@/components/DisadvantagesList';
 import CodeBlock from '@/components/CodeBlock';
 import SectionDivider from '@/components/SectionDivider';
-import UsefulLinks from '@/components/UsefulLinks';
+import LinksList from '@/components/LinksList';
 import Card from '@/components/Card';
 import MultipleWeightedSignatureWrapper from '@/components/MultipleWeightedSignatureWrapper';
 import SocialRecoveryWrapper from '@/components/SocialRecoveryWrapper';
@@ -37,6 +37,7 @@ export default function SecurityFeaturesPage() {
   const authSchemeTypes = ['singleSig', 'multiSig', 'mpcTss', 'socialRecovery'];
 
   const ui = useTranslations('UI.labels');
+  const common = useTranslations('Common');
 
   return (
     <main className="pt-8 w-full">
@@ -132,7 +133,7 @@ export default function SecurityFeaturesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Useful Links */}
                   <div>
-                    <UsefulLinks links={t.raw(`accountType.${type}.useful_links`) || []} />
+                    <LinksList links={t.raw(`accountType.${type}.useful_links`) || []} heading={common('useful_links')} />
                   </div>
                 </div>
               </div>
@@ -190,7 +191,7 @@ export default function SecurityFeaturesPage() {
 
                 {/* Useful Links for each item */}
                 <div>
-                  <UsefulLinks links={t.raw(`authorizationScheme.${type}.useful_links`) || []} />
+                  <LinksList links={t.raw(`authorizationScheme.${type}.useful_links`) || []} heading={common('useful_links')} />
                 </div>
               </div>
 
