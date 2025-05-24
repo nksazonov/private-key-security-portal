@@ -1,6 +1,5 @@
 "use client"
 
-import { ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -19,7 +18,6 @@ export default function RatingIndicator({
   totalAmount = 5, 
   rating 
 }: RatingIndicatorProps) {
-  // Ensure rating is within bounds
   const validRating = Math.max(0, Math.min(Math.round(rating), totalAmount));
   
   return (

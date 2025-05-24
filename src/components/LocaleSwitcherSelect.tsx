@@ -23,14 +23,13 @@ export default function LocaleSwitcherSelect({
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value as Locale;
-    
-    // Save current scroll position to localStorage before changing language
+
     if (typeof window !== 'undefined') {
       const scrollPosition = window.scrollY;
       localStorage.setItem('scrollPosition', scrollPosition.toString());
       localStorage.setItem('lastPath', pathname);
     }
-    
+
     startTransition(() => {
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`

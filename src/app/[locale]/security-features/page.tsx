@@ -16,7 +16,6 @@ import SocialRecoveryWrapper from '@/components/SocialRecoveryWrapper';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  // Cast locale to allowed types for getTranslations
   const t = await getTranslations({
     locale: locale as AppLocale,
     namespace: 'SecurityFeaturesPage'
@@ -30,10 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function SecurityFeaturesPage() {
   const t = useTranslations('SecurityFeaturesPage');
 
-  // Account types to render
   const accountTypes = ['eoa', 'smartContract', 'erc4337'];
 
-  // Authorization scheme types to render
   const authSchemeTypes = ['singleSig', 'multiSig', 'mpcTss', 'socialRecovery'];
 
   const ui = useTranslations('UI.labels');

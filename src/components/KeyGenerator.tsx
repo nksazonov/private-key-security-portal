@@ -27,8 +27,8 @@ export default function KeyGenerator({
   const [publicAddress, setPublicAddress] = useState<string>('');
   const [hasEnoughEntropy, setHasEnoughEntropy] = useState(false);
 
-  const entropyThreshold = 32; // Number of mouse movements needed for entropy (16 pairs of x,y)
-  const entropyDiffThreshold = 25; // Minimum pixel difference required to collect new entropy
+  const entropyThreshold = 32;
+  const entropyDiffThreshold = 25;
   const containerRef = useRef<HTMLDivElement>(null);
   const [entropyBytes, setEntropyBytes] = useState<number[]>([]);
   const rectRef = useRef<DOMRect | null>(null);
@@ -40,7 +40,6 @@ export default function KeyGenerator({
     }
   }, []);
 
-  // Track collecting state with ref to prevent dependency issues in the effect
   const isCollectingRef = useRef(true);
 
   useEffect(() => {
@@ -53,7 +52,6 @@ export default function KeyGenerator({
         const relativeX = e.clientX - rectRef.current.left;
         const relativeY = e.clientY - rectRef.current.top;
 
-        // Check if mouse has moved enough from last position to collect new entropy
         const lastPos = lastPositionRef.current;
         const hasMoveEnough = !lastPos ||
           Math.abs(relativeX - lastPos.x) >= entropyDiffThreshold ||
@@ -72,7 +70,7 @@ export default function KeyGenerator({
               setHasEnoughEntropy(true);
             }
 
-            return newBytes.slice(0, entropyThreshold); // Never exceed threshold
+            return newBytes.slice(0, entropyThreshold);
           });
         }
       }
@@ -87,10 +85,9 @@ export default function KeyGenerator({
         containerRef.current.removeEventListener('mousemove', handleMouseMove);
       }
     };
-  }, []); // Empty dependency array - only run on mount and unmount
+  }, []);
 
   useEffect(() => {
-    // If we have enough entropy or reset after key generation, update the ref
     isCollectingRef.current = entropyBytes.length < entropyThreshold;
   }, [entropyBytes.length, entropyThreshold]);
 
@@ -101,32 +98,26 @@ export default function KeyGenerator({
     }
 
     try {
-      // Ensure we have exactly 32 bytes (for a valid private key)
       const bytes = entropyBytes.slice(0, 32);
 
-      // Convert our array of numbers to a Uint8Array
       const bytesArray = new Uint8Array(bytes);
 
-      // Hash the bytes using keccak256 to get a private key
       const hashedBytes = keccak256(bytesArray);
 
       const newPrivateKey = hashedBytes;
 
-      // Use privateKeyToAccount to get the Ethereum address
       const account = privateKeyToAccount(newPrivateKey);
       const newPublicAddress = account.address;
 
       setPrivateKey(newPrivateKey);
       setPublicAddress(newPublicAddress);
 
-      // Reset for next generation
       setEntropyBytes([]);
       setHasEnoughEntropy(false);
       lastPositionRef.current = null;
     } catch (error) {
       console.error('Error generating key:', error);
 
-      // Reset for next generation
       setEntropyBytes([]);
       setHasEnoughEntropy(false);
       lastPositionRef.current = null;
@@ -158,7 +149,6 @@ export default function KeyGenerator({
             <span className="text-sm text-gray-600">{moveMouseText}</span>
           </div>
 
-          {/* Horizontal progress bar with percentage */}
           <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mt-2">
             <div
               className="h-full bg-blue-600 transition-all duration-300 rounded-full"
@@ -168,7 +158,6 @@ export default function KeyGenerator({
         </div>
       </div>
 
-      {/* Display entropy bytes */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={entropyBytes.length > 0 ? entropyBytes.map(b => b.toString(16).padStart(2, '0')).join(' ') : ''}

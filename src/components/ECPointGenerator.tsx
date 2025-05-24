@@ -55,19 +55,16 @@ export default function ECPointGenerator({
 
     let keyHex = privateKey.startsWith('0x') ? privateKey.slice(2) : privateKey;
 
-    // Check if it's a valid hex string
     if (!/^[0-9a-fA-F]+$/.test(keyHex)) {
       setPrivateKeyError('Private key must contain only hexadecimal characters (0-9, a-f, A-F)');
       return;
     }
 
-    // Check length
     if (keyHex.length < 64) {
       setPrivateKeyError('Private key must be at least 256 bits (64 hex characters)');
       return;
     }
 
-    // If it's longer than 64 characters, take only the last 64
     if (keyHex.length > 64) {
       keyHex = keyHex.slice(-64);
       setPrivateKey('0x' + keyHex);
@@ -76,7 +73,6 @@ export default function ECPointGenerator({
     try {
       const privateKeyBytes = hexToBytes(keyHex);
 
-      // Verify it's a valid private key for secp256k1
       if (!secp256k1.utils.isValidPrivateKey(privateKeyBytes)) {
         setPrivateKeyError('Invalid private key for secp256k1');
         return;
@@ -97,7 +93,6 @@ export default function ECPointGenerator({
 
       setPrivateKey('0x' + privateKeyHex);
       setPrivateKeyError('');
-      // Computation will happen in the useEffect
     } catch (error) {
       console.error('Error generating key:', error);
       setPrivateKeyError('Failed to generate key');
@@ -106,20 +101,16 @@ export default function ECPointGenerator({
 
   const computeResults = (keyHex: string, privateKeyBytes: Uint8Array) => {
     try {
-      // Calculate public key point by multiplying the private key by the generator point G
       const publicKeyPoint = secp256k1.ProjectivePoint.fromPrivateKey(privateKeyBytes);
       const x = publicKeyPoint.x.toString(16).padStart(64, '0');
       const y = publicKeyPoint.y.toString(16).padStart(64, '0');
 
       const fullPublicKey = `0x${x}${y}`;
 
-      // Calculate Ethereum address: keccak256(public_key)[12:32]
-      // Ethereum needs uncompressed public key without the 0x04 prefix
       const publicKeyBytes = hexToBytes(`${x}${y}`);
       const hashBytes = keccak_256(publicKeyBytes);
       const hashHex = bytesToHex(hashBytes);
 
-      // Take the last 20 bytes of the hash to create the Ethereum address
       const ethereumAddress = `0x${hashHex.slice(hashHex.length - 40)}`;
 
       setPublicKeyX(x);

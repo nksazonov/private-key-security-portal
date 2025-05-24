@@ -9,7 +9,6 @@ interface CodeBlockProps {
 }
 
 export default function CodeBlock({ code, label, language = 'solidity' }: CodeBlockProps) {
-  // Split code into lines and trim trailing whitespace
   const lines = code.split('\n').map(line => line.trimEnd());
 
   return (

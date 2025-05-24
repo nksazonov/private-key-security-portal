@@ -22,23 +22,17 @@ export default function KeyFromMnemonicGenerator({
   copiedText
 }: KeyFromMnemonicGeneratorProps) {
   const t = useTranslations('UI');
-  // BIP-39 English wordlist
   const [wordlist, setWordlist] = useState<string[]>([]);
-
-  // State for mnemonic-to-key process
   const [mnemonic, setMnemonic] = useState<string>('');
   const [salt, setSalt] = useState<string>('mnemonic');
   const [passphrase, setPassphrase] = useState<string>('');
-  const [seed, setSeed] = useState<Uint8Array>(new Uint8Array(64)); // 512 bits
+  const [seed, setSeed] = useState<Uint8Array>(new Uint8Array(64));
   const [privateKey, setPrivateKey] = useState<string>('');
   const [publicAddress, setPublicAddress] = useState<string>('');
   const [hasGenerated, setHasGenerated] = useState<boolean>(false);
-
-  // Validation state
   const [isMnemonicValid, setIsMnemonicValid] = useState<boolean>(true);
   const [mnemonicError, setMnemonicError] = useState<string>('');
 
-  // Fetch the BIP-39 English wordlist
   useEffect(() => {
     async function fetchWordlist() {
       try {
@@ -49,7 +43,6 @@ export default function KeyFromMnemonicGenerator({
         setWordlist(words);
       } catch (error) {
         console.error('Error fetching wordlist:', error);
-        // Fallback to a few words for demonstration if fetch fails
         setWordlist(['abandon', 'ability', 'able', 'about', 'above']);
       }
     }
@@ -57,7 +50,6 @@ export default function KeyFromMnemonicGenerator({
     fetchWordlist();
   }, []);
 
-  // Generate random mnemonic
   const generateRandomMnemonic = () => {
     if (wordlist.length === 0) return;
 

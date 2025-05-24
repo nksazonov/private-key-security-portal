@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-// Dynamic import with SSR disabled
 const MnemonicGenerator = dynamic(
   () => import('./MnemonicGenerator'),
   { ssr: false }

@@ -6,10 +6,8 @@ import { faCheckCircle, faTimesCircle, faTimes, faPlus } from '@fortawesome/free
 import { useTranslations } from 'next-intl';
 import { generatePrivateKey, privateKeyToAddress } from 'viem/accounts';
 
-// Generate a random Ethereum address in shortened form
 function generateRandomAddress() {
   const fullAddress = privateKeyToAddress(generatePrivateKey());
-  // Format as 0x1234...abcd
   return `${fullAddress.substring(0, 6)}...${fullAddress.substring(fullAddress.length - 4)}`;
 }
 
@@ -28,7 +26,6 @@ export default function MultipleWeightedSignature() {
   const [threshold, setThreshold] = useState(3);
   const [nextId, setNextId] = useState(1);
 
-  // Initialize with 3 accounts
   useEffect(() => {
     if (accounts.length === 0) {
       const initialAccounts = [
@@ -41,12 +38,10 @@ export default function MultipleWeightedSignature() {
     }
   }, [accounts.length]);
 
-  // Calculate total possible weight and current weight
   const totalPossibleWeight = accounts.reduce((sum, account) => sum + account.weight, 0);
   const currentWeight = accounts.reduce((sum, account) => sum + (account.isSigning ? account.weight : 0), 0);
   const isThresholdMet = currentWeight >= threshold;
 
-  // Add a new account
   const addAccount = () => {
     const newAccount = {
       id: nextId,
@@ -58,20 +53,17 @@ export default function MultipleWeightedSignature() {
     setNextId(nextId + 1);
   };
 
-  // Remove an account
   const removeAccount = (id: number) => {
-    if (accounts.length <= 1) return; // Prevent removing the last account
+    if (accounts.length <= 1) return;
     setAccounts(accounts.filter(account => account.id !== id));
   };
 
-  // Toggle signing status
   const toggleSigning = (id: number) => {
     setAccounts(accounts.map(account =>
       account.id === id ? { ...account, isSigning: !account.isSigning } : account
     ));
   };
 
-  // Update weight
   const updateWeight = (id: number, weight: number) => {
     setAccounts(accounts.map(account =>
       account.id === id ? { ...account, weight } : account
@@ -85,7 +77,6 @@ export default function MultipleWeightedSignature() {
         <p className="text-sm text-gray-600">{t('description')}</p>
       </div>
 
-      {/* Accounts table */}
       <div className="p-4 pb-0">
         <div className="mb-2 text-sm font-medium text-gray-700 grid grid-cols-12 gap-4 items-center">
           <div className="col-span-1">{ui('sign')}</div>
@@ -95,13 +86,11 @@ export default function MultipleWeightedSignature() {
           <div className="col-span-1"></div>
         </div>
 
-        {/* Account rows */}
         {accounts.map(account => (
           <div
             key={account.id}
             className="py-2 border-t grid grid-cols-12 gap-4 items-center hover:bg-gray-50 cursor-pointer transition-colors"
             onClick={(e) => {
-              // Prevent toggling when clicking on inputs or remove button
               if (
                 e.target instanceof HTMLInputElement ||
                 (e.target as HTMLElement).closest('button')
@@ -151,7 +140,6 @@ export default function MultipleWeightedSignature() {
           </div>
         ))}
 
-        {/* Add account row */}
         <div className="border-t">
           <button
             onClick={addAccount}
@@ -163,7 +151,6 @@ export default function MultipleWeightedSignature() {
         </div>
       </div>
 
-      {/* Footer with threshold */}
       <div className="bg-gray-50 px-4 py-4 border-t">
         <div className="flex flex-col md:flex-row justify-between mb-4">
           <div className="flex items-center mb-3 md:mb-0 mr-4 w-[35%]">
@@ -181,19 +168,15 @@ export default function MultipleWeightedSignature() {
 
           <div className="w-[54%] flex flex-col">
             <div className="flex items-center">
-              {/* Current weight counter (left of slider) */}
               <span className="text-sm font-medium text-gray-700 mr-3">
                 {currentWeight}/{threshold}
               </span>
 
-              {/* Slider container - aligns with account weight sliders */}
               <div className="relative flex-1 h-6 mx-[8px]">
-                {/* Blue progress indicator background */}
                 <div
                   className="absolute left-0 top-2 h-2 w-full rounded-lg bg-gray-200 z-0"
                 ></div>
 
-                {/* Current weight indicator (blue fill) */}
                 <div
                   className="absolute left-0 top-2 h-2 rounded-l-lg bg-blue-500"
                   style={{
@@ -202,7 +185,6 @@ export default function MultipleWeightedSignature() {
                   }}
                 ></div>
 
-                {/* Threshold marker (only the red line) */}
                 <div
                   className="absolute top-0 w-0.5 h-6 bg-red-500"
                   style={{
@@ -211,7 +193,6 @@ export default function MultipleWeightedSignature() {
                   }}
                 ></div>
 
-                {/* Invisible slider (positioned on top for interaction) */}
                 <input
                   type="range"
                   min="1"

@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-// Dynamic import with SSR disabled
 const MnemonicValidator = dynamic(
   () => import('./MnemonicValidator'),
   { ssr: false }

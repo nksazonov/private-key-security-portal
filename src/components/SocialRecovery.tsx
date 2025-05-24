@@ -14,13 +14,11 @@ import { useTranslations } from 'next-intl';
 import { generatePrivateKey, privateKeyToAddress } from 'viem/accounts';
 import LabeledCopyableInput from './LabeledCopyableInput';
 
-// Generate a random Ethereum address
 function generateRandomAddress() {
   const fullAddress = privateKeyToAddress(generatePrivateKey());
   return fullAddress;
 }
 
-// Format address for display (shortened form)
 function formatAddressForDisplay(address: string) {
   return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
 }

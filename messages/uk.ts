@@ -72,10 +72,9 @@ export default {
 
   Для систематизації підходів до захисту акаунтів виділено п'ять незалежних (ортогональних) осей класифікації:`,
     "criteria": walletMatrixContent.criteria,
-    "modal": {
-      "popularImplementations": "Популярні реалізації",
-      "usefulLinks": "Корисні посилання",
-    }
+    "modal": walletMatrixContent.modal,
+    "modes": walletMatrixContent.modes,
+    "popularScenarios": walletMatrixContent.popularScenarios
   },
   "Common": {
     "useful_links": "Корисні посилання",

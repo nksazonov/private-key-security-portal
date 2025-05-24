@@ -7,7 +7,6 @@ import ReactMarkdown from 'react-markdown';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  // Cast locale to allowed types for getTranslations
   const t = await getTranslations({
     locale: locale as AppLocale,
     namespace: 'WalletMatrixPage'

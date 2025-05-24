@@ -43,7 +43,6 @@ export default function MnemonicValidator({
         setWordlist(words);
       } catch (error) {
         console.error('Error fetching wordlist:', error);
-        // Fallback to a few words for demonstration if fetch fails
         setWordlist(['abandon', 'ability', 'able', 'about', 'above']);
       }
     }
@@ -55,7 +54,6 @@ export default function MnemonicValidator({
     if (wordlist.length === 0) return;
 
     try {
-      // Generate 16 bytes (128 bits) of random data for entropy
       const randomBytes = new Uint8Array(16);
       window.crypto.getRandomValues(randomBytes);
 
@@ -79,24 +77,18 @@ export default function MnemonicValidator({
 
     const words = mnemonicPhrase.trim().split(/\s+/);
 
-    // Always attempt to calculate indices and binary representation,
-    // even if the mnemonic is invalid
     try {
       const indices = words.map(word => {
         const index = wordlist.indexOf(word);
-        return index >= 0 ? index : 0; // Use 0 as fallback for invalid words
+        return index >= 0 ? index : 0;
       });
       setDecimalIndices(indices);
 
-      // Convert indices to binary (11 bits each)
       const binaryGroups = indices.map(index => index.toString(2).padStart(11, '0'));
       const allBits = binaryGroups.join('');
       setEntropyWithChecksum(allBits);
 
-      // Split entropy and checksum
-      // For a 12-word mnemonic, we have 132 bits (12*11=132), with 4 bits of checksum
-      // So entropy is 128 bits (16 bytes)
-      const checksumLengthBits = Math.floor(allBits.length / 33); // CS = ENT/32
+      const checksumLengthBits = Math.floor(allBits.length / 33);
       const entropyLengthBits = allBits.length - checksumLengthBits;
 
       const entropyBits = allBits.slice(0, entropyLengthBits);
@@ -124,7 +116,6 @@ export default function MnemonicValidator({
         .join('');
       setSha256Hash(hashHex);
 
-      // Extract the first N bits from the hash for the calculated checksum
       const hashBinary = parseInt(hashHex.slice(0, 2), 16).toString(2).padStart(8, '0');
       const calculatedChecksumBits = hashBinary.slice(0, checksumLengthBits);
       const calculatedChecksumHexValue = parseInt(calculatedChecksumBits, 2).toString(16).padStart(checksumLengthBits % 4 === 0 ? checksumLengthBits/4 : 1, '0');
@@ -202,7 +193,7 @@ export default function MnemonicValidator({
             errorMessage={mnemonicError}
           />
         </div>
-        <div className="w-36 flex items-start pt-5"> {/* Aligned to input, not label */}
+        <div className="w-36 flex items-start pt-5">
           <button
             onClick={generateRandomMnemonic}
             className="px-4 py-2 rounded-md font-medium bg-blue-600 hover:bg-blue-700 text-white cursor-pointer h-[42px]"

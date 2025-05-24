@@ -30,8 +30,7 @@ export default function MnemonicInput({
           placeholder={placeholder}
           className={`w-full p-2 border ${isValid ? 'border-gray-300 bg-gray-50' : 'border-red-500 bg-red-50'} rounded-md font-mono text-sm ${isValid ? 'text-gray-900' : 'text-red-900'} transition-colors`}
         />
-        {/* Use an absolute positioned error message that doesn't affect layout */}
-        <div className="h-5"> {/* Fixed height container for error message */}
+        <div className="h-5">
           {!isValid && errorMessage && (
             <p className="text-sm text-red-600 absolute">{errorMessage}</p>
           )}

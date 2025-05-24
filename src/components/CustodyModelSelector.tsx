@@ -71,11 +71,8 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
   return (
     <div className="w-full">
       <div className="flex flex-col items-center space-y-8">
-        {/* Circle diagram */}
         <div className="relative w-full max-w-2xl h-52 md:h-64">
-          {/* Two overlapping circles container */}
           <div className="relative w-full h-full">
-            {/* Left circle - 3rd Party */}
             <div
               className={`absolute top-0 left-0 w-2/3 h-full rounded-full cursor-pointer transition-all duration-300 z-10
                 ${selectedType === 'thirdParty'
@@ -89,7 +86,6 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
               </div>
             </div>
 
-            {/* Right circle - Yourself */}
             <div
               className={`absolute top-0 right-0 w-2/3 h-full rounded-full cursor-pointer transition-all duration-300 z-10
                 ${selectedType === 'self'
@@ -103,7 +99,6 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
               </div>
             </div>
 
-            {/* Intersection area (SVG clip path approach) */}
             <div
               className={`absolute top-0 left-1/3 w-1/3 h-full cursor-pointer transition-all duration-300 z-20
                 ${selectedType === 'combined'
@@ -120,7 +115,6 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
         </div>
       </div>
 
-      {/* Description of selected type */}
       {selectedType && (
         <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200 w-full hover:border-blue-300 transition-colors shadow-sm">
           <h4 className="text-xl font-semibold text-blue-800 mb-3">
@@ -132,7 +126,6 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
             </ReactMarkdown>
           </div>
 
-          {/* Reliability, Comfort and Security Ratings */}
           <hr className="border-t border-gray-200 my-4" />
           <div className="my-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center text-center">
@@ -150,14 +143,11 @@ export default function CustodyModelSelector({ onSelect }: CustodyModelProps) {
           </div>
           <hr className="border-t border-gray-200 my-4" />
 
-          {/* Advantages and Disadvantages */}
           <div className="flex flex-col md:flex-row gap-6 mt-4">
-            {/* Advantages */}
             <div className="w-full md:w-1/2">
               <AdvantagesList content={t.raw(`${selectedType}.advantages`) || ''} />
             </div>
 
-            {/* Disadvantages */}
             <div className="w-full md:w-1/2">
               <DisadvantagesList content={t.raw(`${selectedType}.disadvantages`) || ''} />
             </div>

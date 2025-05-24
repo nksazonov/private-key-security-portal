@@ -9,13 +9,10 @@ import Footer from '@/components/Footer';
 import ScrollPositionRestorer from '@/components/ScrollPositionRestorer';
 import "@/app/globals.css";
 
-// Font Awesome
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { AppLocale } from '@/i18n/types';
-// Syntax highlighting
 import 'highlight.js/styles/github-dark.css';
-// Prevent Font Awesome from adding its CSS since we did it manually above
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -39,7 +36,6 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  // Cast locale to allowed types for getTranslations
   const t = await getTranslations({
     locale: locale as AppLocale,
     namespace: 'LocaleLayout'
@@ -53,21 +49,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
-  // Enable static rendering
   setRequestLocale(locale);
 
-  // Get the messages for the locale
   const messages = await getMessages();
 
   return (
     <html className="h-full" lang={locale}>
       <head>
-        {/* Inline script to prevent scroll flicker - runs before React hydration */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -78,12 +70,9 @@ export default async function LocaleLayout({ children, params }: Props) {
                   var currentPath = window.location.pathname;
                   
                   if (savedScrollPosition && savedPath === currentPath) {
-                    // Set scroll immediately, before any rendering
-                    // Use scrollTo without changing document styles
                     window.scrollTo(0, parseInt(savedScrollPosition, 10));
                   }
                 } catch (e) {
-                  // Fail silently - localStorage might be unavailable
                 }
               })();
             `,

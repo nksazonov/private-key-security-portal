@@ -11,7 +11,6 @@ export default function Footer() {
   const t = useTranslations('Navigation');
   const footerT = useTranslations('Footer');
 
-  // Define the order of pages for navigation
   const pageOrder = [
     { path: '/', label: t('home') },
     { path: '/private-keys', label: t('privateKeys') },

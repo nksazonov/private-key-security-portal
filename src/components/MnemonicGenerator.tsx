@@ -41,7 +41,6 @@ export default function MnemonicGenerator({
         setWordlist(words);
       } catch (error) {
         console.error('Error fetching wordlist:', error);
-        // Fallback to a few words for demonstration if fetch fails
         setWordlist(['abandon', 'ability', 'able', 'about', 'above']);
       }
     }
@@ -76,7 +75,6 @@ export default function MnemonicGenerator({
 
     const entropyHash = sha256(entropyBytes);
 
-    // For 128 bits of entropy, we need 4 bits of checksum (128/32 = 4)
     const checksumLength = entropyBytes.length * 8 / 32;
 
     const hashBinary = entropyHash[0].toString(2).padStart(8, '0');
@@ -121,7 +119,6 @@ export default function MnemonicGenerator({
         </button>
       </div>
 
-      {/* SHA-256 Hash of Random Bits */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={hasGenerated ? Array.from(sha256(initialEntropy))
@@ -134,7 +131,6 @@ export default function MnemonicGenerator({
         />
       </div>
 
-      {/* Initial Entropy in Hex and Checksum in Hex in one row */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <LabeledCopyableInput
@@ -156,7 +152,6 @@ export default function MnemonicGenerator({
         </div>
       </div>
 
-      {/* Initial Entropy in Binary and Checksum in Binary in one row */}
       <div className="mb-4 flex gap-4">
         <div className="flex-grow">
           <LabeledCopyableInput
@@ -178,7 +173,6 @@ export default function MnemonicGenerator({
         </div>
       </div>
 
-      {/* Entropy with Checksum (bin) */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={entropyWithChecksum}
@@ -189,7 +183,6 @@ export default function MnemonicGenerator({
         />
       </div>
 
-      {/* 11-bit Groups in Binary */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={hasGenerated ? groups11Bits.join(' ') : ''}
@@ -200,7 +193,6 @@ export default function MnemonicGenerator({
         />
       </div>
 
-      {/* 11-bit Groups in Decimal */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={hasGenerated ? groupsDecimal.join(' ') : ''}
@@ -211,7 +203,6 @@ export default function MnemonicGenerator({
         />
       </div>
 
-      {/* Mnemonic Words */}
       <div className="mb-4">
         <LabeledCopyableInput
           value={hasGenerated ? mnemonicWords.join(' ') : ''}
