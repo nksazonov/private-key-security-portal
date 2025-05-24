@@ -5,8 +5,6 @@ const withNextIntl = createNextIntlPlugin();
 // Removed createMessagesDeclaration since we're now using TypeScript modules
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  distDir: 'build',
   typescript: {
     ignoreBuildErrors: true
   },
